@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/course-timetable-generator/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/course-timetable-generator/pwa-192x192.png">
+  <link rel="mask-icon" href="/course-timetable-generator/safari-pinned-tab.svg" color="#00aba9">
+  <meta name="msapplication-TileColor" content="#00aba9">
+  <meta name="theme-color" content="#ffffff">
+  <script>
+    (function() {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+      const setting = localStorage.getItem('vueuse-color-scheme') || 'auto'
+      if (setting === 'dark' || (prefersDark && setting !== 'light'))
+        document.documentElement.classList.toggle('dark', true)
+    })()
+  </script>
+  <script type="module" crossorigin src="/course-timetable-generator/assets/app.79d918cb.js"></script>
+  <link rel="modulepreload" href="/course-timetable-generator/assets/vendor.d1c2d4e6.js">
+  <link rel="stylesheet" href="/course-timetable-generator/assets/app.be1c769e.css">
+<link rel="manifest" href="/course-timetable-generator/manifest.webmanifest"></head>
+<body>
+  <div id="app"></div>
+  
+</body>
+</html>
