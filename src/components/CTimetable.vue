@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import cloneDeep from 'lodash/cloneDeep'
 import type { CClass, PartialCourse } from '~/types'
 
 const props = defineProps<{ timetable: PartialCourse[][] }>()
@@ -8,7 +9,11 @@ const periods = 16
 let myClasses: CClass[][]
 
 function generateClasses() {
-  myClasses = props.timetable.map((day) => {
+  // Must be clone because of reverse() function will make a change to original object (props.timetable).
+  // This object is used in the copyTimetable function below, so this to make sure it does not change.
+  const timetable = cloneDeep(props.timetable)
+
+  myClasses = timetable.map((day) => {
     return day.reverse().map((course, i, arr) => {
       const myClass: CClass = { ...course, row: 0 }
       const sum = arr.slice(i + 1).reduce((pre, { period }) => pre + period - 1, 0)
@@ -35,11 +40,28 @@ function getClass(day: number, row: number) {
   return null
 }
 
+function copyTimetable() {
+  const sharableLink = `${window.location.origin}${window.location.pathname}?share&timetable=${
+    encodeURIComponent(btoa(JSON.stringify(props.timetable)))}`
+
+  navigator.clipboard.writeText(sharableLink)
+}
+
 generateClasses()
 </script>
 
 <template>
   <div>
+    <q-toolbar>
+      <q-btn
+        round
+        title="Share"
+        class="mx-2 mb-4"
+        @click="copyTimetable"
+      >
+        <mdi-share-all />
+      </q-btn>
+    </q-toolbar>
     <div grid="~ cols-8">
       <div
         v-for="(day, key) in daysOfWeek"

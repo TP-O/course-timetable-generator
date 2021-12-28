@@ -8,6 +8,7 @@ specifiers:
   '@iconify-json/mdi': ^1.0.12
   '@iconify-json/noto-v1': ^1.0.1
   '@iconify-json/ph': ^1.0.4
+  '@iconify-json/zondicons': ^1.0.1
   '@quasar/extras': ^1.12.2
   '@quasar/vite-plugin': ^1.0.3
   '@types/lodash': ^4.14.178
@@ -75,6 +76,7 @@ devDependencies:
   '@iconify-json/mdi': 1.0.12
   '@iconify-json/noto-v1': 1.0.1
   '@iconify-json/ph': 1.0.4
+  '@iconify-json/zondicons': 1.0.1
   '@quasar/vite-plugin': 1.0.3_298dfa67edda2c243e8d5f272fd23981
   '@types/lodash': 4.14.178
   '@types/node': 17.0.3
@@ -1470,6 +1472,12 @@ packages:
 
   /@iconify-json/ph/1.0.4:
     resolution: {integrity: sha512-hcxC2k25/Lh/bgXgbwAD4WvnC8BeunSqafFwIOyL1dCu3QGBgKmPFIBUv4W2kBm+rbrv7F3WHPFBAJDVrjpunA==}
+    dependencies:
+      '@iconify/types': 1.0.12
+    dev: true
+
+  /@iconify-json/zondicons/1.0.1:
+    resolution: {integrity: sha512-JqE4Jb4SolHHnML5yaeWnjyNIf5FP2veD1ARH8HoAFcpKCE71fAl02jyNFdtLuy1OUFT4FjjBdlNkfFm2kpKqQ==}
     dependencies:
       '@iconify/types': 1.0.12
     dev: true
