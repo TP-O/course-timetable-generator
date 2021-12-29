@@ -6,6 +6,7 @@ const props = defineProps<{ timetable: PartialCourse[][] }>()
 
 const daysOfWeek = ['', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 const periods = 16
+const isCopied = ref(false)
 let myClasses: CClass[][]
 
 function generateClasses() {
@@ -45,6 +46,10 @@ function copyTimetable() {
     encodeURIComponent(btoa(JSON.stringify(props.timetable)))}`
 
   navigator.clipboard.writeText(sharableLink)
+
+  isCopied.value = true
+
+  setTimeout(() => isCopied.value = false, 1000)
 }
 
 generateClasses()
@@ -60,6 +65,16 @@ generateClasses()
         @click="copyTimetable"
       >
         <mdi-share-all />
+        <q-badge
+          v-if="isCopied"
+          outline
+          floating
+          color="teal"
+          text="capitalize"
+          class="top-full -right-full"
+        >
+          Copied!
+        </q-badge>
       </q-btn>
     </q-toolbar>
     <div grid="~ cols-8">
