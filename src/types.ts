@@ -31,3 +31,10 @@ export type TimetableGenerationState = {
   currentIndexes: number[]
   numberOfCourseInstances: number[]
 }
+
+export type Filter = {
+  day: {
+    numberOfRelaxationDays?: number
+    specificDays?: number[]
+  }
+}

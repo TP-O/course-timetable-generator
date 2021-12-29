@@ -99,7 +99,7 @@ watchEffect(() => {
   <div
     flex="~ wrap"
     h="min-8"
-    border="1 gray-400 rounded"
+    border="1 gray-200 rounded"
     p="4"
     cursor="text"
     shadow="md gray-300"

@@ -3,9 +3,10 @@ import courseData from '~/data/courses.json'
 import lecturerData from '~/data/lecturers.json'
 import { useCourseStore } from '~/stores/course'
 import { useLecturerstore } from '~/stores/lecturer'
-import type { PartialCourse, TimetableGenerationResult } from '~/types'
+import type { Filter, PartialCourse, TimetableGenerationResult } from '~/types'
 import { gogogogogo } from '~/workers/timetable-generator'
 import Worker from '~/workers/timetable-generator?worker'
+import { isDark } from '~/composables'
 
 const { courses, addCourse, removeCourse } = useCourseStore()
 const { lecturers, addLecturer, removeLecturer } = useLecturerstore()
@@ -17,9 +18,37 @@ const result = ref<TimetableGenerationResult>({
   expectedCases: 0,
   timetables: [],
 })
+const filter = reactive<Filter>({
+  day: {
+    numberOfRelaxationDays: 1,
+    specificDays: [],
+  },
+})
+const filterState = reactive({
+  specificDays: [
+    { name: 'Mon', selected: false },
+    { name: 'Tue', selected: false },
+    { name: 'Wed', selected: false },
+    { name: 'Thu', selected: false },
+    { name: 'Fri', selected: false },
+    { name: 'Sat', selected: false },
+    { name: 'Sun', selected: false },
+  ],
+})
 const displayedTimetables = ref<PartialCourse[][][]>([])
 const generated = ref<null | boolean>(null)
 const batch = 5
+
+function updateSpecificDays(day: number, isInserted: boolean) {
+  if (!filter.day.specificDays) return
+
+  const index = filter.day.specificDays.indexOf(day)
+
+  if (isInserted && index === -1)
+    filter.day.specificDays.push(day)
+  else if (!isInserted && index !== -1)
+    filter.day.specificDays.splice(index, 1)
+}
 
 function loadMoreTimetables() {
   const currentLength = displayedTimetables.value.length
@@ -34,7 +63,7 @@ function gogogoggo() {
   if (haveWorker) {
     const worker = new Worker()
 
-    worker.postMessage([JSON.stringify(courses)])
+    worker.postMessage([JSON.stringify(courses), JSON.stringify(filter)])
 
     worker.onmessage = (e) => {
       const r = JSON.parse(e.data[0]) as TimetableGenerationResult
@@ -46,7 +75,7 @@ function gogogoggo() {
   }
   // If browser do not support Web Workers (may be crashed)
   else {
-    const r = gogogogogo(courses)
+    const r = gogogogogo(courses, filter)
 
     generated.value = true
     result.value = r
@@ -63,6 +92,41 @@ function gogogoggo() {
       </p>
 
       <c-selection :items="courses" :storage="courseData" @add="addCourse" @remove="removeCourse" />
+    </div>
+    <div grid="~ col-span-2 cols-1 gap-8" lg="grid-cols-2">
+      <div>
+        <p text="xl" font="bold">
+          Number of relaxation days
+        </p>
+
+        <q-input
+          v-model="filter.day.numberOfRelaxationDays"
+          outlined
+          dense
+          type="number"
+          min="1"
+          max="5"
+          :dark="isDark"
+        />
+      </div>
+      <div class="flex justify-center items-center">
+        <p text="xl" font="bold">
+          Specific relaxation days
+        </p>
+
+        <div w="full" class="flex justify-around items-center gap-y-4">
+          <q-checkbox
+            v-for="(day, i) in filterState.specificDays"
+            :key="i"
+            v-model="filterState.specificDays[i].selected"
+            dense
+            keep-color
+            :label="day.name"
+            color="primary"
+            @click="updateSpecificDays(i, filterState.specificDays[i].selected)"
+          />
+        </div>
+      </div>
     </div>
     <div grid="~ col-span-2 gap-8">
       <div>

@@ -1,6 +1,6 @@
 import sortBy from 'lodash/sortBy'
 import courseDetailData from '~/data/details.json'
-import type { PartialCourse, TimetableGenerationResult } from '~/types'
+import type { Filter, PartialCourse, TimetableGenerationResult } from '~/types'
 
 let result: TimetableGenerationResult = {
   totalCases: 0,
@@ -31,6 +31,27 @@ function resetResult() {
   }
 }
 
+function checkDay(timetable: PartialCourse[][], option: Pick<Filter, 'day'>) {
+  if (option.day?.numberOfRelaxationDays) {
+    // Count number of relaxation days
+    if (timetable.reduce((pre, day) => day.length === 0 ? ++pre : pre, 0) < option.day.numberOfRelaxationDays)
+      return false
+  }
+
+  if (option.day?.specificDays) {
+    for (const day of option.day.specificDays) {
+      if (timetable[day].length !== 0)
+        return false
+    }
+  }
+
+  return true
+}
+
+function isExpected(timetable: PartialCourse[][], filter: Filter) {
+  return checkDay(timetable, { day: filter.day })
+}
+
 function isOverlapped(course1: PartialCourse, course2: PartialCourse) {
   if (course1.dayOfWeek !== course2.dayOfWeek)
     return false
@@ -42,7 +63,7 @@ function isOverlapped(course1: PartialCourse, course2: PartialCourse) {
   return false
 }
 
-function generateTimetable(partialsCoursesList: PartialCourse[][]) {
+function generateTimetable(partialsCoursesList: PartialCourse[][], filter: Filter) {
   const timetable: PartialCourse[][] = [[], [], [], [], [], [], []]
 
   for (const partialsCourses of partialsCoursesList) {
@@ -65,10 +86,15 @@ function generateTimetable(partialsCoursesList: PartialCourse[][]) {
 
   result.validCases++
 
+  if (!isExpected(timetable, filter))
+    return null
+
+  result.expectedCases++
+
   return timetable
 }
 
-function generateTimetables(potentialCourses: PartialCourse[][][]) {
+function generateTimetables(potentialCourses: PartialCourse[][][], filter: Filter) {
   const numberOfCourses = potentialCourses.length
   const currentIndexes = new Array(numberOfCourses).fill(0)
   const numberOfCourseInstances = potentialCourses.map(course => course.length)
@@ -80,7 +106,7 @@ function generateTimetables(potentialCourses: PartialCourse[][][]) {
     for (let j = 0; j < numberOfCourses; j++)
       selectedCourses.push(potentialCourses[j][currentIndexes[j]])
 
-    const timetable = generateTimetable(selectedCourses)
+    const timetable = generateTimetable(selectedCourses, filter)
 
     if (timetable)
       result.timetables.push(timetable)
@@ -108,9 +134,9 @@ function generateTimetables(potentialCourses: PartialCourse[][][]) {
   }
 }
 
-export function gogogogogo(courses: string[]) {
+export function gogogogogo(courses: string[], filter: Filter) {
   resetResult()
-  generateTimetables(queryCourses(courses))
+  generateTimetables(queryCourses(courses), filter)
 
   return result
 }
@@ -119,11 +145,12 @@ onmessage = function(e) {
   resetResult()
 
   const courseNames = JSON.parse(e.data[0]) as string[]
+  const filter = JSON.parse(e.data[1]) as Filter
   const potentialCourses = queryCourses(courseNames)
 
   // Generate timetables if and only if number of potential courses and course names are the same
   if (potentialCourses.length === courseNames.length) {
-    generateTimetables(potentialCourses)
+    generateTimetables(potentialCourses, filter)
 
     this.postMessage([JSON.stringify(result)])
   }
