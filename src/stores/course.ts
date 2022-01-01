@@ -1,28 +1,22 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
 export const useCourseStore = defineStore('course', () => {
-  const courses = ref<string[]>(getFromLocalStorage())
+  const courses = ref<string[]>([])
 
-  function getFromLocalStorage() {
+  function syncFromLocalStorage() {
     const localData = localStorage.getItem('courses') || ''
 
     try {
-      return JSON.parse(localData) as string[]
+      courses.value = JSON.parse(localData)
     }
     catch {
-      return []
+      courses.value = []
     }
-  }
-
-  function syncWithLocalStorage() {
-    localStorage.setItem('courses', JSON.stringify(courses.value))
   }
 
   function addCourse(course: string) {
     if (course !== '' && !courses.value.includes(course)) {
       courses.value.push(course)
-
-      syncWithLocalStorage()
 
       return true
     }
@@ -37,13 +31,17 @@ export const useCourseStore = defineStore('course', () => {
     if (identifier >= 0 && identifier < courses.value.length) {
       courses.value.splice(identifier, 1)
 
-      syncWithLocalStorage()
-
       return true
     }
 
     return false
   }
+
+  syncFromLocalStorage()
+
+  watchEffect(() => {
+    localStorage.setItem('courses', JSON.stringify(courses.value))
+  })
 
   return {
     courses,

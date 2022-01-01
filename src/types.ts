@@ -34,7 +34,20 @@ export type TimetableGenerationState = {
 
 export type Filter = {
   day: {
-    numberOfRelaxationDays?: number
-    specificDays?: number[]
+    numberOfRelaxationDays: number
+    specificDays: number[]
   }
+  lecturer: {
+    expected: string[]
+    unexpected: string[]
+  }
+}
+
+export type FilterState = {
+  specificDays: { name: string; selected: boolean }[]
+}
+
+export enum LecturerType {
+  EXPECTED,
+  UNEXPECTED,
 }

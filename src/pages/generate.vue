@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import courseData from '~/data/courses.json'
-import lecturerData from '~/data/lecturers.json'
+import courseData from '~/data/courses-searching.json'
+import lecturerData from '~/data/lecturers-searching.json'
 import { useCourseStore } from '~/stores/course'
-import { useLecturerstore } from '~/stores/lecturer'
-import type { Filter, PartialCourse, TimetableGenerationResult } from '~/types'
+import type { PartialCourse, TimetableGenerationResult } from '~/types'
 import { gogogogogo } from '~/workers/timetable-generator'
 import Worker from '~/workers/timetable-generator?worker'
 import { isDark } from '~/composables'
+import { useFilterStore } from '~/stores/filter'
 
 const { courses, addCourse, removeCourse } = useCourseStore()
-const { lecturers, addLecturer, removeLecturer } = useLecturerstore()
+const { filters, filterState, updateSpecificDays } = useFilterStore()
 
 const haveWorker = window.Worker !== undefined
 const result = ref<TimetableGenerationResult>({
@@ -18,37 +18,9 @@ const result = ref<TimetableGenerationResult>({
   expectedCases: 0,
   timetables: [],
 })
-const filter = reactive<Filter>({
-  day: {
-    numberOfRelaxationDays: 1,
-    specificDays: [],
-  },
-})
-const filterState = reactive({
-  specificDays: [
-    { name: 'Mon', selected: false },
-    { name: 'Tue', selected: false },
-    { name: 'Wed', selected: false },
-    { name: 'Thu', selected: false },
-    { name: 'Fri', selected: false },
-    { name: 'Sat', selected: false },
-    { name: 'Sun', selected: false },
-  ],
-})
 const displayedTimetables = ref<PartialCourse[][][]>([])
 const generated = ref<null | boolean>(null)
 const batch = 5
-
-function updateSpecificDays(day: number, isInserted: boolean) {
-  if (!filter.day.specificDays) return
-
-  const index = filter.day.specificDays.indexOf(day)
-
-  if (isInserted && index === -1)
-    filter.day.specificDays.push(day)
-  else if (!isInserted && index !== -1)
-    filter.day.specificDays.splice(index, 1)
-}
 
 function loadMoreTimetables() {
   const currentLength = displayedTimetables.value.length
@@ -63,7 +35,7 @@ function gogogoggo() {
   if (haveWorker) {
     const worker = new Worker()
 
-    worker.postMessage([JSON.stringify(courses), JSON.stringify(filter)])
+    worker.postMessage([JSON.stringify(courses), JSON.stringify(filters)])
 
     worker.onmessage = (e) => {
       const r = JSON.parse(e.data[0]) as TimetableGenerationResult
@@ -75,7 +47,7 @@ function gogogoggo() {
   }
   // If browser do not support Web Workers (may be crashed)
   else {
-    const r = gogogogogo(courses, filter)
+    const r = gogogogogo(courses, filters)
 
     generated.value = true
     result.value = r
@@ -100,7 +72,7 @@ function gogogoggo() {
         </p>
 
         <q-input
-          v-model="filter.day.numberOfRelaxationDays"
+          v-model="filters.day.numberOfRelaxationDays"
           outlined
           dense
           type="number"
@@ -134,7 +106,7 @@ function gogogoggo() {
           Except Lecturers
         </p>
 
-        <c-selection :items="lecturers" :storage="lecturerData" @add="addLecturer" @remove="removeLecturer" />
+        <c-selection :items="[]" :storage="lecturerData" @add="() => {}" @remove="() => {}" />
       </div>
     </div>
   </div>
