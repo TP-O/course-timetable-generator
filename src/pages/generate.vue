@@ -121,11 +121,16 @@ function gogogoggo() {
       <p text="xl" font="bold" m="b-0">
         Lecturers
       </p>
-      <p font="italic">
-        Note: Make sure to enter all expected lecturers (including Lab) if you fill in <b>Expect</b>.
-      </p>
-      <div grid="~ gap-x-4 gap-y-8" md="grid-cols-2" lg="grid-cols-4">
-        <div v-for="(course, key) in courses" :key="key">
+      <div class="flex justify-around">
+        <div
+          v-for="(course, key) in courses"
+          :key="key"
+          w="full"
+          p="x-2"
+          m="t-8"
+          md="w-1/2"
+          lg="w-1/4"
+        >
           <p font="bold" mb="2" md="col-span-2" lg="col-span-4">
             {{ course }}
           </p>
