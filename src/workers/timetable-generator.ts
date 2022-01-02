@@ -73,9 +73,26 @@ function checkLectuturers(courses: PartialCourse[], lecturerFilter: Pick<Filter,
       : course.lecturer
 
     if (lecturerFilter.lecturer.expected[course.name] !== undefined
-    && lecturerFilter.lecturer.expected[course.name].length !== 0
-    && !lecturerFilter.lecturer.expected[course.name].includes(lecturerName))
-      return false
+    && lecturerFilter.lecturer.expected[course.name].length !== 0) {
+      const expectedLabLecturers = lecturerFilter
+        .lecturer
+        .expected[course.name]
+        .filter(v => v.includes('(Lab)'))
+      const expectedTheoryLecturers = lecturerFilter
+        .lecturer
+        .expected[course.name]
+        .filter(v => !v.includes('(Lab)'))
+
+      if (lecturerName.includes('(Lab)')
+      && expectedLabLecturers.length !== 0
+      && !expectedLabLecturers.includes(lecturerName))
+        return false
+
+      if (!lecturerName.includes('(Lab)')
+      && expectedTheoryLecturers.length !== 0
+      && !expectedTheoryLecturers.includes(lecturerName))
+        return false
+    }
 
     if (lecturerFilter.lecturer.unexpected[course.name] !== undefined
     && lecturerFilter.lecturer.unexpected[course.name].length !== 0
