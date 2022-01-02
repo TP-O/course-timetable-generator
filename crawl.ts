@@ -11,10 +11,11 @@ config({
   path: './env.crawl.local',
 })
 
-function store(courses: any, lecturers: any, details: any) {
-  writeFileSync('src/data/courses.json', JSON.stringify(courses))
-  writeFileSync('src/data/lecturers.json', JSON.stringify(lecturers))
-  writeFileSync('src/data/details.json', JSON.stringify(details))
+function store(courses: any, lecturers: any, lecturersWithMajor: any, courseDetails: any) {
+  writeFileSync('src/data/courses-searching.json', JSON.stringify(courses))
+  // writeFileSync('src/data/lecturers-searching.json', JSON.stringify(lecturers))
+  writeFileSync('src/data/lecturers-with-major-searching.json', JSON.stringify(lecturersWithMajor))
+  writeFileSync('src/data/course-details.json', JSON.stringify(courseDetails))
 }
 
 function convertDayStringToDayNumber(day: string) {
@@ -60,7 +61,8 @@ function convertDayStringToDayNumber(day: string) {
 
     const courses: string[] = []
     const lecturers: string[] = []
-    const details: Record<string, PartialCourse[][]> = {}
+    const lecturersWithMajor: Record<string, string[]> = {}
+    const courseDetails: Record<string, PartialCourse[][]> = {}
     // Except first and last two elements
     const majors = await driver.findElements(
       By.css('#selectKhoa option:not(:first-child):not(:nth-last-child(2)):not(:last-child)'))
@@ -123,21 +125,33 @@ function convertDayStringToDayNumber(day: string) {
         if (!courses.includes(name))
           courses.push(name)
 
-        for (const lecturer of lecturersOfCourse) {
-          if (lecturer !== '' && !lecturers.includes(lecturer))
-            lecturers.push(lecturer)
-        }
+        // for (const lecturer of lecturersOfCourse) {
+        //   if (lecturer !== '' && !lecturers.includes(lecturer))
+        //     lecturers.push(lecturer)
+        // }
 
-        if (!Object.keys(details).includes(name))
-          details[name] = []
+        if (!Object.keys(lecturersWithMajor).includes(name))
+          lecturersWithMajor[name] = []
 
-        if (!find(details[name], o => JSON.stringify(o) === JSON.stringify(partialCourses)))
-          details[name].push(partialCourses)
+        if (!Object.keys(courseDetails).includes(name))
+          courseDetails[name] = []
+
+        partialCourses.forEach((course) => {
+          const lecturer = course.room.includes('LA')
+            ? `${course.lecturer} (Lab)`
+            : course.lecturer
+
+          if (!lecturersWithMajor[name].includes(lecturer))
+            lecturersWithMajor[name].push(lecturer)
+        })
+
+        if (!find(courseDetails[name], o => JSON.stringify(o) === JSON.stringify(partialCourses)))
+          courseDetails[name].push(partialCourses)
       }
     }, Promise.resolve())
 
     // Save to json files
-    store(courses, lecturers, details)
+    store(courses, lecturers, lecturersWithMajor, courseDetails)
   }
   catch (err) {
     console.log(err)

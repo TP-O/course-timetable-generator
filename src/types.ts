@@ -38,8 +38,8 @@ export type Filter = {
     specificDays: number[]
   }
   lecturer: {
-    expected: string[]
-    unexpected: string[]
+    expected: Record<string, string[]>
+    unexpected: Record<string, string[]>
   }
 }
 

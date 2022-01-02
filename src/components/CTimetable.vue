@@ -98,6 +98,7 @@ generateClasses()
           :key="i"
           text="2xs"
           border="1 gray-400 t-transparent l-transparent"
+          md="text-xs"
           lg="text-base"
           class="flex items-center justify-center"
         >

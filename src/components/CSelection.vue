@@ -1,5 +1,9 @@
 <script setup lang="ts">
 const props = defineProps({
+  tag: {
+    type: String,
+    default: '',
+  },
   items: {
     type: Array,
     default: () => [],
@@ -11,6 +15,13 @@ const props = defineProps({
   maxResult: {
     type: Number,
     default: 10,
+  },
+  label: {
+    type: String,
+  },
+  color: {
+    type: String,
+    default: 'primary',
   },
 })
 const emits = defineEmits(['add', 'remove'])
@@ -40,7 +51,7 @@ function insertItem(index?: number) {
     : foundItems.value[potentialItem.value]
 
   if (item !== undefined && !props.items.includes(item)) {
-    emits('add', item)
+    emits('add', item, props.tag)
 
     input.value = ''
     potentialItem.value = -1
@@ -53,7 +64,7 @@ function insertItem(index?: number) {
 
 function deleteItem(index: number) {
   if (input.value === '') {
-    emits('remove', index)
+    emits('remove', index, props.tag)
 
     return true
   }
@@ -86,7 +97,7 @@ watchEffect(() => {
 
   // Second element of parts exists if input ends with comma character
   if (parts[1] !== undefined && !props.items.includes(parts[0])) {
-    emits('add', parts[0])
+    emits('add', parts[0], props.tag)
 
     input.value = ''
   }
@@ -103,13 +114,16 @@ watchEffect(() => {
     p="4"
     cursor="text"
     shadow="md gray-300"
-    dark="shadow-none"
+    dark="border-true-gray-400 shadow-none"
     class="relative"
     @click.self="focusInput"
   >
+    <label v-if="label !== undefined" class="flex items-center">
+      {{ label }}&#58;
+    </label>
     <ul list="none" class="contents">
       <li v-for="(item, key) in items" :key="key" w="max-full" class="float-left">
-        <q-chip removable color="primary" text-color="white" @remove="emits('remove', key)">
+        <q-chip removable :color="color" text-color="white" @remove="emits('remove', key, tag)">
           {{ item }}
         </q-chip>
       </li>

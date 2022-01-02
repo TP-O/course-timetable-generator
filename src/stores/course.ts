@@ -37,8 +37,10 @@ export const useCourseStore = defineStore('course', () => {
     return false
   }
 
+  // Load data from local storage
   syncFromLocalStorage()
 
+  // Track data in store it to storage
   watchEffect(() => {
     localStorage.setItem('courses', JSON.stringify(courses.value))
   })

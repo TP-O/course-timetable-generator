@@ -1,20 +1,22 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
+import { useCourseStore } from './course'
 import type { Filter, FilterState } from '~/types'
-import { LecturerType } from '~/types'
 
 export const useFilterStore = defineStore('filter', () => {
-  let filters = reactive<Filter>({
+  const { courses } = useCourseStore()
+
+  const filters = ref<Filter>({
     day: {
       numberOfRelaxationDays: 1,
       specificDays: [],
     },
     lecturer: {
-      expected: [],
-      unexpected: [],
+      expected: {},
+      unexpected: {},
     },
   })
 
-  let filterState = reactive<FilterState>({
+  const filterState = ref<FilterState>({
     specificDays: [
       { name: 'Mon', selected: false },
       { name: 'Tue', selected: false },
@@ -34,8 +36,8 @@ export const useFilterStore = defineStore('filter', () => {
       const filterData = JSON.parse(filterLocalData)
       const filterStateData = JSON.parse(filterStateLocalData)
 
-      filters = reactive<Filter>(filterData)
-      filterState = reactive<FilterState>(filterStateData)
+      filters.value = filterData
+      filterState.value = filterStateData
     }
     catch {
       //
@@ -43,59 +45,85 @@ export const useFilterStore = defineStore('filter', () => {
   }
 
   function updateSpecificDays(day: number, isInserted: boolean) {
-    if (!filters.day.specificDays)
-      return false
-
-    const index = filters.day.specificDays.indexOf(day)
+    const index = filters.value.day.specificDays.indexOf(day)
 
     if (isInserted && index === -1)
-      filters.day.specificDays.push(day)
+      filters.value.day.specificDays.push(day)
     else if (!isInserted && index !== -1)
-      filters.day.specificDays.splice(index, 1)
+      filters.value.day.specificDays.splice(index, 1)
 
     return true
   }
 
-  function addLecturer(lecturer: string, type = LecturerType.UNEXPECTED) {
-    if (lecturer === '')
+  function addLecturer(lecturer: string, tag: string) {
+    const [p, key] = tag.split('.')
+
+    // Check if lecturer option exists
+    if (!Object.keys(filters.value.lecturer).includes(p))
       return false
 
-    if (type === LecturerType.EXPECTED && !filters.lecturer.expected.includes(lecturer))
-      filters.lecturer.expected.push(lecturer)
-    else if (type === LecturerType.UNEXPECTED && !filters.lecturer.unexpected.includes(lecturer))
-      filters.lecturer.unexpected.push(lecturer)
-    else
+    const option = p as keyof typeof filters.value.lecturer
+
+    // Create property if it does not exist
+    if (filters.value.lecturer[option][key] === undefined)
+      filters.value.lecturer[option][key] = []
+
+    if (filters.value.lecturer[option][key].includes(lecturer))
       return false
+
+    filters.value.lecturer[option][key].push(lecturer)
 
     return true
   }
 
-  function removeLecturer(identifier: number | string, type = LecturerType.UNEXPECTED) {
-    if (typeof identifier === 'string') {
-      if (type === LecturerType.EXPECTED)
-        identifier = filters.lecturer.expected.indexOf(identifier)
-      else
-        identifier = filters.lecturer.unexpected.indexOf(identifier)
-    }
+  function removeLecturer(identifier: number | string, tag: string) {
+    const [p, key] = tag.split('.')
 
-    if (identifier < 0)
+    // Check if lecturer option exists
+    if (!Object.keys(filters.value.lecturer).includes(p))
       return false
 
-    if (type === LecturerType.EXPECTED && identifier < filters.lecturer.expected.length)
-      filters.lecturer.expected.splice(identifier, 1)
-    else if (type === LecturerType.UNEXPECTED && identifier < filters.lecturer.unexpected.length)
-      filters.lecturer.unexpected.splice(identifier, 1)
-    else
+    const option = p as keyof typeof filters.value.lecturer
+
+    // Property does not exist
+    if (filters.value.lecturer[option][key] === undefined)
       return false
+
+    // Convert identifier to number
+    if (typeof identifier === 'string')
+      identifier = filters.value.lecturer[option][key].indexOf(identifier)
+
+    if (identifier < 0 || identifier >= filters.value.lecturer[option][key].length)
+      return false
+
+    filters.value.lecturer[option][key].splice(identifier, 1)
+
+    // Delete property if it is empty
+    if (filters.value.lecturer[option][key].length === 0)
+      delete filters.value.lecturer[option][key]
 
     return true
   }
 
+  function cleanFilter() {
+    Object.keys(filters.value.lecturer.expected).forEach((key) => {
+      if (!courses.includes(key))
+        delete filters.value.lecturer.expected[key]
+    })
+
+    Object.keys(filters.value.lecturer.unexpected).forEach((key) => {
+      if (!courses.includes(key))
+        delete filters.value.lecturer.unexpected[key]
+    })
+  }
+
+  // Load data from local storage
   syncFromLocalStorage()
 
+  // Track data in store it to storage
   watchEffect(() => {
-    localStorage.setItem('filter', JSON.stringify(filters))
-    localStorage.setItem('filterState', JSON.stringify(filterState))
+    localStorage.setItem('filter', JSON.stringify(filters.value))
+    localStorage.setItem('filterState', JSON.stringify(filterState.value))
   })
 
   return {
@@ -104,6 +132,7 @@ export const useFilterStore = defineStore('filter', () => {
     updateSpecificDays,
     addLecturer,
     removeLecturer,
+    cleanFilter,
   }
 })
 

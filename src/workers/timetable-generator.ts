@@ -1,5 +1,5 @@
 import sortBy from 'lodash/sortBy'
-import courseDetailData from '~/data/details.json'
+import courseDetailData from '~/data/course-details.json'
 import type { Filter, PartialCourse, TimetableGenerationResult } from '~/types'
 
 let result: TimetableGenerationResult = {
@@ -7,6 +7,25 @@ let result: TimetableGenerationResult = {
   validCases: 0,
   expectedCases: 0,
   timetables: [],
+}
+
+let checkState = {
+  numberOfRelaxationDays: 0,
+}
+
+function resetResult() {
+  result = {
+    totalCases: 0,
+    validCases: 0,
+    expectedCases: 0,
+    timetables: [],
+  }
+}
+
+function resetCheckState() {
+  checkState = {
+    numberOfRelaxationDays: 0,
+  }
 }
 
 function queryCourses(courses: string[]) {
@@ -22,34 +41,64 @@ function queryCourses(courses: string[]) {
   return potentialCourses
 }
 
-function resetResult() {
-  result = {
-    totalCases: 0,
-    validCases: 0,
-    expectedCases: 0,
-    timetables: [],
-  }
+function checkNumberOfRelaxationDays(day: number, numberOfCourse: number, min: number) {
+  checkState.numberOfRelaxationDays = numberOfCourse === 0
+    ? ++checkState.numberOfRelaxationDays
+    : checkState.numberOfRelaxationDays
+
+  // Return result if it is the last day of week
+  if (day === 6)
+    return checkState.numberOfRelaxationDays >= min
+
+  // Return false if number of days remaining is less than relaxation days remaining
+  if (6 - day < min - checkState.numberOfRelaxationDays)
+    return false
+
+  // Return true until above 2 conditions do not occur
+  return true
 }
 
-function checkDay(timetable: PartialCourse[][], option: Pick<Filter, 'day'>) {
-  if (option.day?.numberOfRelaxationDays) {
-    // Count number of relaxation days
-    if (timetable.reduce((pre, day) => day.length === 0 ? ++pre : pre, 0) < option.day.numberOfRelaxationDays)
-      return false
-  }
+function checkSpecificRelaxationDays(day: number, numberOfCourse: number, specificDays: number[]) {
+  if (!specificDays.includes(day))
+    return true
 
-  if (option.day?.specificDays) {
-    for (const day of option.day.specificDays) {
-      if (timetable[day].length !== 0)
-        return false
-    }
+  // The relaxation day must have no course
+  return numberOfCourse === 0
+}
+
+function checkLectuturers(courses: PartialCourse[], lecturerFilter: Pick<Filter, 'lecturer'>) {
+  for (const course of courses) {
+    const lecturerName = course.room.includes('LA')
+      ? `${course.lecturer} (Lab)`
+      : course.lecturer
+
+    if (lecturerFilter.lecturer.expected[course.name] !== undefined
+    && lecturerFilter.lecturer.expected[course.name].length !== 0
+    && !lecturerFilter.lecturer.expected[course.name].includes(lecturerName))
+      return false
+
+    if (lecturerFilter.lecturer.unexpected[course.name] !== undefined
+    && lecturerFilter.lecturer.unexpected[course.name].length !== 0
+    && lecturerFilter.lecturer.unexpected[course.name].includes(lecturerName))
+      return false
   }
 
   return true
 }
 
 function isExpected(timetable: PartialCourse[][], filter: Filter) {
-  return checkDay(timetable, { day: filter.day })
+  resetCheckState()
+
+  for (let day = 0; day < 7; day++) {
+    const numberOfCourses = timetable[day].length
+
+    if (!checkNumberOfRelaxationDays(day, numberOfCourses, filter.day.numberOfRelaxationDays)
+    || !checkSpecificRelaxationDays(day, numberOfCourses, filter.day.specificDays)
+    || !checkLectuturers(timetable[day], { lecturer: filter.lecturer }))
+      return false
+  }
+
+  return true
 }
 
 function isOverlapped(course1: PartialCourse, course2: PartialCourse) {
@@ -57,7 +106,7 @@ function isOverlapped(course1: PartialCourse, course2: PartialCourse) {
     return false
 
   if ((course1.start >= course2.start && course1.start <= course2.start + course2.period - 1)
-    || (course2.start >= course1.start && course2.start <= course1.start + course1.period - 1))
+  || (course2.start >= course1.start && course2.start <= course1.start + course1.period - 1))
     return true
 
   return false

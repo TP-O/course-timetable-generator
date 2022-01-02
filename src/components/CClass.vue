@@ -9,6 +9,7 @@ defineProps<{ cclass: CClass | null }>()
     grid="~ cols-1"
     text="3xs"
     border="1 gray-400 t-transparent l-transparent"
+    md="text-xs"
     lg="text-sm"
     :class="cclass?.period ? `row-span-${cclass.period} bg-gray-200 dark:bg-gray-800` : ''"
   >

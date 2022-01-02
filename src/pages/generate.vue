@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import courseData from '~/data/courses-searching.json'
-import lecturerData from '~/data/lecturers-searching.json'
+import lecturerData from '~/data/lecturers-with-major-searching.json'
 import { useCourseStore } from '~/stores/course'
 import type { PartialCourse, TimetableGenerationResult } from '~/types'
 import { gogogogogo } from '~/workers/timetable-generator'
@@ -8,8 +8,19 @@ import Worker from '~/workers/timetable-generator?worker'
 import { isDark } from '~/composables'
 import { useFilterStore } from '~/stores/filter'
 
-const { courses, addCourse, removeCourse } = useCourseStore()
-const { filters, filterState, updateSpecificDays } = useFilterStore()
+const {
+  courses,
+  addCourse,
+  removeCourse,
+} = useCourseStore()
+const {
+  filters,
+  filterState,
+  updateSpecificDays,
+  addLecturer,
+  removeLecturer,
+  cleanFilter,
+} = useFilterStore()
 
 const haveWorker = window.Worker !== undefined
 const result = ref<TimetableGenerationResult>({
@@ -53,6 +64,12 @@ function gogogoggo() {
     result.value = r
     displayedTimetables.value = result.value.timetables.slice(0, batch)
   }
+
+  cleanFilter()
+
+  setTimeout(() => {
+    window.scrollTo(0, document.body.scrollHeight)
+  }, 50)
 }
 </script>
 
@@ -65,7 +82,7 @@ function gogogoggo() {
 
       <c-selection :items="courses" :storage="courseData" @add="addCourse" @remove="removeCourse" />
     </div>
-    <div grid="~ col-span-2 cols-1 gap-8" lg="grid-cols-2">
+    <div grid="~ col-span-2 gap-8" lg="grid-cols-2">
       <div>
         <p text="xl" font="bold">
           Number of relaxation days
@@ -100,18 +117,43 @@ function gogogoggo() {
         </div>
       </div>
     </div>
-    <div grid="~ col-span-2 gap-8">
-      <div>
-        <p text="xl" font="bold">
-          Except Lecturers
-        </p>
-
-        <c-selection :items="[]" :storage="lecturerData" @add="() => {}" @remove="() => {}" />
+    <div grid="col-span-2">
+      <p text="xl" font="bold" m="b-0">
+        Lecturers
+      </p>
+      <p font="italic">
+        Note: Make sure to enter all expected lecturers (including Lab) if you fill in <b>Expect</b>.
+      </p>
+      <div grid="~ gap-x-4 gap-y-8" md="grid-cols-2" lg="grid-cols-4">
+        <div v-for="(course, key) in courses" :key="key">
+          <p font="bold" mb="2" md="col-span-2" lg="col-span-4">
+            {{ course }}
+          </p>
+          <c-selection
+            :tag="`expected.${course}`"
+            :items="filters.lecturer.expected[course]"
+            :storage="lecturerData[course as keyof typeof lecturerData]"
+            label="Expect"
+            color="secondary"
+            class="mb-4"
+            @add="addLecturer"
+            @remove="removeLecturer"
+          />
+          <c-selection
+            :tag="`unexpected.${course}`"
+            :items="filters.lecturer.unexpected[course]"
+            :storage="lecturerData[course as keyof typeof lecturerData]"
+            label="Unexpect"
+            color="negative"
+            @add="addLecturer"
+            @remove="removeLecturer"
+          />
+        </div>
       </div>
     </div>
   </div>
 
-  <q-btn outline label="Generate" m="t-8" @click="gogogoggo" />
+  <q-btn outline label="Generate" :dark="isDark" m="t-8" @click="gogogoggo" />
 
   <div v-if="generated !== null" m="t-10">
     <div v-if="generated">
@@ -120,10 +162,10 @@ function gogogoggo() {
           grid="~"
           text="md"
           lg="text-lg"
-          border="1 rounded gray-400"
+          border="1 rounded gray-200"
           p="y-2"
           shadow="sm gray-300"
-          dark="shadow-none"
+          dark="border-true-gray-400 shadow-none"
         >
           <span class="font-bold">Total cases</span>
           <span>{{ result.totalCases }}</span>
@@ -132,10 +174,10 @@ function gogogoggo() {
           grid="~"
           text="md"
           lg="text-lg"
-          border="1 rounded gray-400"
+          border="1 rounded gray-200"
           p="y-2"
           shadow="sm gray-300"
-          dark="shadow-none"
+          dark="border-true-gray-400 shadow-none"
         >
           <span class="font-bold">Valid cases</span>
           <span>{{ result.validCases }}</span>
@@ -144,10 +186,10 @@ function gogogoggo() {
           grid="~"
           text="md"
           lg="text-lg"
-          border="1 rounded gray-400"
+          border="1 rounded gray-200"
           p="y-2"
           shadow="sm gray-300"
-          dark="shadow-none"
+          dark="border-true-gray-400 shadow-none"
         >
           <span class="font-bold">Expected cases</span>
           <span>{{ result.expectedCases }}</span>
