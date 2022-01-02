@@ -105,21 +105,39 @@ function convertDayStringToDayNumber(day: string) {
         const lecturersOfCourse = (await course.findElement(By.css('tr > td:nth-child(17)'))
           .getText())
           .split('\n ')
+
+        const numberOfPartialCourses = daysOfWeek.length
         const partialCourses: PartialCourse[] = []
 
-        for (let i = 0; i < daysOfWeek.length; i++) {
-          partialCourses.push({
-            courseId,
-            classId,
-            name,
-            credits,
-            slots,
-            dayOfWeek: daysOfWeek[i],
-            start: starts[i],
-            period: periods[i],
-            room: rooms[i],
-            lecturer: lecturersOfCourse[i],
-          })
+        for (let i = 0; i < numberOfPartialCourses; i++) {
+          let similarIndex = -1
+
+          for (let j = 0; j < partialCourses.length; j++) {
+            if (partialCourses[j].start === starts[i]
+            && partialCourses[j].period === periods[i]) {
+              similarIndex = j
+
+              break
+            }
+          }
+
+          if (similarIndex !== -1) {
+            partialCourses[similarIndex].lecturer += `, ${lecturersOfCourse[i]}`
+          }
+          else {
+            partialCourses.push({
+              courseId,
+              classId,
+              name,
+              credits,
+              slots,
+              dayOfWeek: daysOfWeek[i],
+              start: starts[i],
+              period: periods[i],
+              room: rooms[i],
+              lecturer: lecturersOfCourse[i],
+            })
+          }
         }
 
         if (!courses.includes(name))
