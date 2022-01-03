@@ -128,8 +128,8 @@ function gogogoggo() {
           w="full"
           p="x-2"
           m="t-8"
-          md="w-1/2"
-          lg="w-1/4"
+          lg="w-1/2"
+          xl="w-1/4"
         >
           <p font="bold" mb="2" md="col-span-2" lg="col-span-4">
             {{ course }}

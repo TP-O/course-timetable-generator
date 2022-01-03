@@ -29,13 +29,21 @@ const emits = defineEmits(['add', 'remove'])
 const input = ref('')
 const loading = ref(false)
 const selectedItemIndex = ref(-1)
+const foundItems = ref<string[]>([])
+const showRecommendation = ref<boolean>(false)
 
-const foundItems = computed(() => {
-  if (input.value === '' || input.value === undefined)
-    return []
+function focusInput(event: any) {
+  event.target.querySelector('input').focus()
+}
 
+function refreshRecommendation() {
+  showRecommendation.value = false
+  foundItems.value = []
+}
+
+function searchItems() {
   const tempItems: string[][] = []
-  const foundItems: string[] = []
+  foundItems.value = []
 
   loading.value = true
 
@@ -54,24 +62,18 @@ const foundItems = computed(() => {
   for (const items of tempItems) {
     if (items) {
       for (const item of items) {
-        foundItems.push(item)
+        foundItems.value.push(item)
 
-        if (foundItems.length > props.maxResult)
+        if (foundItems.value.length > props.maxResult - 1)
           break
       }
     }
 
-    if (foundItems.length > props.maxResult)
+    if (foundItems.value.length > props.maxResult - 1)
       break
   }
 
   loading.value = false
-
-  return foundItems
-})
-
-function focusInput(event: any) {
-  event.target.querySelector('input').focus()
 }
 
 function selectItem(increase: number) {
@@ -109,6 +111,8 @@ watchEffect(() => {
 
     input.value = ''
   }
+
+  searchItems()
 })
 </script>
 
@@ -143,13 +147,15 @@ watchEffect(() => {
         p="y-2 l-2"
         bg="transparent"
         class="float-left focus:outline-none"
+        @focus="showRecommendation = true"
+        @focusout="refreshRecommendation"
         @keydown.up="selectItem(-1)"
         @keydown.down="selectItem(1)"
         @keydown.enter="insertItem()"
         @keydown.delete="deleteItem(items.length -1)"
       >
       <ul
-        v-if="input !== ''"
+        v-if="showRecommendation"
         w="full"
         border="1 gray-400"
         p="x-4 y-2"
