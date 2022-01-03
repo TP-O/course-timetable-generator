@@ -28,16 +28,55 @@ const emits = defineEmits(['add', 'remove'])
 
 const input = ref('')
 const loading = ref(false)
-const potentialItem = ref(-1)
-const foundItems = ref<string[]>([])
+const selectedItemIndex = ref(-1)
+
+const foundItems = computed(() => {
+  if (input.value === '' || input.value === undefined)
+    return []
+
+  const tempItems: string[][] = []
+  const foundItems: string[] = []
+
+  loading.value = true
+
+  for (const item of (props.storage as string[])) {
+    const index = item.toLocaleLowerCase().indexOf(input.value.toLocaleLowerCase())
+
+    if (index === -1)
+      continue
+
+    if (!tempItems[index])
+      tempItems[index] = []
+
+    tempItems[index].push(item)
+  }
+
+  for (const items of tempItems) {
+    if (items) {
+      for (const item of items) {
+        foundItems.push(item)
+
+        if (foundItems.length > props.maxResult)
+          break
+      }
+    }
+
+    if (foundItems.length > props.maxResult)
+      break
+  }
+
+  loading.value = false
+
+  return foundItems
+})
 
 function focusInput(event: any) {
   event.target.querySelector('input').focus()
 }
 
 function selectItem(index: number) {
-  if (potentialItem.value > 0 || (potentialItem.value <= 0 && index >= 0)) {
-    potentialItem.value = (potentialItem.value + index) % foundItems.value.length
+  if (selectedItemIndex.value > 0 || (selectedItemIndex.value <= 0 && index >= 0)) {
+    selectedItemIndex.value = (selectedItemIndex.value + index) % foundItems.value.length
 
     return true
   }
@@ -48,13 +87,13 @@ function selectItem(index: number) {
 function insertItem(index?: number) {
   const item = index !== undefined
     ? foundItems.value[index]
-    : foundItems.value[potentialItem.value]
+    : foundItems.value[selectedItemIndex.value]
 
   if (item !== undefined && !props.items.includes(item)) {
     emits('add', item, props.tag)
 
     input.value = ''
-    potentialItem.value = -1
+    selectedItemIndex.value = -1
 
     return true
   }
@@ -72,25 +111,6 @@ function deleteItem(index: number) {
   return false
 }
 
-function searchItems(input: string) {
-  foundItems.value = []
-
-  if (input === '' || input === undefined)
-    return
-
-  loading.value = true
-
-  for (const item of (props.storage as string[])) {
-    if (foundItems.value.length >= props.maxResult)
-      break
-
-    if (item.toLocaleLowerCase().includes(input.toLocaleLowerCase()))
-      foundItems.value.push(item)
-  }
-
-  loading.value = false
-}
-
 // Watch input value
 watchEffect(() => {
   const parts = input.value.split(',')
@@ -101,8 +121,6 @@ watchEffect(() => {
 
     input.value = ''
   }
-
-  searchItems(input.value)
 })
 </script>
 
@@ -168,7 +186,7 @@ watchEffect(() => {
             p="l-4 y-1"
             m="y-2"
             hover="text-black bg-gray-400"
-            :class="potentialItem === key ? 'text-black bg-gray-400' : ''"
+            :class="selectedItemIndex === key ? 'text-black bg-gray-400' : ''"
             class="flex items-center"
             @click="insertItem(key)"
           >
