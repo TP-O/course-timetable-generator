@@ -74,14 +74,11 @@ function focusInput(event: any) {
   event.target.querySelector('input').focus()
 }
 
-function selectItem(index: number) {
-  if (selectedItemIndex.value > 0 || (selectedItemIndex.value <= 0 && index >= 0)) {
-    selectedItemIndex.value = (selectedItemIndex.value + index) % foundItems.value.length
-
-    return true
-  }
-
-  return false
+function selectItem(increase: number) {
+  if (foundItems.value.length > 0
+  && (selectedItemIndex.value > 0
+  || (selectedItemIndex.value <= 0 && increase >= 0)))
+    selectedItemIndex.value = (selectedItemIndex.value + increase) % foundItems.value.length
 }
 
 function insertItem(index?: number) {
@@ -94,21 +91,12 @@ function insertItem(index?: number) {
 
     input.value = ''
     selectedItemIndex.value = -1
-
-    return true
   }
-
-  return false
 }
 
 function deleteItem(index: number) {
-  if (input.value === '') {
+  if (input.value === '')
     emits('remove', index, props.tag)
-
-    return true
-  }
-
-  return false
 }
 
 // Watch input value
