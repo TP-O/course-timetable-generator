@@ -126,11 +126,11 @@ const normalConfig = defineConfig({
     },
   },
 
-  // @ts-ignore
   // https://github.com/antfu/vite-ssg
   ssgOptions: {
     script: 'async',
     formatting: 'minify',
+    format: 'cjs',
   },
 
   optimizeDeps: {
