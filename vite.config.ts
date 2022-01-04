@@ -2,6 +2,8 @@ import path from 'path'
 import { env } from 'process'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
+import Pages from 'vite-plugin-pages'
+import Layouts from 'vite-plugin-vue-layouts'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
@@ -23,6 +25,14 @@ const normalConfig = defineConfig({
       include: [/\.vue$/],
       template: { transformAssetUrls },
     }),
+
+    // https://github.com/hannoeru/vite-plugin-pages
+    Pages({
+      //
+    }),
+
+    // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
+    Layouts(),
 
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({

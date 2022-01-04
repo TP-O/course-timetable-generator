@@ -8,6 +8,7 @@ declare module 'vue' {
     CarbonLogoGithub: typeof import('~icons/carbon/logo-github')['default']
     CarbonMoon: typeof import('~icons/carbon/moon')['default']
     CarbonSun: typeof import('~icons/carbon/sun')['default']
+    CarbonWarning: typeof import('~icons/carbon/warning')['default']
     CClass: typeof import('./components/CClass.vue')['default']
     CLazy: typeof import('./components/CLazy.vue')['default']
     CSelection: typeof import('./components/CSelection.vue')['default']

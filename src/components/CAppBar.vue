@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { isDark, toggleDark } from '~/composables'
-
-defineProps<{ switchPage: CallableFunction }>()
 </script>
 
 <template>
@@ -15,7 +13,7 @@ defineProps<{ switchPage: CallableFunction }>()
       round
       title="Timetable"
       class="mx-2"
-      @click="switchPage('generate')"
+      to="/"
     >
       <mdi-timetable />
     </q-btn>
@@ -23,7 +21,7 @@ defineProps<{ switchPage: CallableFunction }>()
       round
       title="Authenticate"
       class="mx-2"
-      @click="switchPage('authenticate')"
+      to="/auth"
     >
       <ph-user-circle />
     </q-btn>
