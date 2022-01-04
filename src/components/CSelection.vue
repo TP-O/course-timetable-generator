@@ -37,8 +37,11 @@ function focusInput(event: any) {
 }
 
 function refreshRecommendation() {
-  showRecommendation.value = false
-  foundItems.value = []
+  // Wait for adding new item to found list
+  setTimeout(() => {
+    showRecommendation.value = false
+    foundItems.value = []
+  }, 250)
 }
 
 function searchItems() {
