@@ -1,226 +1,226 @@
 {
   "vite/modulepreload-polyfill": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/modules/nprogress.ts": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/modules/pinia.ts": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "vite/preload-helper": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/modules/pwa.ts": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "node_modules/.pnpm/quasar@2.3.4/node_modules/quasar/src/css/index.sass": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "node_modules/.pnpm/@quasar+extras@1.12.2/node_modules/@quasar/extras/material-icons/material-icons.css": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/modules/quasar.ts": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/components/CLazy.vue": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/components/CClass.vue": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/mdi/share-all": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/components/CTimetable.vue": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/components/CTimetableWrapper.vue": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/noto-v1/crying-face": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/ion/checkmark-done-circle-outline": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/noto-v1/thinking-face": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/components/CSelection.vue?vue&type=style&index=0&lang.sass": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/components/CSelection.vue": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "../../../../../../images/thinking.jpeg": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/data/courses-searching.json": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/data/lecturers-with-major-searching.json": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/stores/course.ts": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/data/course-details.json": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/workers/timetable-generator.ts": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/workers/timetable-generator.ts?worker": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/composables/dark.ts": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/stores/filter.ts": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/pages/index.vue": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "../../../../../../@vite-plugin-pages/generated-pages": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/carbon/logo-github": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/carbon/sun": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/carbon/moon": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/ph/user-circle": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/mdi/timetable": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/components/CAppBar.vue": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "plugin-vue:export-helper": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/layouts/default.vue": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "../../../../../../@vite-plugin-vue-layouts/generated-layouts": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/App.vue": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "../../../../../../@windicss/windi-base.css": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "../../../../../../@windicss/windi-components.css": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/styles/main.css": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "../../../../../../@windicss/windi-utilities.css": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/main.ts": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "index.html": [
-    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
+    "/course-timetable-generator/assets/timetable-generator.c74a8712.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
@@ -1521,22 +1521,22 @@
     "/course-timetable-generator/assets/virtual_pwa-register.a3d85283.js"
   ],
   "src/pages/auth.vue": [
-    "/course-timetable-generator/assets/auth.506beb4b.js"
+    "/course-timetable-generator/assets/auth.729121a9.js"
   ],
   "~icons/noto-v1/frowning-face-with-open-mouth": [
-    "/course-timetable-generator/assets/share.568e27a2.js"
+    "/course-timetable-generator/assets/share.9d154af5.js"
   ],
   "node_modules/.pnpm/quasar@2.3.4/node_modules/quasar/src/components/banner/QBanner.js": [
-    "/course-timetable-generator/assets/share.568e27a2.js"
+    "/course-timetable-generator/assets/share.9d154af5.js"
   ],
   "src/pages/share.vue": [
-    "/course-timetable-generator/assets/share.568e27a2.js"
+    "/course-timetable-generator/assets/share.9d154af5.js"
   ],
   "src/pages/[...all].vue?vue&type=route&index=0&lang.yaml": [
-    "/course-timetable-generator/assets/_...all_.f455d5dd.js"
+    "/course-timetable-generator/assets/_...all_.4e48684a.js"
   ],
   "src/pages/[...all].vue": [
-    "/course-timetable-generator/assets/_...all_.f455d5dd.js"
+    "/course-timetable-generator/assets/_...all_.4e48684a.js"
   ],
   "~icons/carbon/warning": [
     "/course-timetable-generator/assets/404.ddb01282.js"

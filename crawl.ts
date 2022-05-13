@@ -116,19 +116,21 @@ function convertDayStringToDayNumber(day: string) {
         const partialCourses: PartialCourse[] = []
 
         for (let i = 0; i < numberOfPartialCourses; i++) {
-          let similarIndex = -1
+          let similarIndexOfPartialCourses = -1
+          let similarIndexOfCourse = -1
 
           for (let j = 0; j < partialCourses.length; j++) {
             if (partialCourses[j].start === starts[i]
             && partialCourses[j].period === periods[i]) {
-              similarIndex = j
+              similarIndexOfPartialCourses = j
+              similarIndexOfCourse = i
 
               break
             }
           }
 
-          if (similarIndex !== -1) {
-            partialCourses[similarIndex].lecturer += `, ${lecturersOfCourse[i]}`
+          if (similarIndexOfPartialCourses !== -1 && isNaN(starts[similarIndexOfCourse])) {
+            partialCourses[similarIndexOfPartialCourses].lecturer += `, ${lecturersOfCourse[i]}`
           }
           else {
             partialCourses.push({

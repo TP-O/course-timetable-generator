@@ -38,6 +38,8 @@ function queryCourses(courses: string[]) {
     }
   })
 
+  console.log(potentialCourses)
+
   return potentialCourses
 }
 
