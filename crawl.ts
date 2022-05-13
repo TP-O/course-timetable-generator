@@ -21,16 +21,22 @@ function store(courses: any, lecturers: any, lecturersWithMajor: any, courseDeta
 function convertDayStringToDayNumber(day: string) {
   switch (day) {
     case 'Hai':
+    case 'Mon':
       return 0
     case 'Ba':
+    case 'Tue':
       return 1
     case 'Tư':
+    case 'Wed':
       return 2
     case 'Năm':
+    case 'Thu':
       return 3
     case 'Sáu':
+    case 'Fri':
       return 4
     case 'Bảy':
+    case 'Sat':
       return 5
     default:
       return 6
@@ -155,7 +161,7 @@ function convertDayStringToDayNumber(day: string) {
           courseDetails[name] = []
 
         partialCourses.forEach((course) => {
-          const lecturer = course.room.includes('LA')
+          const lecturer = course.room?.includes('LA')
             ? `${course.lecturer} (Lab)`
             : course.lecturer
 

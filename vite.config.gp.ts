@@ -97,7 +97,7 @@ export default defineConfig({
         'favicon.svg',
         'robots.txt',
         'safari-pinned-tab.svg',
-        'gif/thinking.gif',
+        'images/thinking.jpeg',
       ],
       manifest: {
         name: 'Course Timetable Generator',

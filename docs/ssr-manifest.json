@@ -1,233 +1,233 @@
 {
   "vite/modulepreload-polyfill": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/modules/nprogress.ts": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/modules/pinia.ts": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "vite/preload-helper": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/modules/pwa.ts": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "node_modules/.pnpm/quasar@2.3.4/node_modules/quasar/src/css/index.sass": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "node_modules/.pnpm/@quasar+extras@1.12.2/node_modules/@quasar/extras/material-icons/material-icons.css": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/modules/quasar.ts": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/components/CLazy.vue": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/components/CClass.vue": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/mdi/share-all": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/components/CTimetable.vue": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/components/CTimetableWrapper.vue": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/noto-v1/crying-face": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/ion/checkmark-done-circle-outline": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/noto-v1/thinking-face": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/components/CSelection.vue?vue&type=style&index=0&lang.sass": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/components/CSelection.vue": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
-  "../../../../../../gif/thinking.gif": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+  "../../../../../../images/thinking.jpeg": [
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/data/courses-searching.json": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/data/lecturers-with-major-searching.json": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/stores/course.ts": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/data/course-details.json": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/workers/timetable-generator.ts": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/workers/timetable-generator.ts?worker": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/composables/dark.ts": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/stores/filter.ts": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/pages/index.vue": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "../../../../../../@vite-plugin-pages/generated-pages": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/carbon/logo-github": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/carbon/sun": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/carbon/moon": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/ph/user-circle": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "~icons/mdi/timetable": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/components/CAppBar.vue": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "plugin-vue:export-helper": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/layouts/default.vue": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "../../../../../../@vite-plugin-vue-layouts/generated-layouts": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/App.vue": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "../../../../../../@windicss/windi-base.css": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "../../../../../../@windicss/windi-components.css": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/styles/main.css": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "../../../../../../@windicss/windi-utilities.css": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "src/main.ts": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "index.html": [
-    "/course-timetable-generator/assets/timetable-generator.e3ff5676.js",
+    "/course-timetable-generator/assets/timetable-generator.ffa1756e.js",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.0c67479a.woff2",
     "/course-timetable-generator/assets/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.9c04b1ef.woff"
   ],
   "\u0000commonjsHelpers.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/nprogress@0.2.0/node_modules/nprogress/nprogress.js?commonjs-module": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/nprogress@0.2.0/node_modules/nprogress/nprogress.js?commonjs-module": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/nprogress@0.2.0/node_modules/nprogress/nprogress.js": [
@@ -455,652 +455,652 @@
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheClear.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheClear.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheClear.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/eq.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/eq.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/eq.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_assocIndexOf.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_assocIndexOf.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_assocIndexOf.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheDelete.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheDelete.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheDelete.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheGet.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheGet.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheGet.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheHas.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheHas.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheHas.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheSet.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheSet.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_listCacheSet.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_ListCache.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_ListCache.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_ListCache.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackClear.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackClear.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackClear.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackDelete.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackDelete.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackDelete.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackGet.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackGet.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackGet.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackHas.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackHas.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackHas.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_freeGlobal.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_freeGlobal.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_freeGlobal.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_root.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_root.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_root.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Symbol.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Symbol.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Symbol.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getRawTag.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getRawTag.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getRawTag.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_objectToString.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_objectToString.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_objectToString.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseGetTag.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseGetTag.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseGetTag.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isObject.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isObject.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isObject.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isFunction.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isFunction.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isFunction.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_coreJsData.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_coreJsData.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_coreJsData.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isMasked.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isMasked.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isMasked.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_toSource.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_toSource.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_toSource.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsNative.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsNative.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsNative.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getValue.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getValue.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getValue.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getNative.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getNative.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getNative.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Map.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Map.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Map.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_nativeCreate.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_nativeCreate.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_nativeCreate.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashClear.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashClear.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashClear.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashDelete.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashDelete.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashDelete.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashGet.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashGet.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashGet.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashHas.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashHas.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashHas.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashSet.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashSet.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hashSet.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Hash.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Hash.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Hash.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheClear.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheClear.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheClear.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isKeyable.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isKeyable.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isKeyable.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getMapData.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getMapData.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getMapData.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheDelete.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheDelete.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheDelete.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheGet.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheGet.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheGet.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheHas.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheHas.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheHas.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheSet.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheSet.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapCacheSet.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_MapCache.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_MapCache.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_MapCache.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackSet.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackSet.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stackSet.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Stack.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Stack.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Stack.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayEach.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayEach.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayEach.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_defineProperty.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_defineProperty.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_defineProperty.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseAssignValue.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseAssignValue.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseAssignValue.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_assignValue.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_assignValue.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_assignValue.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_copyObject.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_copyObject.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_copyObject.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseTimes.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseTimes.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseTimes.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isObjectLike.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isObjectLike.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isObjectLike.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsArguments.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsArguments.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsArguments.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isArguments.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isArguments.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isArguments.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isArray.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isArray.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isArray.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isBuffer.js?commonjs-module": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isBuffer.js?commonjs-module": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/stubFalse.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/stubFalse.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/stubFalse.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isBuffer.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isBuffer.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isBuffer.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isIndex.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isIndex.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isIndex.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isLength.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isLength.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isLength.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsTypedArray.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsTypedArray.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsTypedArray.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseUnary.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseUnary.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseUnary.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_nodeUtil.js?commonjs-module": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_nodeUtil.js?commonjs-module": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_nodeUtil.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_nodeUtil.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_nodeUtil.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isTypedArray.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isTypedArray.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isTypedArray.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayLikeKeys.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayLikeKeys.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayLikeKeys.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isPrototype.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isPrototype.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isPrototype.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_overArg.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_overArg.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_overArg.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_nativeKeys.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_nativeKeys.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_nativeKeys.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseKeys.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseKeys.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseKeys.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isArrayLike.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isArrayLike.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isArrayLike.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/keys.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/keys.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/keys.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseAssign.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseAssign.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseAssign.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_nativeKeysIn.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_nativeKeysIn.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_nativeKeysIn.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseKeysIn.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseKeysIn.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseKeysIn.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/keysIn.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/keysIn.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/keysIn.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseAssignIn.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseAssignIn.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseAssignIn.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneBuffer.js?commonjs-module": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneBuffer.js?commonjs-module": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneBuffer.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneBuffer.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneBuffer.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_copyArray.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_copyArray.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_copyArray.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayFilter.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayFilter.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayFilter.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/stubArray.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/stubArray.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/stubArray.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getSymbols.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getSymbols.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getSymbols.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_copySymbols.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_copySymbols.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_copySymbols.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayPush.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayPush.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayPush.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getPrototype.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getPrototype.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getPrototype.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getSymbolsIn.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getSymbolsIn.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getSymbolsIn.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_copySymbolsIn.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_copySymbolsIn.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_copySymbolsIn.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseGetAllKeys.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseGetAllKeys.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseGetAllKeys.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getAllKeys.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getAllKeys.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getAllKeys.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getAllKeysIn.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getAllKeysIn.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getAllKeysIn.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_DataView.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_DataView.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_DataView.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Promise.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Promise.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Promise.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Set.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Set.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Set.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_WeakMap.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_WeakMap.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_WeakMap.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getTag.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getTag.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getTag.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_initCloneArray.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_initCloneArray.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_initCloneArray.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Uint8Array.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Uint8Array.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_Uint8Array.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneArrayBuffer.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneArrayBuffer.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneArrayBuffer.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneDataView.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneDataView.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneDataView.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneRegExp.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneRegExp.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneRegExp.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneSymbol.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneSymbol.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneSymbol.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneTypedArray.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneTypedArray.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cloneTypedArray.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_initCloneByTag.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_initCloneByTag.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_initCloneByTag.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseCreate.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseCreate.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseCreate.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_initCloneObject.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_initCloneObject.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_initCloneObject.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsMap.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsMap.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsMap.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isMap.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isMap.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isMap.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsSet.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsSet.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsSet.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isSet.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isSet.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isSet.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseClone.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseClone.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseClone.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/cloneDeep.js": [
@@ -1163,349 +1163,349 @@
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isFlattenable.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isFlattenable.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isFlattenable.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseFlatten.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseFlatten.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseFlatten.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayMap.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayMap.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arrayMap.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isSymbol.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isSymbol.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/isSymbol.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isKey.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isKey.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isKey.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/memoize.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/memoize.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/memoize.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_memoizeCapped.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_memoizeCapped.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_memoizeCapped.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stringToPath.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stringToPath.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_stringToPath.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseToString.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseToString.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseToString.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/toString.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/toString.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/toString.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_castPath.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_castPath.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_castPath.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_toKey.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_toKey.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_toKey.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseGet.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseGet.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseGet.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_setCacheAdd.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_setCacheAdd.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_setCacheAdd.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_setCacheHas.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_setCacheHas.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_setCacheHas.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_SetCache.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_SetCache.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_SetCache.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arraySome.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arraySome.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_arraySome.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cacheHas.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cacheHas.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_cacheHas.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_equalArrays.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_equalArrays.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_equalArrays.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapToArray.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapToArray.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_mapToArray.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_setToArray.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_setToArray.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_setToArray.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_equalByTag.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_equalByTag.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_equalByTag.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_equalObjects.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_equalObjects.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_equalObjects.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsEqualDeep.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsEqualDeep.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsEqualDeep.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsEqual.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsEqual.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsEqual.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsMatch.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsMatch.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIsMatch.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isStrictComparable.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isStrictComparable.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isStrictComparable.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getMatchData.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getMatchData.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_getMatchData.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_matchesStrictComparable.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_matchesStrictComparable.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_matchesStrictComparable.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseMatches.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseMatches.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseMatches.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/get.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/get.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/get.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseHasIn.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseHasIn.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseHasIn.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hasPath.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hasPath.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_hasPath.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/hasIn.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/hasIn.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/hasIn.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseMatchesProperty.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseMatchesProperty.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseMatchesProperty.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/identity.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/identity.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/identity.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseProperty.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseProperty.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseProperty.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_basePropertyDeep.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_basePropertyDeep.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_basePropertyDeep.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/property.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/property.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/property.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIteratee.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIteratee.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseIteratee.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_createBaseFor.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_createBaseFor.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_createBaseFor.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseFor.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseFor.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseFor.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseForOwn.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseForOwn.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseForOwn.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_createBaseEach.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_createBaseEach.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_createBaseEach.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseEach.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseEach.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseEach.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseMap.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseMap.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseMap.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseSortBy.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseSortBy.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseSortBy.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_compareAscending.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_compareAscending.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_compareAscending.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_compareMultiple.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_compareMultiple.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_compareMultiple.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseOrderBy.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseOrderBy.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseOrderBy.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_apply.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_apply.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_apply.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_overRest.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_overRest.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_overRest.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/constant.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/constant.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/constant.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseSetToString.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseSetToString.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseSetToString.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_shortOut.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_shortOut.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_shortOut.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_setToString.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_setToString.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_setToString.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseRest.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseRest.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_baseRest.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isIterateeCall.js": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
-  "\u0000/home/TP-O/Desktop/repo/Websites/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isIterateeCall.js?commonjs-proxy": [
+  "\u0000/home/TP-O/Desktop/repo/Website/course-timetable-generator/node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/_isIterateeCall.js?commonjs-proxy": [
     "/course-timetable-generator/assets/vendor.50754dcb.js"
   ],
   "node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/sortBy.js": [
@@ -1521,22 +1521,22 @@
     "/course-timetable-generator/assets/virtual_pwa-register.a3d85283.js"
   ],
   "src/pages/auth.vue": [
-    "/course-timetable-generator/assets/auth.37835e3a.js"
+    "/course-timetable-generator/assets/auth.81fa27f3.js"
   ],
   "~icons/noto-v1/frowning-face-with-open-mouth": [
-    "/course-timetable-generator/assets/share.24942949.js"
+    "/course-timetable-generator/assets/share.8605cca2.js"
   ],
   "node_modules/.pnpm/quasar@2.3.4/node_modules/quasar/src/components/banner/QBanner.js": [
-    "/course-timetable-generator/assets/share.24942949.js"
+    "/course-timetable-generator/assets/share.8605cca2.js"
   ],
   "src/pages/share.vue": [
-    "/course-timetable-generator/assets/share.24942949.js"
+    "/course-timetable-generator/assets/share.8605cca2.js"
   ],
   "src/pages/[...all].vue?vue&type=route&index=0&lang.yaml": [
-    "/course-timetable-generator/assets/_...all_.543f3b42.js"
+    "/course-timetable-generator/assets/_...all_.c0ca5b45.js"
   ],
   "src/pages/[...all].vue": [
-    "/course-timetable-generator/assets/_...all_.543f3b42.js"
+    "/course-timetable-generator/assets/_...all_.c0ca5b45.js"
   ],
   "~icons/carbon/warning": [
     "/course-timetable-generator/assets/404.ddb01282.js"

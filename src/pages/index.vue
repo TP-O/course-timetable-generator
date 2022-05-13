@@ -205,7 +205,7 @@ function gogogoggo() {
       </div>
     </div>
     <div v-else>
-      <img src="/gif/thinking.gif" alt="Thinking..." class="mx-auto">
+      <img src="/images/thinking.jpeg" alt="Thinking..." class="mx-auto">
     </div>
   </div>
 </template>
