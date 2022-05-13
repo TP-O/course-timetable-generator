@@ -1,10 +1,12 @@
-<script setup lang="ts">import type { PartialCourse } from '~/types'
+<script setup lang="ts">
+import type { PartialCourse } from '~/types'
+
 const route = useRoute()
 const valid = ref(true)
 let timetable: PartialCourse[][] = []
 
 try {
-  timetable = JSON.parse(atob(route.query.timetable as string))
+  timetable = JSON.parse(decodeURIComponent(atob(route.query.timetable as string)))
 }
 catch {
   valid.value = false

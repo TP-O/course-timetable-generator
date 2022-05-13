@@ -43,7 +43,7 @@ function getClass(day: number, row: number) {
 
 function copyTimetable() {
   const sharableLink = `${window.location.origin}${window.location.pathname}#/share?timetable=${
-    encodeURIComponent(btoa(JSON.stringify(props.timetable)))}`
+    encodeURIComponent(btoa(encodeURIComponent(JSON.stringify(props.timetable))))}`
 
   navigator.clipboard.writeText(sharableLink)
 

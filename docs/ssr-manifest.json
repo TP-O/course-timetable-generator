@@ -1521,22 +1521,22 @@
     "/course-timetable-generator/assets/virtual_pwa-register.a3d85283.js"
   ],
   "src/pages/auth.vue": [
-    "/course-timetable-generator/assets/auth.81fa27f3.js"
+    "/course-timetable-generator/assets/auth.506beb4b.js"
   ],
   "~icons/noto-v1/frowning-face-with-open-mouth": [
-    "/course-timetable-generator/assets/share.8605cca2.js"
+    "/course-timetable-generator/assets/share.568e27a2.js"
   ],
   "node_modules/.pnpm/quasar@2.3.4/node_modules/quasar/src/components/banner/QBanner.js": [
-    "/course-timetable-generator/assets/share.8605cca2.js"
+    "/course-timetable-generator/assets/share.568e27a2.js"
   ],
   "src/pages/share.vue": [
-    "/course-timetable-generator/assets/share.8605cca2.js"
+    "/course-timetable-generator/assets/share.568e27a2.js"
   ],
   "src/pages/[...all].vue?vue&type=route&index=0&lang.yaml": [
-    "/course-timetable-generator/assets/_...all_.c0ca5b45.js"
+    "/course-timetable-generator/assets/_...all_.f455d5dd.js"
   ],
   "src/pages/[...all].vue": [
-    "/course-timetable-generator/assets/_...all_.c0ca5b45.js"
+    "/course-timetable-generator/assets/_...all_.f455d5dd.js"
   ],
   "~icons/carbon/warning": [
     "/course-timetable-generator/assets/404.ddb01282.js"
