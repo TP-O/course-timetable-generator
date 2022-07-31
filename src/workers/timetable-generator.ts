@@ -1,6 +1,6 @@
 import sortBy from 'lodash/sortBy'
-import courseDetailData from '~/data/course-details.json'
 import type { Filter, PartialCourse, TimetableGenerationResult } from '~/types'
+import courseDetailData from '~/data/course-details.json'
 
 let result: TimetableGenerationResult = {
   totalCases: 0,
@@ -37,8 +37,6 @@ function queryCourses(courses: string[]) {
         courseDetailData[(course as keyof typeof courseDetailData)] as PartialCourse[][])
     }
   })
-
-  console.log(potentialCourses)
 
   return potentialCourses
 }
@@ -211,6 +209,9 @@ export function gogogogogo(courses: string[], filter: Filter) {
 
 onmessage = function(e) {
   resetResult()
+
+  if (e.data[0] === undefined || e.data[1] === undefined)
+    return
 
   const courseNames = JSON.parse(e.data[0]) as string[]
   const filter = JSON.parse(e.data[1]) as Filter

@@ -1,0 +1,1 @@
+import{_ as c,o as _,c as n}from"./app.50c36df1.js";var e={};const o={};function r(t,a){return _(),n("div",null," Not Found ")}typeof e=="function"&&e(o);var l=c(o,[["render",r]]);export{l as default};
