@@ -1,9 +1,10 @@
-import type { NextPage } from 'next'
+import { NextPageWithLayout } from '@/types'
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from '@/styles/Home.module.css'
+import { AdminLayout } from '@/layouts'
 
-const Home: NextPage = () => {
+const Home: NextPageWithLayout = () => {
   return (
     <div className={styles.container}>
       <Head>
@@ -62,5 +63,7 @@ const Home: NextPage = () => {
     </div>
   )
 }
+
+Home.Layout = AdminLayout
 
 export default Home
