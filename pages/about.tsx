@@ -4,21 +4,30 @@ import styles from '@/styles/Home.module.css'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { firebaseClient } from '@/services/firebase/client'
 import { useEffect } from 'react'
+import { axiosClient } from '@/services/axios'
 
 const About: NextPageWithLayout = () => {
+  // useEffect(() => {
+  //   ;(async () => {
+  //     try {
+  //       const userCredential = await signInWithEmailAndPassword(
+  //         firebaseClient,
+  //         'hhehehe@gmail.com',
+  //         'asdsds'
+  //       )
+
+  //       console.log(userCredential)
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   })()
+  // }, [])
+
   useEffect(() => {
     ;(async () => {
-      try {
-        const userCredential = await signInWithEmailAndPassword(
-          firebaseClient,
-          'hhehehe@gmail.com',
-          'asdsds'
-        )
+      const res = await axiosClient.get('/timetables')
 
-        console.log(userCredential)
-      } catch (error) {
-        console.log(error)
-      }
+      console.log(res)
     })()
   }, [])
 
