@@ -8,12 +8,13 @@ import {
   User,
 } from 'firebase/auth'
 import { useEffect, useState } from 'react'
+import { Storage } from '@/types'
 
 export function useAuth() {
   const [user, setUser] = useState(firebaseClient.currentUser)
 
   useEffect(() => {
-    signInWithCustomToken(firebaseClient, localStorage.getItem('jwt') || '')
+    signInWithCustomToken(firebaseClient, String(localStorage.getItem(Storage.LocalStorageJwtKey)))
       .then((res) => setUser(res.user))
       .catch(() => setUser(null))
   }, [])
@@ -37,9 +38,9 @@ export function useAuth() {
     const { data: jwt } = await getCustomToken(String(await user?.getIdToken()))
 
     if (jwt === undefined) {
-      localStorage.removeItem('jwt')
+      localStorage.removeItem(Storage.LocalStorageJwtKey)
     } else {
-      localStorage.setItem('jwt', jwt)
+      localStorage.setItem(Storage.LocalStorageJwtKey, jwt)
     }
   }
 
