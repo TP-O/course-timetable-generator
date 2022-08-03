@@ -1,43 +1,26 @@
+import styles from '@/styles/Home.module.css'
 import { MainLayout } from '@/layouts'
 import { NextPageWithLayout } from '@/types'
-import styles from '@/styles/Home.module.css'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { firebaseClient } from '@/services/firebase/client'
-import { useEffect } from 'react'
-import { axiosClient } from '@/services/axios'
-import useSWR from 'swr'
+import { useAuth } from '@/hooks'
 
 const About: NextPageWithLayout = () => {
-  // useEffect(() => {
-  //   ;(async () => {
-  //     try {
-  //       const userCredential = await signInWithEmailAndPassword(
-  //         firebaseClient,
-  //         'hhehehe@gmail.com',
-  //         'asdsds'
-  //       )
+  const { user, signIn, signOut } = useAuth()
 
-  //       console.log(userCredential)
-  //     } catch (error) {
-  //       console.log(error)
-  //     }
-  //   })()
-  // }, [])
-
-  const { data, mutate } = useSWR('/timetables', {
-    dedupingInterval: 2000,
-  })
-
-  const c = () => {
-    mutate({ data: { name: 'aaaaaaaaaaaaaaaaaaaaaaaaaa' } }, true)
+  async function handleSignIn() {
+    try {
+      await signIn('hhehehe@gmail.com', 'asdsds')
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
     <div className={styles.container}>
       <h1>About page</h1>
-      {data?.data.name}
+      <p>Hello {user?.email}</p>
 
-      <button onClick={c}>aaa</button>
+      <button onClick={handleSignIn}>sign-in</button>
+      <button onClick={signOut}>sign-out</button>
     </div>
   )
 }
