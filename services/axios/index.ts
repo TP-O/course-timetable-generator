@@ -1,3 +1,4 @@
+import { LocalStorageKey } from '@/enums'
 import axios from 'axios'
 
 const axiosClient = axios.create({
@@ -9,9 +10,9 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
   function (config) {
-    const jwt = localStorage.getItem('jwt')
+    const jwt = localStorage.getItem(LocalStorageKey.JWT)
 
-    if (jwt !== undefined) {
+    if (jwt !== undefined && jwt !== '') {
       config.headers!.Authorization = `Bearer ${jwt}`
     }
 

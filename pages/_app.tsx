@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import '@/styles/globals.css'
 import { EmptyLayout } from '@/layouts'
 import { AppPropsWithLayout } from '@/types/layout'
 import { SWRConfig } from 'swr'

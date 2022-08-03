@@ -2,6 +2,7 @@ import styles from '@/styles/Home.module.css'
 import { MainLayout } from '@/layouts'
 import { NextPageWithLayout } from '@/types'
 import { useAuth } from '@/hooks'
+import Link from 'next/link'
 
 const About: NextPageWithLayout = () => {
   const { user, signIn, signOut } = useAuth()
@@ -21,6 +22,9 @@ const About: NextPageWithLayout = () => {
 
       <button onClick={handleSignIn}>sign-in</button>
       <button onClick={signOut}>sign-out</button>
+      <Link href="/">
+        <a>Home</a>
+      </Link>
     </div>
   )
 }

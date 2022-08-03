@@ -1,23 +1,26 @@
 import { firebaseClient } from '@/services/firebase/client'
-import { getCustomToken } from '@/services'
 import {
+  browserLocalPersistence,
   createUserWithEmailAndPassword,
-  signInWithCustomToken,
   signInWithEmailAndPassword,
   signOut as signOutFirebase,
   User,
 } from 'firebase/auth'
-import { useEffect, useState } from 'react'
-import { Storage } from '@/types'
+import useSWR from 'swr'
+import { LocalStorageKey, SwrKey, Time } from '@/enums'
 
 export function useAuth() {
-  const [user, setUser] = useState(firebaseClient.currentUser)
+  const { data: user, mutate } = useSWR(
+    SwrKey.JWT,
+    async () => {
+      await firebaseClient.setPersistence(browserLocalPersistence)
 
-  useEffect(() => {
-    signInWithCustomToken(firebaseClient, String(localStorage.getItem(Storage.LocalStorageJwtKey)))
-      .then((res) => setUser(res.user))
-      .catch(() => setUser(null))
-  }, [])
+      return firebaseClient.currentUser
+    },
+    {
+      dedupingInterval: Time.Hour,
+    }
+  )
 
   async function signUp(email: string, password: string) {
     const res = await createUserWithEmailAndPassword(firebaseClient, email, password)
@@ -30,17 +33,15 @@ export function useAuth() {
   }
 
   async function syncUser(user: User | null | undefined) {
+    mutate(user, false)
+
     if (user) {
-      setUser(user)
-    }
-
-    // Store custom token
-    const { data: jwt } = await getCustomToken(String(await user?.getIdToken()))
-
-    if (jwt === undefined) {
-      localStorage.removeItem(Storage.LocalStorageJwtKey)
+      // Store custom token
+      const jwt = await user.getIdToken()
+      localStorage.setItem(LocalStorageKey.JWT, jwt)
     } else {
-      localStorage.setItem(Storage.LocalStorageJwtKey, jwt)
+      // Remove token if user is null
+      localStorage.removeItem(LocalStorageKey.JWT)
     }
   }
 
