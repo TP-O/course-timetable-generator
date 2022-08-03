@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { firebaseClient } from '@/services/firebase/client'
 import { useEffect } from 'react'
 import { axiosClient } from '@/services/axios'
+import useSWR from 'swr'
 
 const About: NextPageWithLayout = () => {
   // useEffect(() => {
@@ -23,17 +24,20 @@ const About: NextPageWithLayout = () => {
   //   })()
   // }, [])
 
-  useEffect(() => {
-    ;(async () => {
-      const res = await axiosClient.get('/timetables')
+  const { data, mutate } = useSWR('/timetables', {
+    dedupingInterval: 2000,
+  })
 
-      console.log(res)
-    })()
-  }, [])
+  const c = () => {
+    mutate({ data: { name: 'aaaaaaaaaaaaaaaaaaaaaaaaaa' } }, true)
+  }
 
   return (
     <div className={styles.container}>
       <h1>About page</h1>
+      {data?.data.name}
+
+      <button onClick={c}>aaa</button>
     </div>
   )
 }
