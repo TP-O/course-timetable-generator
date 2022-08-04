@@ -3,6 +3,7 @@ import { MainLayout } from '@/layouts'
 import { NextPageWithLayout } from '@/types'
 import { useAuth } from '@/hooks'
 import Link from 'next/link'
+import { Button } from '@mui/material'
 
 const About: NextPageWithLayout = () => {
   const { user, signIn, signOut } = useAuth()
@@ -25,6 +26,9 @@ const About: NextPageWithLayout = () => {
       <Link href="/">
         <a>Home</a>
       </Link>
+      <Button variant="text">Text</Button>
+      <Button variant="contained">Contained</Button>
+      <Button variant="outlined">Outlined</Button>
     </div>
   )
 }
