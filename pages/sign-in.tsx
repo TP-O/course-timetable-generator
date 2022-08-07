@@ -1,10 +1,31 @@
+import { useAuth } from '@/hooks'
 import { EmptyLayout } from '@/layouts'
-import { NextPageWithLayout } from '@/types'
+import { NextPageWithLayout, SignInPayload } from '@/types'
 import { Facebook, GitHub, Google } from '@mui/icons-material'
-import { Avatar, Button, Divider, Paper, Stack, TextField, Typography } from '@mui/material'
+import { Alert, Avatar, Button, Divider, Paper, Stack, TextField, Typography } from '@mui/material'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { FormEvent, useState } from 'react'
 
 const Saved: NextPageWithLayout = () => {
+  const router = useRouter()
+  const { signIn } = useAuth()
+  const [error, setError] = useState('')
+  const [payload, setPayload] = useState<SignInPayload>({ email: '', password: '' })
+  const [loading, setLoading] = useState(false)
+
+  function handleSignIn(event: FormEvent) {
+    event.preventDefault()
+
+    setError('')
+    setLoading(true)
+
+    signIn(payload)
+      .then(() => router.push('/timetable'))
+      .catch(() => setError('Email or password are incorrect!'))
+      .finally(() => setLoading(false))
+  }
+
   return (
     <Paper
       elevation={3}
@@ -47,17 +68,49 @@ const Saved: NextPageWithLayout = () => {
         </Typography>
       </Stack>
 
-      <Stack spacing={4} sx={{ pt: 3 }}>
-        <TextField name="email" label="Email" placeholder="tpo@gmail.com" />
+      <Stack spacing={4} sx={{ pt: 3 }} component="form" onSubmit={handleSignIn}>
+        <TextField
+          name="email"
+          label="Email"
+          type="email"
+          required
+          placeholder="tpo@gmail.com"
+          onChange={(event) =>
+            setPayload((payload) => ({
+              ...payload,
+              email: event.target.value,
+            }))
+          }
+        />
 
-        <TextField name="password" label="Password" type="password" />
+        <TextField
+          name="password"
+          label="Password"
+          type="password"
+          required
+          onChange={(event) =>
+            setPayload((payload) => ({
+              ...payload,
+              password: event.target.value,
+            }))
+          }
+        />
+
+        {error !== '' && <Alert severity="error">{error}</Alert>}
 
         <Stack direction="row" justifyContent="space-between">
-          <Button sx={{ textTransform: 'none' }}>
-            <Link href="/sign-up">Create account</Link>
+          <Button tabIndex={-1} sx={{ textTransform: 'none' }}>
+            <Link href="/sign-up">
+              <span>Create account</span>
+            </Link>
           </Button>
 
-          <Button variant="contained" sx={{ textTransform: 'none' }}>
+          <Button
+            variant="contained"
+            type="submit"
+            disabled={loading}
+            sx={{ textTransform: 'none' }}
+          >
             Let&apos;s go
           </Button>
         </Stack>
