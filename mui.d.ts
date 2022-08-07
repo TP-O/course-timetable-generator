@@ -15,12 +15,20 @@ type SidebarPalette = {
   notificationButton: string
 }
 
+type AppBarPalette = {
+  background: string
+  text: string
+  hoveringText: string
+}
+
 declare module '@mui/material/styles' {
   interface Palette {
     sidebar?: SidebarPalette
+    appBar?: AppBarPalette
   }
 
   interface PaletteOptions {
     sidebar?: SidebarPalette
+    appBar?: AppBarPalette
   }
 }

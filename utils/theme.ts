@@ -25,5 +25,10 @@ export const theme = createTheme({
       notificationContent: 'rgba(255, 255, 255, 0.7)',
       notificationButton: '#669df6',
     },
+    appBar: {
+      background: '#1a73e8',
+      text: 'rgb(255, 255, 255)',
+      hoveringText: 'rgba(255, 255, 255, 0.8)',
+    },
   },
 })
