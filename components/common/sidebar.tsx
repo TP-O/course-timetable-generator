@@ -2,6 +2,7 @@ import { SidebarMenuItem } from '@/types'
 import {
   AddCircle,
   ArrowBackIos,
+  ArrowForwardIos,
   BarChart,
   Bookmark,
   GitHub,
@@ -15,6 +16,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  Collapse,
   Divider,
   Drawer,
   Link,
@@ -26,26 +28,9 @@ import {
   Typography,
 } from '@mui/material'
 import NextLink from 'next/link'
-import { memo, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export function Sidebar() {
-  // Toggle drawer
-  const [state, setState] = useState(true)
-
-  function toggle(open: boolean) {
-    return (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === 'keydown' &&
-        ((event as React.KeyboardEvent).key === 'Tab' ||
-          (event as React.KeyboardEvent).key === 'Shift')
-      ) {
-        return
-      }
-
-      setState(open)
-    }
-  }
-
   // Menu data
   const menuItems: SidebarMenuItem[] = [
     {
@@ -70,24 +55,41 @@ export function Sidebar() {
     },
   ]
 
+  // Toggle sidebar
+  const [showSidebar, setShowSidebar] = useState(false)
+
+  function toggle(hide: boolean) {
+    return (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event.type === 'keydown' &&
+        ((event as React.KeyboardEvent).key === 'Tab' ||
+          (event as React.KeyboardEvent).key === 'Shift')
+      ) {
+        return
+      }
+
+      setShowSidebar(hide)
+    }
+  }
+
   // Sidebar displayment
-  const maxWidthToShowDrawer = 918
-  const [shouldShowDrawer, setShouldShowDrawer] = useState(true)
+  const maxWidthToUseDrawer = 918
+  const [useDrawer, setUseDrawer] = useState(true)
 
   useEffect(() => {
-    if (window.innerWidth > maxWidthToShowDrawer) {
-      setShouldShowDrawer(false)
+    if (window.innerWidth > maxWidthToUseDrawer) {
+      setUseDrawer(false)
     }
   }, [])
 
   if (typeof window !== 'undefined') {
     window.onresize = () => {
-      if (!shouldShowDrawer && window.innerWidth <= 918) {
-        setShouldShowDrawer(true)
+      if (!useDrawer && window.innerWidth <= maxWidthToUseDrawer) {
+        setUseDrawer(true)
       }
 
-      if (shouldShowDrawer && window.innerWidth > 918) {
-        setShouldShowDrawer(false)
+      if (useDrawer && window.innerWidth > maxWidthToUseDrawer) {
+        setUseDrawer(false)
       }
     }
   }
@@ -98,6 +100,7 @@ export function Sidebar() {
         width: 256,
         minHeight: '100vh',
         backgroundColor: 'sidebar.background',
+        transition: 'width',
       }}
     >
       <Stack
@@ -116,20 +119,22 @@ export function Sidebar() {
           sx={{ width: 28, height: 28 }}
         />
 
-        <Typography
-          variant="h6"
-          component="h1"
-          sx={{ color: 'sidebar.header', fontWeight: 500, pt: 0.5 }}
-        >
-          CT Generator
-        </Typography>
+        {showSidebar && (
+          <Typography
+            variant="h6"
+            component="h1"
+            sx={{ color: 'sidebar.header', fontWeight: 500, pt: 0.5 }}
+          >
+            CT Generator
+          </Typography>
+        )}
       </Stack>
 
       <Divider sx={{ borderColor: 'sidebar.divider' }} />
 
       <Box
         sx={{
-          flexGrow: 1,
+          flexGrow: showSidebar ? 1 : 0,
           backgroundImage:
             'url("https://www.gstatic.com/mobilesdk/190424_mobilesdk/nav_nachos@2x.png")',
         }}
@@ -150,33 +155,44 @@ export function Sidebar() {
           >
             <TableView fontSize="medium" sx={{ color: 'sidebar.itemTitle' }} />
 
-            <Typography
-              variant="subtitle2"
-              component="div"
-              sx={{ flexGrow: 1, color: 'sidebar.itemTitle' }}
-            >
-              Course Timetable
-            </Typography>
+            {showSidebar && (
+              <Typography
+                variant="subtitle2"
+                component="div"
+                sx={{ flexGrow: 1, color: 'sidebar.itemTitle' }}
+              >
+                Course Timetable
+              </Typography>
+            )}
           </Stack>
         </NextLink>
 
         <Divider sx={{ borderColor: 'sidebar.divider' }} />
 
-        <Box sx={{ px: 3, pt: 2.25, pb: 2.5 }}>
-          <Typography variant="caption" component="div" sx={{ color: 'sidebar.listHeader' }}>
-            Categories
-          </Typography>
-        </Box>
+        {showSidebar && (
+          <Box sx={{ px: 3, pt: 2.25, pb: 2.5 }}>
+            <Typography variant="caption" component="div" sx={{ color: 'sidebar.listHeader' }}>
+              Categories
+            </Typography>
+          </Box>
+        )}
 
-        <MenuList sx={{ color: 'sidebar.itemTitle', px: 1.25, py: 0 }}>
+        <MenuList
+          sx={{
+            color: 'sidebar.itemTitle',
+            px: showSidebar ? 1.25 : 0,
+            py: 0,
+          }}
+        >
           {menuItems.map((item, i) => (
             <NextLink href={item.href} key={i}>
               <MenuItem
                 sx={{
-                  px: 1.25,
+                  px: showSidebar ? 1.25 : 2.5,
                   py: 1.75,
                   mb: 0.25,
-                  backgroundColor: 'sidebar.wrapperBackground',
+                  backgroundColor: showSidebar ? 'sidebar.wrapperBackground' : 'transparent',
+                  transition: 'background-color',
                   ':hover': {
                     color: 'sidebar.hoveringItemTitle',
                     backgroundColor: 'sidebar.hoveringWrapperBackground',
@@ -190,73 +206,71 @@ export function Sidebar() {
                   <item.Icon fontSize="medium" sx={{ color: 'sidebar.itemTitle' }} />
                 </ListItemIcon>
 
-                <ListItemText
-                  disableTypography
-                  primary={
-                    <Typography variant="body2" component="span" fontWeight={500}>
-                      {item.title}
-                    </Typography>
-                  }
-                />
+                {showSidebar && (
+                  <ListItemText
+                    disableTypography
+                    primary={
+                      <Typography variant="body2" component="span" fontWeight={500}>
+                        {item.title}
+                      </Typography>
+                    }
+                  />
+                )}
               </MenuItem>
             </NextLink>
           ))}
         </MenuList>
 
-        <Card
-          sx={{
-            maxWidth: 345,
-            mx: 1.25,
-            my: 3.5,
-            backgroundColor: 'sidebar.wrapperBackground',
-          }}
-        >
-          <CardContent>
-            <Typography
-              variant="body2"
-              component="div"
-              sx={{
-                color: 'sidebar.header',
-                fontWeight: 500,
-                mb: 1.5,
-              }}
-            >
-              Lizard
-            </Typography>
+        {showSidebar && (
+          <Card
+            sx={{
+              maxWidth: 345,
+              mx: 1.25,
+              my: 3.5,
+              backgroundColor: 'sidebar.wrapperBackground',
+            }}
+          >
+            <CardContent>
+              <Typography
+                variant="body2"
+                component="div"
+                sx={{
+                  color: 'sidebar.header',
+                  fontWeight: 500,
+                  mb: 1.5,
+                }}
+              >
+                Lizard
+              </Typography>
 
-            <Typography
-              component="div"
-              color="sidebar.notificationContent"
-              sx={{ fontSize: 13, fontWeight: 500, lineHeight: '20px' }}
-            >
-              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-              across all continents except Antarctica
-            </Typography>
-          </CardContent>
+              <Typography
+                component="div"
+                color="sidebar.notificationContent"
+                sx={{ fontSize: 13, fontWeight: 500, lineHeight: '20px' }}
+              >
+                Lizards are a widespread group of squamate reptiles, with over 6,000 species,
+                ranging across all continents except Antarctica
+              </Typography>
+            </CardContent>
 
-          <CardActions>
-            <Button size="small" sx={{ color: 'sidebar.notificationButton' }}>
-              Contribute
-            </Button>
-          </CardActions>
-        </Card>
+            <CardActions>
+              <Button size="small" sx={{ color: 'sidebar.notificationButton' }}>
+                Contribute
+              </Button>
+            </CardActions>
+          </Card>
+        )}
       </Box>
 
-      <Stack
-        direction="row"
-        sx={{
-          justifyContent: 'space-between',
-          height: 44,
-          pl: 3,
-        }}
-      >
+      <Stack direction={showSidebar ? 'row' : 'column'} height={showSidebar ? 44 : 125}>
         <Link
           href="https://github.com/utpop/course-timetable-generator"
           target="_blank"
           sx={{
             display: 'flex',
+            flexGrow: showSidebar ? 0 : 1,
             alignItems: 'center',
-            px: 1,
+            px: 2.5,
             ':hover': {
               backgroundColor: 'sidebar.hoveringWrapperBackground',
               '.MuiSvgIcon-root': {
@@ -268,11 +282,13 @@ export function Sidebar() {
           <GitHub fontSize="small" sx={{ color: 'sidebar.itemTitle' }} />
         </Link>
 
+        {!showSidebar && <Divider sx={{ borderColor: 'sidebar.divider' }} />}
+
         <Button
           sx={{
             flexGrow: 1,
-            justifyContent: 'end',
-            px: 3,
+            justifyContent: showSidebar ? 'end' : 'start',
+            px: 2.5,
             py: 1.25,
             ':hover': {
               backgroundColor: 'sidebar.hoveringWrapperBackground',
@@ -281,26 +297,35 @@ export function Sidebar() {
               },
             },
           }}
-          onClick={toggle(false)}
+          onClick={showSidebar ? toggle(false) : toggle(true)}
         >
-          <ArrowBackIos fontSize="small" sx={{ color: 'sidebar.itemTitle' }} />
+          {showSidebar ? (
+            <ArrowBackIos fontSize="small" sx={{ color: 'sidebar.itemTitle' }} />
+          ) : (
+            <ArrowForwardIos fontSize="small" sx={{ color: 'sidebar.itemTitle' }} />
+          )}
         </Button>
       </Stack>
     </Stack>
   )
 
-  return !shouldShowDrawer ? (
-    <Sidebar />
-  ) : (
-    <Drawer
-      anchor="left"
-      open={state}
-      ModalProps={{
-        keepMounted: true,
-      }}
-      onClose={toggle(false)}
-    >
+  return !useDrawer ? (
+    <Collapse orientation="horizontal" in={showSidebar} collapsedSize={68}>
       <Sidebar />
-    </Drawer>
+    </Collapse>
+  ) : (
+    <>
+      <Button onClick={toggle(true)}>Open</Button>
+      <Drawer
+        anchor="left"
+        open={showSidebar}
+        ModalProps={{
+          keepMounted: true,
+        }}
+        onClose={toggle(false)}
+      >
+        <Sidebar />
+      </Drawer>
+    </>
   )
 }
