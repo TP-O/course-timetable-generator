@@ -5,16 +5,18 @@ import { Box } from '@mui/system'
 
 export function MainLayout({ children }: LayoutProps) {
   return (
-    <Stack minHeight="100vh">
-      <Header />
-
+    <Stack direction="row" minHeight="100vh">
       <Sidebar />
 
-      <Box component="main" flexGrow={1}>
-        {children}
-      </Box>
+      <Stack flexGrow={1} minHeight="100vh">
+        <Header />
 
-      <Footer />
+        <Box component="main" flexGrow={1}>
+          {children}
+        </Box>
+
+        <Footer />
+      </Stack>
     </Stack>
   )
 }
