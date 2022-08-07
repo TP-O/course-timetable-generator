@@ -6,6 +6,7 @@ import {
   BarChart,
   Bookmark,
   GitHub,
+  Menu,
   TableView,
   Terminal,
 } from '@mui/icons-material'
@@ -19,6 +20,7 @@ import {
   Collapse,
   Divider,
   Drawer,
+  IconButton,
   Link,
   ListItemIcon,
   ListItemText,
@@ -58,7 +60,7 @@ export function Sidebar() {
   // Toggle sidebar
   const [showSidebar, setShowSidebar] = useState(false)
 
-  function toggle(hide: boolean) {
+  function toggle(show: boolean) {
     return (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
         event.type === 'keydown' &&
@@ -68,7 +70,7 @@ export function Sidebar() {
         return
       }
 
-      setShowSidebar(hide)
+      setShowSidebar(show)
     }
   }
 
@@ -192,6 +194,10 @@ export function Sidebar() {
                   py: 1.75,
                   mb: 0.25,
                   backgroundColor: showSidebar ? 'sidebar.wrapperBackground' : 'transparent',
+                  borderTopRightRadius: i === 0 ? 8 : 0,
+                  borderTopLeftRadius: i === 0 ? 8 : 0,
+                  borderBottomLeftRadius: i === menuItems.length - 1 ? 8 : 0,
+                  borderBottomRightRadius: i === menuItems.length - 1 ? 8 : 0,
                   transition: 'background-color',
                   ':hover': {
                     color: 'sidebar.hoveringItemTitle',
@@ -228,6 +234,7 @@ export function Sidebar() {
               mx: 1.25,
               my: 3.5,
               backgroundColor: 'sidebar.wrapperBackground',
+              borderRadius: '8px',
             }}
           >
             <CardContent>
@@ -314,8 +321,22 @@ export function Sidebar() {
       <Sidebar />
     </Collapse>
   ) : (
-    <>
-      <Button onClick={toggle(true)}>Open</Button>
+    <Box>
+      <Box
+        sx={{
+          position: 'fixed',
+          top: '10%',
+          left: 0,
+          backgroundColor: 'sidebar.background',
+          borderTopRightRadius: 8,
+          borderBottomRightRadius: 8,
+        }}
+      >
+        <IconButton sx={{ py: 0 }} onClick={toggle(true)}>
+          <Menu sx={{ color: 'sidebar.itemTitle' }} />
+        </IconButton>
+      </Box>
+
       <Drawer
         anchor="left"
         open={showSidebar}
@@ -326,6 +347,6 @@ export function Sidebar() {
       >
         <Sidebar />
       </Drawer>
-    </>
+    </Box>
   )
 }
