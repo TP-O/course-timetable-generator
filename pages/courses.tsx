@@ -1,4 +1,5 @@
 import { MainLayout } from '@/layouts'
+import { searchCoursesByName } from '@/services'
 import {
   Course,
   CourseTableColumn,
@@ -40,64 +41,6 @@ const Courses: NextPageWithLayout = () => {
     return { id, label }
   }
 
-  const courses: Course[] = [
-    {
-      id: 'IT120IU',
-      name: 'AEntrepreneurship',
-      credit: 3,
-      classId: 'ITIT19CS2',
-      capacity: 90,
-      classes: [
-        {
-          day: 3,
-          beginPeriod: 7,
-          periods: 3,
-          room: 'A2.401',
-          lecturers: [],
-        },
-      ],
-    },
-    {
-      id: 'PH014IU',
-      name: 'BPhysics 2',
-      credit: 2,
-      classId: 'IELS22IU41',
-      capacity: 120,
-      classes: [
-        {
-          day: 1,
-          beginPeriod: 7,
-          periods: 3,
-          room: 'A2.205',
-          lecturers: ['P.B.Ngoc'],
-        },
-      ],
-    },
-    {
-      id: 'IT120IU',
-      name: 'CObject-Oriented Programming',
-      credit: 4,
-      classId: 'ITIT20CS02',
-      capacity: 60,
-      classes: [
-        {
-          day: 3,
-          beginPeriod: 1,
-          periods: 4,
-          room: 'LA1.301',
-          lecturers: ['T.T.Tung'],
-        },
-        {
-          day: 4,
-          beginPeriod: 7,
-          periods: 3,
-          room: 'A2.401',
-          lecturers: ['T.T.Tung'],
-        },
-      ],
-    },
-  ]
-
   // Sorting
   const [sorting, setSorting] = useState<Sorting<CourseTableColumnId>>({
     by: 'name',
@@ -127,23 +70,11 @@ const Courses: NextPageWithLayout = () => {
   const [keyword, setKeyword] = useState('')
 
   function handleSearching(event: ChangeEvent<HTMLInputElement>) {
-    console.log(event.target.value)
-
     setKeyword(event.target.value)
   }
 
-  function searchCourses(courses: Course[], keyword: string) {
-    if (keyword === '' || keyword === undefined) {
-      return courses
-    }
-
-    courses.filter(
-      (course) => course.name.toLocaleLowerCase().search(keyword.toLocaleLowerCase()) >= 0
-    )
-  }
-
   // Course data
-  const displayedCourses = searchCourses(sortCourses(courses), keyword)
+  const displayedCourses = sortCourses(searchCoursesByName(keyword))
 
   return (
     <Box sx={{ maxWidth: '100vw', px: 2, py: 5 }}>
@@ -183,7 +114,7 @@ const Courses: NextPageWithLayout = () => {
           </TableHead>
 
           <TableBody>
-            {displayedCourses?.map((courses, i) => (
+            {displayedCourses.map((courses, i) => (
               <TableRow key={i}>
                 <TableCell component="th" scope="row">
                   {courses.id}
