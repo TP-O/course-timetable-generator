@@ -1,3 +1,5 @@
 export * from './time'
 export * from './swr'
 export * from './storage'
+export * from './error'
+export * from './url'

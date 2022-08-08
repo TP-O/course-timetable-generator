@@ -1,3 +1,4 @@
+import { Url } from '@/enums'
 import { useAuth } from '@/hooks'
 import { EmptyLayout } from '@/layouts'
 import { NextPageWithLayout, SignInPayload } from '@/types'
@@ -7,22 +8,22 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FormEvent, useState } from 'react'
 
-const Saved: NextPageWithLayout = () => {
+const SignIn: NextPageWithLayout = () => {
   const router = useRouter()
   const { signIn } = useAuth()
-  const [error, setError] = useState('')
+  const [systemError, setSystemError] = useState('')
   const [payload, setPayload] = useState<SignInPayload>({ email: '', password: '' })
   const [loading, setLoading] = useState(false)
 
   function handleSignIn(event: FormEvent) {
     event.preventDefault()
 
-    setError('')
+    setSystemError('')
     setLoading(true)
 
     signIn(payload)
-      .then(() => router.push('/timetable'))
-      .catch(() => setError('Email or password are incorrect!'))
+      .then(() => router.push(Url.Main))
+      .catch(() => setSystemError('Email or password are incorrect!'))
       .finally(() => setLoading(false))
   }
 
@@ -96,11 +97,11 @@ const Saved: NextPageWithLayout = () => {
           }
         />
 
-        {error !== '' && <Alert severity="error">{error}</Alert>}
+        {systemError !== '' && <Alert severity="error">{systemError}</Alert>}
 
         <Stack direction="row" justifyContent="space-between">
           <Button tabIndex={-1} sx={{ textTransform: 'none' }}>
-            <Link href="/sign-up">
+            <Link href={Url.SignUp}>
               <span>Create account</span>
             </Link>
           </Button>
@@ -135,6 +136,6 @@ const Saved: NextPageWithLayout = () => {
   )
 }
 
-Saved.Layout = EmptyLayout
+SignIn.Layout = EmptyLayout
 
-export default Saved
+export default SignIn

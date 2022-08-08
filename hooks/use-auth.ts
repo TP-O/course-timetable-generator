@@ -8,7 +8,7 @@ import {
 } from 'firebase/auth'
 import useSWR from 'swr'
 import { LocalStorageKey, SwrKey, Time } from '@/enums'
-import { SignInPayload } from '@/types'
+import { SignInPayload, SignUpPayload } from '@/types'
 
 export function useAuth() {
   const { data: user, mutate } = useSWR(
@@ -23,8 +23,12 @@ export function useAuth() {
     }
   )
 
-  async function signUp(email: string, password: string) {
-    const res = await createUserWithEmailAndPassword(firebaseClient, email, password)
+  async function signUp(payload: SignUpPayload) {
+    const res = await createUserWithEmailAndPassword(
+      firebaseClient,
+      payload.email,
+      payload.password
+    )
     await syncUser(res.user)
   }
 
