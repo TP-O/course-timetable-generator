@@ -1,3 +1,4 @@
+import { Url } from '@/enums'
 import { SidebarMenuItem } from '@/types'
 import {
   AddCircle,
@@ -105,32 +106,35 @@ export function Sidebar() {
         transition: 'width',
       }}
     >
-      <Stack
-        direction="row"
-        spacing={1}
-        sx={{
-          alignItems: 'center',
-          height: 48,
-          px: 2.5,
-        }}
-      >
-        <Avatar
-          alt="ctg-logo"
-          src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png"
-          variant="square"
-          sx={{ width: 28, height: 28 }}
-        />
+      <NextLink href="/">
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{
+            alignItems: 'center',
+            height: 48,
+            px: 2.5,
+            cursor: 'pointer',
+          }}
+        >
+          <Avatar
+            alt="ctg-logo"
+            src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png"
+            variant="square"
+            sx={{ width: 28, height: 28 }}
+          />
 
-        {showSidebar && (
-          <Typography
-            variant="h6"
-            component="h1"
-            sx={{ color: 'sidebar.header', fontWeight: 500, pt: 0.5 }}
-          >
-            CT Generator
-          </Typography>
-        )}
-      </Stack>
+          {showSidebar && (
+            <Typography
+              variant="h6"
+              component="h1"
+              sx={{ color: 'sidebar.header', fontWeight: 500, pt: 0.5 }}
+            >
+              CT Generator
+            </Typography>
+          )}
+        </Stack>
+      </NextLink>
 
       <Divider sx={{ borderColor: 'sidebar.divider' }} />
 
@@ -141,7 +145,7 @@ export function Sidebar() {
             'url("https://www.gstatic.com/mobilesdk/190424_mobilesdk/nav_nachos@2x.png")',
         }}
       >
-        <NextLink href="/">
+        <NextLink href={Url.Main}>
           <Stack
             direction="row"
             spacing={2}
