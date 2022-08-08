@@ -167,7 +167,7 @@ export function Sidebar() {
                 component="div"
                 sx={{ flexGrow: 1, color: 'sidebar.itemTitle' }}
               >
-                Course Timetable
+                Course Filter
               </Typography>
             )}
           </Stack>
@@ -321,7 +321,12 @@ export function Sidebar() {
   )
 
   return !useDrawer ? (
-    <Collapse orientation="horizontal" in={showSidebar} collapsedSize={68}>
+    <Collapse
+      orientation="horizontal"
+      in={showSidebar}
+      collapsedSize={68}
+      sx={{ position: 'sticky', top: 0, alignSelf: 'flex-start' }}
+    >
       <Sidebar />
     </Collapse>
   ) : (
