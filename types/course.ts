@@ -10,7 +10,7 @@ export type Course = {
 type Class = {
   day: DayOfWeek
   room: string
-  beginPeriod: number
+  begin: number
   periods: number
   lecturers: string[]
 }
@@ -22,4 +22,5 @@ export type CourseTableColumnId = keyof Omit<Course, 'classes'> | keyof Class
 export type CourseTableColumn = {
   id: CourseTableColumnId
   label: string
+  isSortable: boolean
 }

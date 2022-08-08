@@ -7,6 +7,7 @@ import {
   NextPageWithLayout,
   Sorting,
 } from '@/types'
+import { convertToDayOfWeek } from '@/utils'
 import {
   Box,
   Paper,
@@ -19,26 +20,29 @@ import {
   TableSortLabel,
   TextField,
 } from '@mui/material'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, Fragment, useState } from 'react'
 
 const Courses: NextPageWithLayout = () => {
+  // Perpare data
+  const sortableColumnIds: CourseTableColumnId[] = ['id', 'name', 'capacity', 'classId', 'credit']
   const columns: readonly CourseTableColumn[] = [
     createColumn('id'),
     createColumn('name'),
     createColumn('credit'),
     createColumn('classId'),
     createColumn('capacity'),
-    // createColumn('day'),
-    // createColumn('beginPeriod'),
-    // createColumn('periods'),
-    // createColumn('room'),
-    // createColumn('lecturers'),
+    createColumn('day'),
+    createColumn('begin'),
+    createColumn('periods'),
+    createColumn('room'),
+    createColumn('lecturers'),
   ]
 
   function createColumn(id: CourseTableColumnId): CourseTableColumn {
     const label = id[0].toUpperCase() + id.slice(1)
+    const isSortable = sortableColumnIds.includes(id)
 
-    return { id, label }
+    return { id, label, isSortable }
   }
 
   // Sorting
@@ -46,11 +50,6 @@ const Courses: NextPageWithLayout = () => {
     by: 'name',
     direction: 'asc',
   })
-  const sortableColumnIds: CourseTableColumnId[] = ['id', 'name', 'capacity', 'classId', 'credit']
-
-  function isSortableColumn(id: any) {
-    return sortableColumnIds.includes(id)
-  }
 
   function handleSorting(id: CourseTableColumnId) {
     const isAsc = id === sorting.by && sorting.direction === 'asc'
@@ -73,7 +72,7 @@ const Courses: NextPageWithLayout = () => {
     setKeyword(event.target.value)
   }
 
-  // Course data
+  // Displayment
   const displayedCourses = sortCourses(searchCoursesByName(keyword))
 
   return (
@@ -81,7 +80,16 @@ const Courses: NextPageWithLayout = () => {
       <TextField label="Course name" size="small" variant="outlined" onChange={handleSearching} />
 
       <TableContainer component={Paper} elevation={4} sx={{ height: 448 }}>
-        <Table stickyHeader sx={{ minWidth: 650, mx: 'auto' }}>
+        <Table
+          stickyHeader
+          sx={{
+            minWidth: 650,
+            mx: 'auto',
+            'th,td': {
+              textAlign: 'center',
+            },
+          }}
+        >
           <TableHead
             sx={{
               backgroundColor: 'table.headerBackground',
@@ -90,14 +98,13 @@ const Courses: NextPageWithLayout = () => {
             <TableRow>
               {columns.map((column, i) => (
                 <TableCell
-                  align="center"
                   key={i}
                   sortDirection={sorting.by === column.id ? sorting.direction : false}
                   sx={{
                     color: 'table.headerText',
                   }}
                 >
-                  {isSortableColumn(column.id) ? (
+                  {column.isSortable ? (
                     <TableSortLabel
                       active={column.id === sorting.by}
                       direction={sorting.by === column.id ? sorting.direction : 'asc'}
@@ -114,16 +121,33 @@ const Courses: NextPageWithLayout = () => {
           </TableHead>
 
           <TableBody>
-            {displayedCourses.map((courses, i) => (
-              <TableRow key={i}>
-                <TableCell component="th" scope="row">
-                  {courses.id}
-                </TableCell>
-                <TableCell align="right">{courses.name}</TableCell>
-                <TableCell align="right">{courses.credit}</TableCell>
-                <TableCell align="right">{courses.classId}</TableCell>
-                <TableCell align="right">{courses.capacity}</TableCell>
-              </TableRow>
+            {displayedCourses.map((course) => (
+              <Fragment key={course.id + course.classId}>
+                <TableRow>
+                  <TableCell component="th" scope="row" rowSpan={course.classes.length + 1}>
+                    {course.id}
+                  </TableCell>
+                  <TableCell
+                    rowSpan={course.classes.length + 1}
+                    sx={{ textAlign: 'left !important' }}
+                  >
+                    {course.name}
+                  </TableCell>
+                  <TableCell rowSpan={course.classes.length + 1}>{course.credit}</TableCell>
+                  <TableCell rowSpan={course.classes.length + 1}>{course.classId}</TableCell>
+                  <TableCell rowSpan={course.classes.length + 1}>{course.capacity}</TableCell>
+                </TableRow>
+
+                {course.classes.map((classs, i) => (
+                  <TableRow key={course.id + course.classId + i}>
+                    <TableCell>{convertToDayOfWeek(classs.day)}</TableCell>
+                    <TableCell>{classs.begin}</TableCell>
+                    <TableCell>{classs.periods}</TableCell>
+                    <TableCell>{classs.room}</TableCell>
+                    <TableCell>{classs.lecturers.join(', ')}</TableCell>
+                  </TableRow>
+                ))}
+              </Fragment>
             ))}
           </TableBody>
         </Table>

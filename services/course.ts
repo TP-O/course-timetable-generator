@@ -11,7 +11,7 @@ const courses: Course[] = [
     classes: [
       {
         day: 3,
-        beginPeriod: 7,
+        begin: 7,
         periods: 3,
         room: 'A2.401',
         lecturers: [],
@@ -27,7 +27,7 @@ const courses: Course[] = [
     classes: [
       {
         day: 1,
-        beginPeriod: 7,
+        begin: 7,
         periods: 3,
         room: 'A2.205',
         lecturers: ['P.B.Ngoc'],
@@ -43,14 +43,14 @@ const courses: Course[] = [
     classes: [
       {
         day: 3,
-        beginPeriod: 1,
+        begin: 1,
         periods: 4,
         room: 'LA1.301',
         lecturers: ['T.T.Tung'],
       },
       {
         day: 4,
-        beginPeriod: 7,
+        begin: 7,
         periods: 3,
         room: 'A2.401',
         lecturers: ['T.T.Tung'],
