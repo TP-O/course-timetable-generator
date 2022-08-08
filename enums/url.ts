@@ -1,5 +1,5 @@
 export enum Url {
-  Main = '/timetable',
+  Main = '/courses',
   SignIn = '/sign-in',
   SignUp = '/sign-up',
 }

@@ -21,14 +21,21 @@ type AppBarPalette = {
   hoveringText: string
 }
 
+type TablePalette = {
+  headerBackground: string
+  headerText: string
+}
+
 declare module '@mui/material/styles' {
   interface Palette {
     sidebar?: SidebarPalette
     appBar?: AppBarPalette
+    table?: TablePalette
   }
 
   interface PaletteOptions {
     sidebar?: SidebarPalette
     appBar?: AppBarPalette
+    table?: TablePalette
   }
 }

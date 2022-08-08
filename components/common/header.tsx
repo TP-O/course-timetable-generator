@@ -21,7 +21,7 @@ export function Header() {
   const [appBarTitle, setAppBarTitle] = useState('App Bar')
 
   useEffect(() => {
-    const title = router.pathname.substring(1)
+    const title = router.pathname.slice(1)
 
     setAppBarTitle(title)
   }, [router.pathname])

@@ -30,5 +30,9 @@ export const theme = createTheme({
       text: 'rgb(255, 255, 255)',
       hoveringText: 'rgba(255, 255, 255, 0.8)',
     },
+    table: {
+      headerBackground: '#ffffff',
+      headerText: '#000000',
+    },
   },
 })
