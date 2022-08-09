@@ -1,7 +1,6 @@
 import { useAuth } from '@/hooks'
 import { EmptyLayout } from '@/layouts'
 import { NextPageWithLayout, SignUpPayload } from '@/types'
-import { Facebook, GitHub, Google } from '@mui/icons-material'
 import {
   Alert,
   Avatar,
@@ -19,6 +18,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { classValidatorResolver } from '@hookform/resolvers/class-validator'
 import { FirebaseErrorTag, Url } from '@/enums'
+import { OAuthList } from '@/components/auth'
 
 const SignUp: NextPageWithLayout = () => {
   const router = useRouter()
@@ -137,19 +137,7 @@ const SignUp: NextPageWithLayout = () => {
 
         <Divider sx={{ my: 2 }}>Or</Divider>
 
-        <Stack direction="row" justifyContent="space-around">
-          <Button variant="outlined">
-            <Google />
-          </Button>
-
-          <Button variant="outlined">
-            <Facebook />
-          </Button>
-
-          <Button variant="outlined">
-            <GitHub />
-          </Button>
-        </Stack>
+        <OAuthList />
       </Box>
 
       <Stack sx={{ pl: 6, justifyContent: 'center' }}>

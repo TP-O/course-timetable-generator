@@ -1,8 +1,8 @@
+import { OAuthList } from '@/components/auth'
 import { Url } from '@/enums'
 import { useAuth } from '@/hooks'
 import { EmptyLayout } from '@/layouts'
 import { NextPageWithLayout, SignInPayload } from '@/types'
-import { Facebook, GitHub, Google } from '@mui/icons-material'
 import { Alert, Avatar, Button, Divider, Paper, Stack, TextField, Typography } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -119,19 +119,7 @@ const SignIn: NextPageWithLayout = () => {
 
       <Divider sx={{ my: 2 }}>Or</Divider>
 
-      <Stack direction="row" justifyContent="space-around">
-        <Button variant="outlined">
-          <Google />
-        </Button>
-
-        <Button variant="outlined">
-          <Facebook />
-        </Button>
-
-        <Button variant="outlined">
-          <GitHub />
-        </Button>
-      </Stack>
+      <OAuthList />
     </Paper>
   )
 }
