@@ -1,8 +1,9 @@
-import { Course } from '@/types'
+import { Course, CourseFilter } from '@/types'
 import { matchSorter } from 'match-sorter'
 
 const courses: Course[] = [
   {
+    code: 'cc',
     id: 'IT120IU',
     name: 'Entrepreneurship',
     credit: 3,
@@ -59,8 +60,23 @@ const courses: Course[] = [
   },
 ]
 
-export function searchCoursesByName(keyword: string) {
-  return matchSorter(courses, keyword, {
+const faculties: Record<string, string[]> = {
+  IU: ['IT', 'BA', 'EE', 'CC'],
+  HCMUS: ['NN', 'AA', 'EE'],
+}
+
+const universities = ['IU', 'HCMUS']
+
+export function searchCoursesByName(filter: CourseFilter) {
+  return matchSorter(courses, String(filter.keyword), {
     keys: ['name'],
   })
+}
+
+export function getFacultiesOfUniversity(university: string) {
+  return faculties[university] ?? []
+}
+
+export function getUniversities() {
+  return universities
 }

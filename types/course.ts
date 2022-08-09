@@ -1,4 +1,5 @@
 export type Course = {
+  code?: string
   id: string
   name: string
   credit: number
@@ -23,4 +24,10 @@ export type CourseTableColumn = {
   id: CourseTableColumnId
   label: string
   isSortable: boolean
+}
+
+export type CourseFilter = {
+  keyword?: string
+  university?: string
+  faculty?: string
 }

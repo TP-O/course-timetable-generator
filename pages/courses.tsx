@@ -1,18 +1,26 @@
 import { MainLayout } from '@/layouts'
-import { searchCoursesByName } from '@/services'
+import { getFacultiesOfUniversity, getUniversities, searchCoursesByName } from '@/services'
 import {
+  CopyStatus,
   Course,
+  CourseFilter,
   CourseTableColumn,
   CourseTableColumnId,
   NextPageWithLayout,
   Sorting,
 } from '@/types'
 import { convertToDayOfWeek } from '@/utils'
-import { Delete, FilterList } from '@mui/icons-material'
+import { ContentCopy } from '@mui/icons-material'
 import {
-  Box,
+  Alert,
+  FormControl,
   IconButton,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
+  SelectChangeEvent,
+  Snackbar,
   Stack,
   Table,
   TableBody,
@@ -22,9 +30,6 @@ import {
   TableRow,
   TableSortLabel,
   TextField,
-  Toolbar,
-  Tooltip,
-  Typography,
 } from '@mui/material'
 import { ChangeEvent, Fragment, useState } from 'react'
 
@@ -51,6 +56,9 @@ const Courses: NextPageWithLayout = () => {
     return { id, label, isSortable }
   }
 
+  const university = getUniversities()
+  const faculties = getFacultiesOfUniversity('IU')
+
   // Sorting
   const [sorting, setSorting] = useState<Sorting<CourseTableColumnId>>({
     by: 'name',
@@ -72,58 +80,108 @@ const Courses: NextPageWithLayout = () => {
   }
 
   // Searching
-  const [keyword, setKeyword] = useState('')
+  const [filter, setFilter] = useState<CourseFilter>({
+    keyword: '',
+    university: 'IU',
+    faculty: 'IT',
+  })
 
-  function handleSearching(event: ChangeEvent<HTMLInputElement>) {
-    setKeyword(event.target.value)
+  function handleSearching(
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent
+  ) {
+    setFilter((filter) => ({ ...filter, [event.target.name]: event.target.value }))
   }
 
-  // Displayment
-  const displayedCourses = sortCourses(searchCoursesByName(keyword))
+  // Copy course code
+  const [showSnackbar, setShowSnackbar] = useState(false)
+  const [copyStatus, setCopyStatus] = useState<CopyStatus>({
+    message: '',
+    status: 'success',
+  })
+
+  function handleCloseSnackbar() {
+    setShowSnackbar(false)
+  }
+
+  function handleShowSnackbar(message: string, success = true) {
+    setCopyStatus({ message, status: success ? 'success' : 'error' })
+    setShowSnackbar(true)
+  }
+
+  async function writeCodeToClipboard(code: string) {
+    try {
+      await navigator.clipboard.writeText(code)
+
+      handleShowSnackbar('Copied!')
+    } catch {
+      handleShowSnackbar('Unable to copy :(')
+    }
+  }
+
+  // Dynamic daya
+  const displayedCourses = sortCourses(searchCoursesByName(filter))
+  const hasCode = displayedCourses[0]?.code !== undefined
 
   return (
-    <Stack sx={{ px: 2, py: 5 }}>
-      <>
-        <Toolbar
-          sx={{
-            pl: { sm: 2 },
-            pr: { xs: 1, sm: 1 },
-            ...(0 > 0 && {
-              bgcolor: 'red',
-            }),
-          }}
-        >
-          {0 > 0 ? (
-            <Typography
-              sx={{ flex: '1 1 100%' }}
-              color="inherit"
-              variant="subtitle1"
-              component="div"
-            >
-              {0} selected
-            </Typography>
-          ) : (
-            <Typography sx={{ flex: '1 1 100%' }} variant="h6" id="tableTitle" component="div">
-              Nutrition
-            </Typography>
-          )}
-          {0 > 0 ? (
-            <Tooltip title="Delete">
-              <IconButton>
-                <Delete />
-              </IconButton>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Filter list">
-              <IconButton>
-                <FilterList />
-              </IconButton>
-            </Tooltip>
-          )}
-        </Toolbar>
-        <TextField label="Course name" size="small" variant="outlined" onChange={handleSearching} />
-      </>
+    <Stack spacing={3} sx={{ px: 2, py: 5 }}>
+      {/* Searching */}
+      <Stack spacing={4}>
+        <TextField
+          name="keyword"
+          label="Search"
+          size="small"
+          variant="outlined"
+          onChange={handleSearching}
+        />
 
+        <Stack direction="row" spacing={4}>
+          <FormControl fullWidth>
+            <InputLabel id="university" size="small">
+              University
+            </InputLabel>
+
+            <Select
+              name="university"
+              labelId="university"
+              id="demo-simple-select"
+              size="small"
+              value={filter.university}
+              label="University"
+              onChange={handleSearching}
+            >
+              {university.map((university) => (
+                <MenuItem key={university} value={university}>
+                  {university}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl fullWidth>
+            <InputLabel id="faculty" size="small">
+              Faculty
+            </InputLabel>
+
+            <Select
+              name="faculty"
+              labelId="faculty"
+              id="demo-simple-select"
+              size="small"
+              value={filter.faculty}
+              label="Faculty"
+              onChange={handleSearching}
+            >
+              {faculties.map((faculty) => (
+                <MenuItem key={faculty} value={faculty}>
+                  {faculty}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Stack>
+      </Stack>
+
+      {/* Display data */}
       <TableContainer component={Paper} elevation={4}>
         <Table
           stickyHeader
@@ -138,6 +196,16 @@ const Courses: NextPageWithLayout = () => {
         >
           <TableHead>
             <TableRow>
+              {hasCode && (
+                <TableCell
+                  sx={{
+                    color: 'table.headerText',
+                    backgroundColor: 'table.headerBackground',
+                  }}
+                >
+                  Code
+                </TableCell>
+              )}
               {columns.map((column, i) => (
                 <TableCell
                   key={i}
@@ -167,6 +235,13 @@ const Courses: NextPageWithLayout = () => {
             {displayedCourses.map((course) => (
               <Fragment key={course.id + course.classId}>
                 <TableRow>
+                  {hasCode && (
+                    <TableCell rowSpan={course.classes.length + 1}>
+                      <IconButton onClick={() => writeCodeToClipboard(course.code || '')}>
+                        <ContentCopy />
+                      </IconButton>
+                    </TableCell>
+                  )}
                   <TableCell component="th" scope="row" rowSpan={course.classes.length + 1}>
                     {course.id}
                   </TableCell>
@@ -195,6 +270,18 @@ const Courses: NextPageWithLayout = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Snackbar */}
+      <Snackbar open={showSnackbar} autoHideDuration={1000} onClose={handleCloseSnackbar}>
+        <Alert
+          variant="filled"
+          severity={copyStatus.status}
+          sx={{ width: '100%' }}
+          onClose={handleCloseSnackbar}
+        >
+          {copyStatus.message}
+        </Alert>
+      </Snackbar>
     </Stack>
   )
 }
