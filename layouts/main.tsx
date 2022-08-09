@@ -5,13 +5,7 @@ import { Box } from '@mui/system'
 
 export function MainLayout({ children }: LayoutProps) {
   return (
-    <Stack
-      direction="row"
-      sx={{
-        width: '100vw',
-        minHeight: '100vh',
-      }}
-    >
+    <Stack direction="row" sx={{ minHeight: '100vh' }}>
       <Sidebar />
 
       <Stack
@@ -19,7 +13,6 @@ export function MainLayout({ children }: LayoutProps) {
         sx={{
           width: 0, // Make child elements believe width exists =))
           minHeight: '100vh',
-          overflowX: 'hidden',
         }}
       >
         <Header />

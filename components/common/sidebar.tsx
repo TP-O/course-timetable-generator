@@ -331,7 +331,13 @@ export function Sidebar() {
       orientation="horizontal"
       in={showSidebar}
       collapsedSize={68}
-      sx={{ position: 'sticky', top: 0, alignSelf: 'flex-start' }}
+      sx={{
+        position: 'sticky',
+        top: 0,
+        alignSelf: 'flex-start',
+        height: '100vh',
+        overflowY: 'auto',
+      }}
     >
       <Sidebar />
     </Collapse>
