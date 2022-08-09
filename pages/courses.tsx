@@ -182,7 +182,7 @@ const Courses: NextPageWithLayout = () => {
       </Stack>
 
       {/* Display data */}
-      <TableContainer component={Paper} elevation={4}>
+      <TableContainer component={Paper} elevation={4} sx={{ maxHeight: 500 }}>
         <Table
           stickyHeader
           size="small"
