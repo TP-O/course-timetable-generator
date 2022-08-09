@@ -27,6 +27,7 @@ import {
   ListItemText,
   MenuItem,
   MenuList,
+  Paper,
   Stack,
   Typography,
 } from '@mui/material'
@@ -58,23 +59,6 @@ export function Sidebar() {
     },
   ]
 
-  // Toggle sidebar
-  const [showSidebar, setShowSidebar] = useState(false)
-
-  function toggle(show: boolean) {
-    return (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === 'keydown' &&
-        ((event as React.KeyboardEvent).key === 'Tab' ||
-          (event as React.KeyboardEvent).key === 'Shift')
-      ) {
-        return
-      }
-
-      setShowSidebar(show)
-    }
-  }
-
   // Sidebar displayment
   const maxWidthToUseDrawer = 918
   const [useDrawer, setUseDrawer] = useState(true)
@@ -89,11 +73,33 @@ export function Sidebar() {
     window.onresize = () => {
       if (!useDrawer && window.innerWidth <= maxWidthToUseDrawer) {
         setUseDrawer(true)
+        setShowSidebar(false)
       }
 
       if (useDrawer && window.innerWidth > maxWidthToUseDrawer) {
         setUseDrawer(false)
+        setShowSidebar(true)
       }
+    }
+  }
+
+  // Toggle sidebar
+  const [showSidebar, setShowSidebar] = useState(() =>
+    // Show sidebar if screen is large enough
+    typeof window === 'undefined' ? false : window.innerWidth > maxWidthToUseDrawer
+  )
+
+  function toggle(show: boolean) {
+    return (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event.type === 'keydown' &&
+        ((event as React.KeyboardEvent).key === 'Tab' ||
+          (event as React.KeyboardEvent).key === 'Shift')
+      ) {
+        return
+      }
+
+      setShowSidebar(show)
     }
   }
 

@@ -8,9 +8,12 @@ import {
   Sorting,
 } from '@/types'
 import { convertToDayOfWeek } from '@/utils'
+import { Delete, FilterList } from '@mui/icons-material'
 import {
   Box,
+  IconButton,
   Paper,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -19,12 +22,15 @@ import {
   TableRow,
   TableSortLabel,
   TextField,
+  Toolbar,
+  Tooltip,
+  Typography,
 } from '@mui/material'
 import { ChangeEvent, Fragment, useState } from 'react'
 
 const Courses: NextPageWithLayout = () => {
   // Perpare data
-  const sortableColumnIds: CourseTableColumnId[] = ['id', 'name', 'capacity', 'classId', 'credit']
+  const sortableColumnIds: CourseTableColumnId[] = ['name', 'capacity', 'credit']
   const columns: readonly CourseTableColumn[] = [
     createColumn('id'),
     createColumn('name'),
@@ -76,25 +82,61 @@ const Courses: NextPageWithLayout = () => {
   const displayedCourses = sortCourses(searchCoursesByName(keyword))
 
   return (
-    <Box sx={{ maxWidth: '100vw', px: 2, py: 5 }}>
-      <TextField label="Course name" size="small" variant="outlined" onChange={handleSearching} />
+    <Stack sx={{ px: 2, py: 5 }}>
+      <>
+        <Toolbar
+          sx={{
+            pl: { sm: 2 },
+            pr: { xs: 1, sm: 1 },
+            ...(0 > 0 && {
+              bgcolor: 'red',
+            }),
+          }}
+        >
+          {0 > 0 ? (
+            <Typography
+              sx={{ flex: '1 1 100%' }}
+              color="inherit"
+              variant="subtitle1"
+              component="div"
+            >
+              {0} selected
+            </Typography>
+          ) : (
+            <Typography sx={{ flex: '1 1 100%' }} variant="h6" id="tableTitle" component="div">
+              Nutrition
+            </Typography>
+          )}
+          {0 > 0 ? (
+            <Tooltip title="Delete">
+              <IconButton>
+                <Delete />
+              </IconButton>
+            </Tooltip>
+          ) : (
+            <Tooltip title="Filter list">
+              <IconButton>
+                <FilterList />
+              </IconButton>
+            </Tooltip>
+          )}
+        </Toolbar>
+        <TextField label="Course name" size="small" variant="outlined" onChange={handleSearching} />
+      </>
 
-      <TableContainer component={Paper} elevation={4} sx={{ height: 448 }}>
+      <TableContainer component={Paper} elevation={4}>
         <Table
           stickyHeader
+          size="small"
           sx={{
-            minWidth: 650,
             mx: 'auto',
             'th,td': {
               textAlign: 'center',
+              borderLeft: '1px solid rgba(224, 224, 224, 1)',
             },
           }}
         >
-          <TableHead
-            sx={{
-              backgroundColor: 'table.headerBackground',
-            }}
-          >
+          <TableHead>
             <TableRow>
               {columns.map((column, i) => (
                 <TableCell
@@ -102,6 +144,7 @@ const Courses: NextPageWithLayout = () => {
                   sortDirection={sorting.by === column.id ? sorting.direction : false}
                   sx={{
                     color: 'table.headerText',
+                    backgroundColor: 'table.headerBackground',
                   }}
                 >
                   {column.isSortable ? (
@@ -152,7 +195,7 @@ const Courses: NextPageWithLayout = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </Box>
+    </Stack>
   )
 }
 

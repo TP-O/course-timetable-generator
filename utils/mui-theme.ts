@@ -31,8 +31,26 @@ export const theme = createTheme({
       hoveringText: 'rgba(255, 255, 255, 0.8)',
     },
     table: {
-      headerBackground: '#ffffff',
-      headerText: '#000000',
+      headerBackground: '#051e34',
+      headerText: '#ffffff',
+    },
+  },
+  components: {
+    MuiTableSortLabel: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            color: '#ffffff',
+          },
+
+          '&.Mui-active': {
+            color: '#ffffff',
+          },
+        },
+        icon: {
+          color: 'inherit !important',
+        },
+      },
     },
   },
 })

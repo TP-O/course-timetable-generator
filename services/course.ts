@@ -1,5 +1,5 @@
 import { Course } from '@/types'
-import { KeyOption, matchSorter, rankings } from 'match-sorter'
+import { matchSorter } from 'match-sorter'
 
 const courses: Course[] = [
   {
