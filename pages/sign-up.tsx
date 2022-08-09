@@ -140,7 +140,16 @@ const SignUp: NextPageWithLayout = () => {
         <OAuthList />
       </Box>
 
-      <Stack sx={{ pl: 6, justifyContent: 'center' }}>
+      <Stack
+        sx={{
+          pl: 6,
+          justifyContent: 'center',
+          display: {
+            sm: 'none',
+            md: 'flex',
+          },
+        }}
+      >
         <Avatar
           alt="ctg-sign-up"
           src="https://ssl.gstatic.com/accounts/signup/glif/account.svg"
