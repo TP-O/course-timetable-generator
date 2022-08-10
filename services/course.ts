@@ -1,82 +1,50 @@
-import { Course, CourseFilter } from '@/types'
+import { Course, CourseFilter, UniversityStorage } from '@/types'
 import { matchSorter } from 'match-sorter'
+import { Univerisity } from '@/enums'
 
-const courses: Course[] = [
-  {
-    code: 'cc',
-    id: 'IT120IU',
-    name: 'Entrepreneurship',
-    credit: 3,
-    classId: 'ITIT19CS2',
-    capacity: 90,
-    classes: [
-      {
-        day: 3,
-        begin: 7,
-        periods: 3,
-        room: 'A2.401',
-        lecturers: [],
-      },
-    ],
-  },
-  {
-    id: 'PH014IU',
-    name: 'Physics 2',
-    credit: 2,
-    classId: 'IELS22IU41',
-    capacity: 120,
-    classes: [
-      {
-        day: 1,
-        begin: 7,
-        periods: 3,
-        room: 'A2.205',
-        lecturers: ['P.B.Ngoc'],
-      },
-    ],
-  },
-  {
-    id: 'IT120IU',
-    name: 'Object-Oriented Programming',
-    credit: 4,
-    classId: 'ITIT20CS02',
-    capacity: 60,
-    classes: [
-      {
-        day: 3,
-        begin: 1,
-        periods: 4,
-        room: 'LA1.301',
-        lecturers: ['T.T.Tung'],
-      },
-      {
-        day: 4,
-        begin: 7,
-        periods: 3,
-        room: 'A2.401',
-        lecturers: ['T.T.Tung'],
-      },
-    ],
-  },
-]
-
-const faculties: Record<string, string[]> = {
-  IU: ['IT', 'BA', 'EE', 'CC'],
-  HCMUS: ['NN', 'AA', 'EE'],
+const storage: UniversityStorage = {
+  'HCMIU - International Univerisity': null,
+  'UEH - University of Economics HCMC': null,
 }
 
-const universities = ['IU', 'HCMUS']
-
-export function searchCoursesByName(filter: CourseFilter) {
-  return matchSorter(courses, String(filter.keyword), {
-    keys: ['name'],
-  })
-}
-
-export function getFacultiesOfUniversity(university: string) {
-  return faculties[university] ?? []
+export async function loadUniversity(university: Univerisity) {
+  if (storage[university] === null) {
+    storage[university] = await import(`@/data/${university}.json`)
+  }
 }
 
 export function getUniversities() {
-  return universities
+  return Object.values(Univerisity)
+}
+
+export async function getFaculties(university: Univerisity) {
+  await loadUniversity(university)
+
+  return ['', ...Object.keys(storage[university]?.faculties || {})]
+}
+
+export async function searchCoursesByName(filter: CourseFilter) {
+  await loadUniversity(filter.university)
+
+  const courseNames =
+    filter.faculty === undefined || filter.faculty === ''
+      ? Object.keys(storage[filter.university]?.courses || {})
+      : Object.keys(storage[filter.university]?.faculties[filter.faculty].courses || {})
+
+  console.log(1)
+
+  const filteredCourseNames =
+    filter.keyword === '' ? courseNames : matchSorter(courseNames, filter.keyword)
+
+  console.log(2)
+
+  const filteredCourses: Course[] = []
+
+  for (const courseName of filteredCourseNames) {
+    filteredCourses.push(...(storage[filter.university]?.courses[courseName] || []))
+  }
+
+  console.log(3)
+
+  return filteredCourses
 }

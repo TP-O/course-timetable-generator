@@ -1,5 +1,6 @@
+import { Univerisity } from '@/enums'
 import { MainLayout } from '@/layouts'
-import { getFacultiesOfUniversity, getUniversities, searchCoursesByName } from '@/services'
+import { getFaculties, getUniversities, searchCoursesByName } from '@/services'
 import {
   CopyStatus,
   Course,
@@ -9,7 +10,7 @@ import {
   NextPageWithLayout,
   Sorting,
 } from '@/types'
-import { convertToDayOfWeek } from '@/utils'
+import { convertDayNumberToDayString } from '@/utils'
 import { ContentCopy } from '@mui/icons-material'
 import {
   Alert,
@@ -31,15 +32,15 @@ import {
   TableSortLabel,
   TextField,
 } from '@mui/material'
-import { ChangeEvent, Fragment, useState } from 'react'
+import { ChangeEvent, Fragment, useEffect, useState } from 'react'
 
 const Courses: NextPageWithLayout = () => {
   // Perpare data
-  const sortableColumnIds: CourseTableColumnId[] = ['name', 'capacity', 'credit']
+  const sortableColumnIds: CourseTableColumnId[] = ['name', 'capacity', 'credits']
   const columns: readonly CourseTableColumn[] = [
     createColumn('id'),
     createColumn('name'),
-    createColumn('credit'),
+    createColumn('credits'),
     createColumn('classId'),
     createColumn('capacity'),
     createColumn('day'),
@@ -55,9 +56,6 @@ const Courses: NextPageWithLayout = () => {
 
     return { id, label, isSortable }
   }
-
-  const university = getUniversities()
-  const faculties = getFacultiesOfUniversity('IU')
 
   // Sorting
   const [sorting, setSorting] = useState<Sorting<CourseTableColumnId>>({
@@ -82,8 +80,8 @@ const Courses: NextPageWithLayout = () => {
   // Searching
   const [filter, setFilter] = useState<CourseFilter>({
     keyword: '',
-    university: 'IU',
-    faculty: 'IT',
+    university: Univerisity.HCMIU,
+    faculty: '',
   })
 
   function handleSearching(
@@ -118,9 +116,24 @@ const Courses: NextPageWithLayout = () => {
     }
   }
 
+  // hello
+  const university = getUniversities()
+  const [faculties, setFaculties] = useState<string[]>([])
+  const [displayedCourses, setDisplayedCourses] = useState<Course[]>([])
+  const [hasCode, setHasCode] = useState(false)
+
   // Dynamic daya
-  const displayedCourses = sortCourses(searchCoursesByName(filter))
-  const hasCode = displayedCourses[0]?.code !== undefined
+  useEffect(() => {
+    ;(async () => {
+      setFaculties(await getFaculties(Univerisity.HCMIU))
+      setDisplayedCourses(sortCourses(await searchCoursesByName(filter)).splice(2, 5))
+      setHasCode(displayedCourses[0]?.code !== undefined)
+    })()
+
+    console.log('hehello')
+  }, [])
+
+  console.log('huhuhuh')
 
   return (
     <Stack spacing={3} sx={{ px: 2, py: 5 }}>
@@ -171,6 +184,8 @@ const Courses: NextPageWithLayout = () => {
               label="Faculty"
               onChange={handleSearching}
             >
+              <MenuItem value="">All</MenuItem>
+
               {faculties.map((faculty) => (
                 <MenuItem key={faculty} value={faculty}>
                   {faculty}
@@ -233,36 +248,36 @@ const Courses: NextPageWithLayout = () => {
 
           <TableBody>
             {displayedCourses.map((course) => (
-              <Fragment key={course.id + course.classId}>
+              <Fragment key={String(course.code)}>
                 <TableRow>
                   {hasCode && (
-                    <TableCell rowSpan={course.classes.length + 1}>
+                    <TableCell rowSpan={course.lessons.length + 1}>
                       <IconButton onClick={() => writeCodeToClipboard(course.code || '')}>
                         <ContentCopy />
                       </IconButton>
                     </TableCell>
                   )}
-                  <TableCell component="th" scope="row" rowSpan={course.classes.length + 1}>
+                  <TableCell component="th" scope="row" rowSpan={course.lessons.length + 1}>
                     {course.id}
                   </TableCell>
                   <TableCell
-                    rowSpan={course.classes.length + 1}
+                    rowSpan={course.lessons.length + 1}
                     sx={{ textAlign: 'left !important' }}
                   >
                     {course.name}
                   </TableCell>
-                  <TableCell rowSpan={course.classes.length + 1}>{course.credit}</TableCell>
-                  <TableCell rowSpan={course.classes.length + 1}>{course.classId}</TableCell>
-                  <TableCell rowSpan={course.classes.length + 1}>{course.capacity}</TableCell>
+                  <TableCell rowSpan={course.lessons.length + 1}>{course.credits}</TableCell>
+                  <TableCell rowSpan={course.lessons.length + 1}>{course.classId}</TableCell>
+                  <TableCell rowSpan={course.lessons.length + 1}>{course.capacity}</TableCell>
                 </TableRow>
 
-                {course.classes.map((classs, i) => (
-                  <TableRow key={course.id + course.classId + i}>
-                    <TableCell>{convertToDayOfWeek(classs.day)}</TableCell>
-                    <TableCell>{classs.begin}</TableCell>
-                    <TableCell>{classs.periods}</TableCell>
-                    <TableCell>{classs.room}</TableCell>
-                    <TableCell>{classs.lecturers.join(', ')}</TableCell>
+                {course.lessons.map((lesson, i) => (
+                  <TableRow key={String(course.code) + i}>
+                    <TableCell>{convertDayNumberToDayString(lesson.day)}</TableCell>
+                    <TableCell>{lesson.begin}</TableCell>
+                    <TableCell>{lesson.periods}</TableCell>
+                    <TableCell>{lesson.room}</TableCell>
+                    <TableCell>{lesson.lecturers.join(', ')}</TableCell>
                   </TableRow>
                 ))}
               </Fragment>

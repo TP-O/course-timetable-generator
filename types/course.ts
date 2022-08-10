@@ -1,14 +1,16 @@
+import { DayOfWeek, Univerisity } from '@/enums'
+
 export type Course = {
   code?: string
   id: string
   name: string
-  credit: number
+  credits: number
   capacity: number
   classId: string
-  classes: Class[]
+  lessons: Lesson[]
 }
 
-type Class = {
+export type Lesson = {
   day: DayOfWeek
   room: string
   begin: number
@@ -16,9 +18,7 @@ type Class = {
   lecturers: string[]
 }
 
-type DayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6
-
-export type CourseTableColumnId = keyof Omit<Course, 'classes'> | keyof Class
+export type CourseTableColumnId = keyof Omit<Course, 'classes'> | keyof Lesson
 
 export type CourseTableColumn = {
   id: CourseTableColumnId
@@ -27,7 +27,7 @@ export type CourseTableColumn = {
 }
 
 export type CourseFilter = {
-  keyword?: string
-  university?: string
+  keyword: string
+  university: Univerisity
   faculty?: string
 }

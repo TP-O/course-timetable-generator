@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ESNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "incremental": false,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "types": [
+      "node",
+    ],
+    "paths": {
+      "@/*": [
+        "./*",
+      ],
+    },
+  },
+  "include": ["**/*.ts"],
+  "exclude": [
+    ".next",
+    "dist",
+    "node_modules",
+  ]
+}
