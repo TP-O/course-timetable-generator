@@ -9,7 +9,14 @@ const storage: UniversityStorage = {
 
 export async function loadUniversity(university: Univerisity) {
   if (storage[university] === null) {
-    storage[university] = await import(`@/data/${university}.json`)
+    try {
+      storage[university] = await import(`@/data/${university}.json`)
+    } catch {
+      storage[university] = {
+        faculties: {},
+        courses: {},
+      }
+    }
   }
 }
 

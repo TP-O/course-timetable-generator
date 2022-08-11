@@ -63,10 +63,6 @@ const Courses: NextPageWithLayout = () => {
     return { id, label, isSortable }
   }
 
-  useEffect(() => {
-    getFaculties(Univerisity.HCMIU).then((faculties) => setFaculties(faculties))
-  }, [])
-
   // Sorting
   const [sorting, setSorting] = useState<Sorting<CourseTableColumnId>>({
     by: 'name',
@@ -116,6 +112,10 @@ const Courses: NextPageWithLayout = () => {
       return { ...state, displayed }
     })
   }
+
+  useEffect(() => {
+    getFaculties(filter.university).then((faculties) => setFaculties(faculties))
+  }, [filter.university])
 
   useEffect(() => {
     searchCoursesByName(filter).then((courses) =>
@@ -248,7 +248,9 @@ const Courses: NextPageWithLayout = () => {
               mt: 2,
             }}
           >
-            Yay! You have seen it all
+            {matchedCourses.displayed.length === 0
+              ? `We don't have data for ${filter.university} yet`
+              : 'Yay! You have seen it all'}
           </Typography>
         }
         scrollableTarget="course-table"
