@@ -31,20 +31,13 @@ export async function searchCoursesByName(filter: CourseFilter) {
       ? Object.keys(storage[filter.university]?.courses || {})
       : Object.keys(storage[filter.university]?.faculties[filter.faculty].courses || {})
 
-  console.log(1)
-
   const filteredCourseNames =
     filter.keyword === '' ? courseNames : matchSorter(courseNames, filter.keyword)
-
-  console.log(2)
-
   const filteredCourses: Course[] = []
 
   for (const courseName of filteredCourseNames) {
     filteredCourses.push(...(storage[filter.university]?.courses[courseName] || []))
   }
-
-  console.log(3)
 
   return filteredCourses
 }

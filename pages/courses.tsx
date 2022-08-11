@@ -2,12 +2,13 @@ import { Univerisity } from '@/enums'
 import { MainLayout } from '@/layouts'
 import { getFaculties, getUniversities, searchCoursesByName } from '@/services'
 import {
-  CopyStatus,
   Course,
   CourseFilter,
   CourseTableColumn,
   CourseTableColumnId,
+  MatchedCourses,
   NextPageWithLayout,
+  SnackbarState,
   Sorting,
 } from '@/types'
 import { convertDayNumberToDayString } from '@/utils'
@@ -31,8 +32,11 @@ import {
   TableRow,
   TableSortLabel,
   TextField,
+  Typography,
 } from '@mui/material'
+import { display } from '@mui/system'
 import { ChangeEvent, Fragment, useEffect, useState } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 const Courses: NextPageWithLayout = () => {
   // Perpare data
@@ -49,6 +53,8 @@ const Courses: NextPageWithLayout = () => {
     createColumn('room'),
     createColumn('lecturers'),
   ]
+  const university = getUniversities()
+  const [faculties, setFaculties] = useState<string[]>([])
 
   function createColumn(id: CourseTableColumnId): CourseTableColumn {
     const label = id[0].toUpperCase() + id.slice(1)
@@ -56,6 +62,10 @@ const Courses: NextPageWithLayout = () => {
 
     return { id, label, isSortable }
   }
+
+  useEffect(() => {
+    getFaculties(Univerisity.HCMIU).then((faculties) => setFaculties(faculties))
+  }, [])
 
   // Sorting
   const [sorting, setSorting] = useState<Sorting<CourseTableColumnId>>({
@@ -69,7 +79,7 @@ const Courses: NextPageWithLayout = () => {
     setSorting({ by: id, direction: isAsc ? 'desc' : 'asc' })
   }
 
-  function sortCourses(courses: Course[]) {
+  function sortCourses(courses: Course[], sorting: Sorting<CourseTableColumnId>) {
     return courses.sort((pCourse: any, cCourse: any) => {
       const asc = pCourse[sorting.by] < cCourse[sorting.by] ? -1 : 1
 
@@ -83,6 +93,11 @@ const Courses: NextPageWithLayout = () => {
     university: Univerisity.HCMIU,
     faculty: '',
   })
+  const [matchedCourses, setMatchedCourses] = useState<MatchedCourses>({
+    hidden: [],
+    displayed: [],
+  })
+  const hasCourseCode = matchedCourses.displayed[0]?.code !== undefined
 
   function handleSearching(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent
@@ -90,20 +105,48 @@ const Courses: NextPageWithLayout = () => {
     setFilter((filter) => ({ ...filter, [event.target.name]: event.target.value }))
   }
 
+  function loadMoreCourses() {
+    if (matchedCourses.hidden.length === 0) {
+      return
+    }
+
+    setMatchedCourses((state) => {
+      const displayed = [...state.displayed, ...state.hidden.splice(0, 5)]
+
+      return { ...state, displayed }
+    })
+  }
+
+  useEffect(() => {
+    searchCoursesByName(filter).then((courses) =>
+      setMatchedCourses((state) => {
+        courses = sortCourses(courses, sorting)
+
+        return {
+          hidden: courses,
+          displayed: courses.splice(0, 10),
+        }
+      })
+    )
+  }, [filter, sorting])
+
   // Copy course code
-  const [showSnackbar, setShowSnackbar] = useState(false)
-  const [copyStatus, setCopyStatus] = useState<CopyStatus>({
+  const [snackbarState, setSnackbarState] = useState<SnackbarState>({
     message: '',
     status: 'success',
+    isOpen: false,
   })
 
   function handleCloseSnackbar() {
-    setShowSnackbar(false)
+    setSnackbarState((state) => ({ ...state, isOpen: false }))
   }
 
   function handleShowSnackbar(message: string, success = true) {
-    setCopyStatus({ message, status: success ? 'success' : 'error' })
-    setShowSnackbar(true)
+    setSnackbarState({
+      message,
+      status: success ? 'success' : 'error',
+      isOpen: true,
+    })
   }
 
   async function writeCodeToClipboard(code: string) {
@@ -112,28 +155,9 @@ const Courses: NextPageWithLayout = () => {
 
       handleShowSnackbar('Copied!')
     } catch {
-      handleShowSnackbar('Unable to copy :(')
+      handleShowSnackbar('Unable to copy :(', false)
     }
   }
-
-  // hello
-  const university = getUniversities()
-  const [faculties, setFaculties] = useState<string[]>([])
-  const [displayedCourses, setDisplayedCourses] = useState<Course[]>([])
-  const [hasCode, setHasCode] = useState(false)
-
-  // Dynamic daya
-  useEffect(() => {
-    ;(async () => {
-      setFaculties(await getFaculties(Univerisity.HCMIU))
-      setDisplayedCourses(sortCourses(await searchCoursesByName(filter)).splice(2, 5))
-      setHasCode(displayedCourses[0]?.code !== undefined)
-    })()
-
-    console.log('hehello')
-  }, [])
-
-  console.log('huhuhuh')
 
   return (
     <Stack spacing={3} sx={{ px: 2, py: 5 }}>
@@ -197,104 +221,142 @@ const Courses: NextPageWithLayout = () => {
       </Stack>
 
       {/* Display data */}
-      <TableContainer component={Paper} elevation={4} sx={{ maxHeight: 500 }}>
-        <Table
-          stickyHeader
-          size="small"
-          sx={{
-            mx: 'auto',
-            'th,td': {
+      <InfiniteScroll
+        dataLength={matchedCourses.hidden.length}
+        next={loadMoreCourses}
+        hasMore={matchedCourses.hidden.length > 0}
+        loader={
+          <Typography
+            variant="body2"
+            component="div"
+            sx={{
               textAlign: 'center',
-              borderLeft: '1px solid rgba(224, 224, 224, 1)',
-            },
-          }}
+              fontWeight: 500,
+              mt: 2,
+            }}
+          >
+            Scroll to see more...
+          </Typography>
+        }
+        endMessage={
+          <Typography
+            variant="body2"
+            component="div"
+            sx={{
+              textAlign: 'center',
+              fontWeight: 500,
+              mt: 2,
+            }}
+          >
+            Yay! You have seen it all
+          </Typography>
+        }
+        scrollableTarget="course-table"
+      >
+        <TableContainer
+          id="course-table"
+          component={Paper}
+          elevation={4}
+          sx={{ maxHeight: 450, maxWidth: '100vw' }}
         >
-          <TableHead>
-            <TableRow>
-              {hasCode && (
-                <TableCell
-                  sx={{
-                    color: 'table.headerText',
-                    backgroundColor: 'table.headerBackground',
-                  }}
-                >
-                  Code
-                </TableCell>
-              )}
-              {columns.map((column, i) => (
-                <TableCell
-                  key={i}
-                  sortDirection={sorting.by === column.id ? sorting.direction : false}
-                  sx={{
-                    color: 'table.headerText',
-                    backgroundColor: 'table.headerBackground',
-                  }}
-                >
-                  {column.isSortable ? (
-                    <TableSortLabel
-                      active={column.id === sorting.by}
-                      direction={sorting.by === column.id ? sorting.direction : 'asc'}
-                      onClick={() => handleSorting(column.id)}
-                    >
-                      {column.label}
-                    </TableSortLabel>
-                  ) : (
-                    column.label
-                  )}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {displayedCourses.map((course) => (
-              <Fragment key={String(course.code)}>
-                <TableRow>
-                  {hasCode && (
-                    <TableCell rowSpan={course.lessons.length + 1}>
-                      <IconButton onClick={() => writeCodeToClipboard(course.code || '')}>
-                        <ContentCopy />
-                      </IconButton>
-                    </TableCell>
-                  )}
-                  <TableCell component="th" scope="row" rowSpan={course.lessons.length + 1}>
-                    {course.id}
-                  </TableCell>
+          <Table
+            stickyHeader
+            size="small"
+            sx={{
+              mx: 'auto',
+              'th,td': {
+                textAlign: 'center',
+                borderLeft: '1px solid rgba(224, 224, 224, 1)',
+              },
+            }}
+          >
+            <TableHead>
+              <TableRow>
+                {hasCourseCode && (
                   <TableCell
-                    rowSpan={course.lessons.length + 1}
-                    sx={{ textAlign: 'left !important' }}
+                    sx={{
+                      color: 'table.headerText',
+                      backgroundColor: 'table.headerBackground',
+                    }}
                   >
-                    {course.name}
+                    Code
                   </TableCell>
-                  <TableCell rowSpan={course.lessons.length + 1}>{course.credits}</TableCell>
-                  <TableCell rowSpan={course.lessons.length + 1}>{course.classId}</TableCell>
-                  <TableCell rowSpan={course.lessons.length + 1}>{course.capacity}</TableCell>
-                </TableRow>
-
-                {course.lessons.map((lesson, i) => (
-                  <TableRow key={String(course.code) + i}>
-                    <TableCell>{convertDayNumberToDayString(lesson.day)}</TableCell>
-                    <TableCell>{lesson.begin}</TableCell>
-                    <TableCell>{lesson.periods}</TableCell>
-                    <TableCell>{lesson.room}</TableCell>
-                    <TableCell>{lesson.lecturers.join(', ')}</TableCell>
-                  </TableRow>
+                )}
+                {columns.map((column, i) => (
+                  <TableCell
+                    key={i}
+                    sortDirection={sorting.by === column.id ? sorting.direction : false}
+                    sx={{
+                      color: 'table.headerText',
+                      backgroundColor: 'table.headerBackground',
+                    }}
+                  >
+                    {column.isSortable ? (
+                      <TableSortLabel
+                        active={column.id === sorting.by}
+                        direction={sorting.by === column.id ? sorting.direction : 'asc'}
+                        onClick={() => handleSorting(column.id)}
+                      >
+                        {column.label}
+                      </TableSortLabel>
+                    ) : (
+                      column.label
+                    )}
+                  </TableCell>
                 ))}
-              </Fragment>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {matchedCourses.displayed.map((course) => (
+                <Fragment key={String(course.code)}>
+                  <TableRow>
+                    {hasCourseCode && (
+                      <TableCell rowSpan={course.lessons.length + 1}>
+                        <IconButton onClick={() => writeCodeToClipboard(course.code || '')}>
+                          <ContentCopy />
+                        </IconButton>
+                      </TableCell>
+                    )}
+                    <TableCell component="th" scope="row" rowSpan={course.lessons.length + 1}>
+                      {course.id}
+                    </TableCell>
+                    <TableCell
+                      rowSpan={course.lessons.length + 1}
+                      sx={{ textAlign: 'left !important' }}
+                    >
+                      {course.name}
+                    </TableCell>
+                    <TableCell rowSpan={course.lessons.length + 1}>{course.credits}</TableCell>
+                    <TableCell rowSpan={course.lessons.length + 1}>{course.classId}</TableCell>
+                    <TableCell rowSpan={course.lessons.length + 1}>{course.capacity}</TableCell>
+                  </TableRow>
+
+                  {course.lessons.map((lesson, i) => (
+                    <TableRow key={String(course.code) + i}>
+                      <TableCell>{convertDayNumberToDayString(lesson.day)}</TableCell>
+                      <TableCell>{lesson.begin}</TableCell>
+                      <TableCell>{lesson.periods}</TableCell>
+                      <TableCell>{lesson.room}</TableCell>
+                      <TableCell>{lesson.lecturers.join(', ')}</TableCell>
+                    </TableRow>
+                  ))}
+                </Fragment>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </InfiniteScroll>
 
       {/* Snackbar */}
-      <Snackbar open={showSnackbar} autoHideDuration={1000} onClose={handleCloseSnackbar}>
+      <Snackbar open={snackbarState.isOpen} autoHideDuration={1000} onClose={handleCloseSnackbar}>
         <Alert
           variant="filled"
-          severity={copyStatus.status}
+          severity={snackbarState.status}
           sx={{ width: '100%' }}
           onClose={handleCloseSnackbar}
         >
-          {copyStatus.message}
+          {snackbarState.message}
         </Alert>
       </Snackbar>
     </Stack>
