@@ -38,7 +38,7 @@ config({
 
     if (universityRecord !== undefined && Object.keys(universityRecord).length > 0) {
       universityRecord.updatedAt = {
-        timestamp: Date.now(),
+        second: Date.now(),
         text: date.format(new Date(), 'ddd, MMM/DD/YYYY HH:mm:ss'),
       }
 

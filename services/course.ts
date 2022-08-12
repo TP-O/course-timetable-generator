@@ -24,6 +24,12 @@ export function getUniversities() {
   return Object.values(Univerisity)
 }
 
+export async function getUniversityUpdatedTime(university: Univerisity) {
+  await loadUniversity(university)
+
+  return storage[university]?.updatedAt
+}
+
 export async function getFaculties(university: Univerisity) {
   await loadUniversity(university)
 

@@ -1,6 +1,11 @@
 import { Time, Univerisity } from '@/enums'
 import { MainLayout } from '@/layouts'
-import { getFaculties, getUniversities, searchCoursesByName } from '@/services'
+import {
+  getFaculties,
+  getUniversities,
+  getUniversityUpdatedTime,
+  searchCoursesByName,
+} from '@/services'
 import {
   Course,
   CourseFilter,
@@ -10,6 +15,7 @@ import {
   AlertState,
   ScrollData,
   Sorting,
+  Timestamp,
 } from '@/types'
 import { convertDayNumberToDayString } from '@/utils'
 import { ContentCopy } from '@mui/icons-material'
@@ -37,6 +43,7 @@ import {
 import { ChangeEvent, Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs'
+import date from 'date-and-time'
 
 const Courses: NextPageWithLayout = () => {
   // Perpare data
@@ -54,6 +61,7 @@ const Courses: NextPageWithLayout = () => {
     createColumn('lecturers'),
   ]
   const university = getUniversities()
+  const [updatedAt, setUpdatedAt] = useState<Timestamp | undefined>(undefined)
   const [faculties, setFaculties] = useState<string[]>([])
 
   function createColumn(id: CourseTableColumnId): CourseTableColumn {
@@ -61,6 +69,10 @@ const Courses: NextPageWithLayout = () => {
     const isSortable = sortableColumnIds.includes(id)
 
     return { id, label, isSortable }
+  }
+
+  function isOutdatedData() {
+    return date.subtract(new Date(), new Date(updatedAt?.second || 0)).toDays() >= 90
   }
 
   // Sorting
@@ -84,10 +96,11 @@ const Courses: NextPageWithLayout = () => {
   }
 
   // Searching
-  const keyword = useRef(null)
-  const [filter, setFilter] = useState<Omit<CourseFilter, 'keyword'>>({
+  const keyword = useRef<HTMLInputElement>(null)
+  const [filter, setFilter] = useState<CourseFilter>({
     university: Univerisity.HCMIU,
     faculty: '',
+    keyword: '',
   })
   const [matchedCourses, setMatchedCourses] = useState<ScrollData<Course>>({
     hidden: [],
@@ -98,14 +111,15 @@ const Courses: NextPageWithLayout = () => {
   function handleFilter(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent
   ) {
+    // Reset keyword if other options changed
+    if (event.target.name !== 'keyword') {
+      filter.keyword = ''
+    }
+
     setFilter((filter) => ({ ...filter, [event.target.name]: event.target.value }))
   }
 
   function loadMoreCourses() {
-    if (matchedCourses.hidden.length === 0) {
-      return
-    }
-
     setMatchedCourses((state) => {
       const displayed = [...state.displayed, ...state.hidden.splice(0, 5)]
 
@@ -116,8 +130,9 @@ const Courses: NextPageWithLayout = () => {
   const loadCourses = useCallback(
     async (keyword = '') => {
       let courses = await searchCoursesByName({
-        ...filter,
         keyword,
+        faculty: filter.faculty,
+        university: filter.university,
       })
 
       setMatchedCourses(() => {
@@ -129,10 +144,11 @@ const Courses: NextPageWithLayout = () => {
         }
       })
     },
-    [filter, sorting]
+    [filter.faculty, filter.university, sorting]
   )
 
   useEffect(() => {
+    getUniversityUpdatedTime(filter.university).then((updatedAt) => setUpdatedAt(updatedAt))
     getFaculties(filter.university).then((faculties) => setFaculties(faculties))
   }, [filter.university])
 
@@ -141,7 +157,7 @@ const Courses: NextPageWithLayout = () => {
 
     const sub = fromEvent<ChangeEvent<HTMLInputElement>>(keyword.current!, 'keyup')
       .pipe(debounceTime(200 * Time.Millisecond), distinctUntilChanged())
-      .subscribe(async (event) => loadCourses(event.target.value))
+      .subscribe((event) => loadCourses(event.target.value))
 
     return () => sub.unsubscribe()
   }, [loadCourses])
@@ -179,7 +195,15 @@ const Courses: NextPageWithLayout = () => {
     <Stack spacing={3} sx={{ px: 2, py: 5 }}>
       {/* Searching */}
       <Stack spacing={4}>
-        <TextField name="keyword" label="Search" size="small" variant="outlined" ref={keyword} />
+        <TextField
+          name="keyword"
+          label="Search"
+          size="small"
+          variant="outlined"
+          value={filter.keyword}
+          ref={keyword}
+          onChange={handleFilter}
+        />
 
         <Stack direction="row" spacing={4}>
           <FormControl fullWidth>
@@ -230,6 +254,20 @@ const Courses: NextPageWithLayout = () => {
         </Stack>
       </Stack>
 
+      {/* Display updated time */}
+      {updatedAt !== undefined && (
+        <Typography
+          variant="caption"
+          component="div"
+          sx={{
+            color: isOutdatedData() ? 'red' : 'green',
+            textAlign: 'right',
+          }}
+        >
+          Updated at: {updatedAt.text}
+        </Typography>
+      )}
+
       {/* Display data */}
       <InfiniteScroll
         dataLength={matchedCourses.hidden.length}
@@ -258,9 +296,11 @@ const Courses: NextPageWithLayout = () => {
               mt: 2,
             }}
           >
-            {matchedCourses.displayed.length === 0
-              ? `We don't have data for ${filter.university} yet`
-              : 'Yay! You have seen it all'}
+            {matchedCourses.displayed.length !== 0
+              ? 'Yay! You have seen it all'
+              : faculties.length === 1
+              ? `${filter.university} is unvaialable now :(`
+              : 'Oops! Nothing matched'}
           </Typography>
         }
         scrollableTarget="course-table"
