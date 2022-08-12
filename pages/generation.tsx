@@ -4,7 +4,7 @@ import { NextPageWithLayout } from '@/types'
 const Generation: NextPageWithLayout = () => {
   return (
     <div>
-      <h1>Tool page</h1>
+      <p>Generation</p>
     </div>
   )
 }

@@ -1,5 +1,4 @@
 import { useAuth } from '@/hooks'
-import { EmptyLayout } from '@/layouts'
 import { NextPageWithLayout, SignUpPayload } from '@/types'
 import {
   Alert,
@@ -64,9 +63,12 @@ const SignUp: NextPageWithLayout = () => {
         <Stack alignItems="start">
           <Avatar
             alt="ctg-logo"
-            src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png"
+            src={Url.SmallLogo}
             variant="square"
-            sx={{ width: 28, height: 28 }}
+            sx={{
+              height: 28,
+              width: 'auto',
+            }}
           />
 
           <Typography
@@ -160,7 +162,5 @@ const SignUp: NextPageWithLayout = () => {
     </Paper>
   )
 }
-
-SignUp.Layout = EmptyLayout
 
 export default SignUp

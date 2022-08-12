@@ -1,7 +1,6 @@
 import { OAuthList } from '@/components/auth'
 import { Url } from '@/enums'
 import { useAuth } from '@/hooks'
-import { EmptyLayout } from '@/layouts'
 import { NextPageWithLayout, SignInPayload } from '@/types'
 import { Alert, Avatar, Button, Divider, Paper, Stack, TextField, Typography } from '@mui/material'
 import Link from 'next/link'
@@ -41,9 +40,12 @@ const SignIn: NextPageWithLayout = () => {
       <Stack alignItems="center">
         <Avatar
           alt="ctg-logo"
-          src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png"
+          src={Url.SmallLogo}
           variant="square"
-          sx={{ width: 28, height: 28 }}
+          sx={{
+            height: 28,
+            width: 'auto',
+          }}
         />
 
         <Typography
@@ -123,7 +125,5 @@ const SignIn: NextPageWithLayout = () => {
     </Paper>
   )
 }
-
-SignIn.Layout = EmptyLayout
 
 export default SignIn

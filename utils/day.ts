@@ -5,43 +5,50 @@ export function convertDayStringToDayNumber(day: string) {
     case 'Hai':
     case 'Mon':
       return DayOfWeek.Mon
+
     case 'Ba':
     case 'Tue':
       return DayOfWeek.Tue
+
     case 'Tư':
     case 'Wed':
       return DayOfWeek.Wed
+
     case 'Năm':
     case 'Thu':
       return DayOfWeek.Thu
+
     case 'Sáu':
     case 'Fri':
       return DayOfWeek.Fri
+
     case 'Bảy':
     case 'Sat':
       return DayOfWeek.Sat
+
     default:
       return DayOfWeek.Sun
   }
 }
 
-export function convertDayNumberToDayString(day: number) {
+export function convertDayNumberToDayString(day: number | DayOfWeek) {
   switch (day) {
-    case 0:
+    case DayOfWeek.Mon:
       return 'Mon'
-    case 1:
+
+    case DayOfWeek.Tue:
       return 'Tue'
 
-    case 2:
+    case DayOfWeek.Wed:
       return 'Wed'
 
-    case 3:
+    case DayOfWeek.Thu:
       return 'Thu'
 
-    case 4:
+    case DayOfWeek.Fri:
       return 'Fri'
 
-    case 5:
+    case DayOfWeek.Sat:
       return 'Sat'
 
     default:

@@ -4,7 +4,7 @@ import { NextPageWithLayout } from '@/types'
 const Tools: NextPageWithLayout = () => {
   return (
     <div>
-      <h1>Tool page</h1>
+      <h1>Tools</h1>
     </div>
   )
 }
