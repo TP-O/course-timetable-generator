@@ -4,7 +4,7 @@ import { NextPageWithLayout } from '@/types'
 const Saved: NextPageWithLayout = () => {
   return (
     <div>
-      <h1>Saved page</h1>
+      <h1>Saved</h1>
     </div>
   )
 }

@@ -1,5 +1,6 @@
-import { Url } from '@/enums'
+import { Time, Url } from '@/enums'
 import { SidebarMenuItem } from '@/types'
+import { theme } from '@/utils/mui'
 import {
   AddCircle,
   ArrowBackIos,
@@ -27,12 +28,12 @@ import {
   ListItemText,
   MenuItem,
   MenuList,
-  Paper,
   Stack,
   Typography,
 } from '@mui/material'
 import NextLink from 'next/link'
 import { useEffect, useState } from 'react'
+import { debounceTime, fromEvent, tap } from 'rxjs'
 
 export function Sidebar() {
   // Menu data
@@ -60,36 +61,41 @@ export function Sidebar() {
   ]
 
   // Sidebar displayment
-  const maxWidthToUseDrawer = 918
-  const [useDrawer, setUseDrawer] = useState(true)
+  const maxWidthToUseDrawer = theme.breakpoints.values.md
+  const [shouldUseDrawer, setShouldUseDrawer] = useState(true)
 
   useEffect(() => {
     if (window.innerWidth > maxWidthToUseDrawer) {
-      setUseDrawer(false)
+      setShouldUseDrawer(false)
     }
-  }, [])
+  }, [maxWidthToUseDrawer])
 
-  if (typeof window !== 'undefined') {
-    window.onresize = () => {
-      if (!useDrawer && window.innerWidth <= maxWidthToUseDrawer) {
-        setUseDrawer(true)
-        setShowSidebar(false)
-      }
+  useEffect(() => {
+    const sub = fromEvent(window, 'resize')
+      .pipe(debounceTime(100 * Time.Millisecond))
+      .subscribe(() => {
+        if (!shouldUseDrawer && window.innerWidth <= maxWidthToUseDrawer) {
+          setShouldUseDrawer(true)
+          setShouldShowSidebar(false)
+        }
 
-      if (useDrawer && window.innerWidth > maxWidthToUseDrawer) {
-        setUseDrawer(false)
-        setShowSidebar(true)
-      }
-    }
-  }
+        if (shouldUseDrawer && window.innerWidth > maxWidthToUseDrawer) {
+          setShouldUseDrawer(false)
+          setShouldShowSidebar(true)
+        }
+      })
+
+    return () => sub.unsubscribe()
+  }, [shouldUseDrawer, maxWidthToUseDrawer])
 
   // Toggle sidebar
-  const [showSidebar, setShowSidebar] = useState(() =>
-    // Show sidebar if screen is large enough
-    typeof window === 'undefined' ? false : window.innerWidth > maxWidthToUseDrawer
-  )
+  const [shouldShowSidebar, setShouldShowSidebar] = useState(false)
 
-  function toggle(show: boolean) {
+  useEffect(() => {
+    setShouldShowSidebar(window.innerWidth > maxWidthToUseDrawer)
+  }, [maxWidthToUseDrawer])
+
+  function toggle(shouldShow: boolean) {
     return (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
         event.type === 'keydown' &&
@@ -99,11 +105,12 @@ export function Sidebar() {
         return
       }
 
-      setShowSidebar(show)
+      setShouldShowSidebar(shouldShow)
     }
   }
 
-  const Sidebar = () => (
+  // SidebarContent component
+  const SidebarContent = () => (
     <Stack
       sx={{
         width: 256,
@@ -125,12 +132,14 @@ export function Sidebar() {
         >
           <Avatar
             alt="ctg-logo"
-            src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png"
-            variant="square"
-            sx={{ width: 28, height: 28 }}
+            src={Url.SmallLogo}
+            sx={{
+              height: 28,
+              width: 28,
+            }}
           />
 
-          {showSidebar && (
+          {shouldShowSidebar && (
             <Typography
               variant="h6"
               component="h1"
@@ -146,7 +155,7 @@ export function Sidebar() {
 
       <Box
         sx={{
-          flexGrow: showSidebar ? 1 : 0,
+          flexGrow: shouldShowSidebar ? 1 : 0,
           backgroundImage:
             'url("https://www.gstatic.com/mobilesdk/190424_mobilesdk/nav_nachos@2x.png")',
         }}
@@ -167,7 +176,7 @@ export function Sidebar() {
           >
             <TableView fontSize="medium" sx={{ color: 'sidebar.itemTitle' }} />
 
-            {showSidebar && (
+            {shouldShowSidebar && (
               <Typography
                 variant="subtitle2"
                 component="div"
@@ -181,7 +190,7 @@ export function Sidebar() {
 
         <Divider sx={{ borderColor: 'sidebar.divider' }} />
 
-        {showSidebar && (
+        {shouldShowSidebar && (
           <Box sx={{ px: 3, pt: 2.25, pb: 2.5 }}>
             <Typography variant="caption" component="div" sx={{ color: 'sidebar.listHeader' }}>
               Categories
@@ -192,7 +201,7 @@ export function Sidebar() {
         <MenuList
           sx={{
             color: 'sidebar.itemTitle',
-            px: showSidebar ? 1.25 : 0,
+            px: shouldShowSidebar ? 1.25 : 0,
             py: 0,
           }}
         >
@@ -200,10 +209,10 @@ export function Sidebar() {
             <NextLink href={item.href} key={i}>
               <MenuItem
                 sx={{
-                  px: showSidebar ? 1.25 : 2.5,
+                  px: shouldShowSidebar ? 1.25 : 2.5,
                   py: 1.75,
                   mb: 0.25,
-                  backgroundColor: showSidebar ? 'sidebar.wrapperBackground' : 'transparent',
+                  backgroundColor: shouldShowSidebar ? 'sidebar.wrapperBackground' : 'transparent',
                   borderTopRightRadius: i === 0 ? 8 : 0,
                   borderTopLeftRadius: i === 0 ? 8 : 0,
                   borderBottomLeftRadius: i === menuItems.length - 1 ? 8 : 0,
@@ -222,7 +231,7 @@ export function Sidebar() {
                   <item.Icon fontSize="medium" sx={{ color: 'sidebar.itemTitle' }} />
                 </ListItemIcon>
 
-                {showSidebar && (
+                {shouldShowSidebar && (
                   <ListItemText
                     disableTypography
                     primary={
@@ -237,7 +246,7 @@ export function Sidebar() {
           ))}
         </MenuList>
 
-        {showSidebar && (
+        {shouldShowSidebar && (
           <Card
             sx={{
               maxWidth: 345,
@@ -279,13 +288,13 @@ export function Sidebar() {
         )}
       </Box>
 
-      <Stack direction={showSidebar ? 'row' : 'column'} height={showSidebar ? 44 : 125}>
+      <Stack direction={shouldShowSidebar ? 'row' : 'column'} height={shouldShowSidebar ? 44 : 125}>
         <Link
-          href="https://github.com/utpop/course-timetable-generator"
+          href="https://github.com/tp-o/course-timetable-generator"
           target="_blank"
           sx={{
             display: 'flex',
-            flexGrow: showSidebar ? 0 : 1,
+            flexGrow: shouldShowSidebar ? 0 : 1,
             alignItems: 'center',
             px: 2.5,
             ':hover': {
@@ -299,12 +308,12 @@ export function Sidebar() {
           <GitHub fontSize="small" sx={{ color: 'sidebar.itemTitle' }} />
         </Link>
 
-        {!showSidebar && <Divider sx={{ borderColor: 'sidebar.divider' }} />}
+        {!shouldShowSidebar && <Divider sx={{ borderColor: 'sidebar.divider' }} />}
 
         <Button
           sx={{
             flexGrow: 1,
-            justifyContent: showSidebar ? 'end' : 'start',
+            justifyContent: shouldShowSidebar ? 'end' : 'start',
             px: 2.5,
             py: 1.25,
             ':hover': {
@@ -314,9 +323,9 @@ export function Sidebar() {
               },
             },
           }}
-          onClick={showSidebar ? toggle(false) : toggle(true)}
+          onClick={shouldShowSidebar ? toggle(false) : toggle(true)}
         >
-          {showSidebar ? (
+          {shouldShowSidebar ? (
             <ArrowBackIos fontSize="small" sx={{ color: 'sidebar.itemTitle' }} />
           ) : (
             <ArrowForwardIos fontSize="small" sx={{ color: 'sidebar.itemTitle' }} />
@@ -326,10 +335,10 @@ export function Sidebar() {
     </Stack>
   )
 
-  return !useDrawer ? (
+  return !shouldUseDrawer ? (
     <Collapse
       orientation="horizontal"
-      in={showSidebar}
+      in={shouldShowSidebar}
       collapsedSize={68}
       sx={{
         position: 'sticky',
@@ -339,7 +348,7 @@ export function Sidebar() {
         overflowY: 'auto',
       }}
     >
-      <Sidebar />
+      <SidebarContent />
     </Collapse>
   ) : (
     <Box>
@@ -360,13 +369,13 @@ export function Sidebar() {
 
       <Drawer
         anchor="left"
-        open={showSidebar}
+        open={shouldShowSidebar}
         ModalProps={{
           keepMounted: true,
         }}
         onClose={toggle(false)}
       >
-        <Sidebar />
+        <SidebarContent />
       </Drawer>
     </Box>
   )

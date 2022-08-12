@@ -31,8 +31,3 @@ export type CourseFilter = {
   university: Univerisity
   faculty?: string
 }
-
-export type MatchedCourses = {
-  hidden: Course[]
-  displayed: Course[]
-}

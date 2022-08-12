@@ -1,9 +1,12 @@
 import { MainLayout } from '@/layouts'
 import { NextPageWithLayout } from '@/types'
-import { Stack } from '@mui/material'
 
 const Analytics: NextPageWithLayout = () => {
-  return <Stack height="100px"></Stack>
+  return (
+    <div>
+      <p>Analytics</p>
+    </div>
+  )
 }
 
 Analytics.Layout = MainLayout

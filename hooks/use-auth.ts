@@ -19,7 +19,7 @@ export function useAuth() {
       return firebaseClient.currentUser
     },
     {
-      dedupingInterval: Time.Hour,
+      dedupingInterval: 1 * Time.Hour,
     }
   )
 

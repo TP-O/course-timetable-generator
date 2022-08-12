@@ -6,9 +6,9 @@ import {
   CourseFilter,
   CourseTableColumn,
   CourseTableColumnId,
-  MatchedCourses,
   NextPageWithLayout,
-  SnackbarState,
+  AlertState,
+  ScrollData,
   Sorting,
 } from '@/types'
 import { convertDayNumberToDayString } from '@/utils'
@@ -34,7 +34,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { display } from '@mui/system'
 import { ChangeEvent, Fragment, useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
@@ -89,7 +88,7 @@ const Courses: NextPageWithLayout = () => {
     university: Univerisity.HCMIU,
     faculty: '',
   })
-  const [matchedCourses, setMatchedCourses] = useState<MatchedCourses>({
+  const [matchedCourses, setMatchedCourses] = useState<ScrollData<Course>>({
     hidden: [],
     displayed: [],
   })
@@ -131,7 +130,7 @@ const Courses: NextPageWithLayout = () => {
   }, [filter, sorting])
 
   // Copy course code
-  const [snackbarState, setSnackbarState] = useState<SnackbarState>({
+  const [snackbarState, setSnackbarState] = useState<AlertState>({
     message: '',
     status: 'success',
     isOpen: false,
