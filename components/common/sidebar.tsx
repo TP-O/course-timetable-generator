@@ -355,14 +355,13 @@ export function Sidebar() {
       <Box
         sx={{
           position: 'fixed',
-          top: '10%',
+          top: 10,
           left: 0,
-          backgroundColor: 'sidebar.background',
-          borderTopRightRadius: 8,
-          borderBottomRightRadius: 8,
+          zIndex: 1200,
+          px: 3,
         }}
       >
-        <IconButton sx={{ py: 0 }} onClick={toggle(true)}>
+        <IconButton sx={{ p: 0 }} onClick={toggle(true)}>
           <Menu sx={{ color: 'sidebar.itemTitle' }} />
         </IconButton>
       </Box>

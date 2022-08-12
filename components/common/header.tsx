@@ -51,6 +51,10 @@ export function Header() {
             fontWeight: 500,
             color: 'appBar.text',
             textTransform: 'capitalize',
+            pl: {
+              xs: 5,
+              md: 0,
+            },
           }}
         >
           {appBarTitle}
