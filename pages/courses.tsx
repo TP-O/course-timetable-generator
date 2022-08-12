@@ -1,4 +1,4 @@
-import { Univerisity } from '@/enums'
+import { Time, Univerisity } from '@/enums'
 import { MainLayout } from '@/layouts'
 import { getFaculties, getUniversities, searchCoursesByName } from '@/services'
 import {
@@ -34,8 +34,9 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { ChangeEvent, Fragment, useEffect, useState } from 'react'
+import { ChangeEvent, Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs'
 
 const Courses: NextPageWithLayout = () => {
   // Perpare data
@@ -83,8 +84,8 @@ const Courses: NextPageWithLayout = () => {
   }
 
   // Searching
-  const [filter, setFilter] = useState<CourseFilter>({
-    keyword: '',
+  const keyword = useRef(null)
+  const [filter, setFilter] = useState<Omit<CourseFilter, 'keyword'>>({
     university: Univerisity.HCMIU,
     faculty: '',
   })
@@ -94,7 +95,7 @@ const Courses: NextPageWithLayout = () => {
   })
   const hasCourseCode = matchedCourses.displayed[0]?.code !== undefined
 
-  function handleSearching(
+  function handleFilter(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent
   ) {
     setFilter((filter) => ({ ...filter, [event.target.name]: event.target.value }))
@@ -112,13 +113,14 @@ const Courses: NextPageWithLayout = () => {
     })
   }
 
-  useEffect(() => {
-    getFaculties(filter.university).then((faculties) => setFaculties(faculties))
-  }, [filter.university])
+  const loadCourses = useCallback(
+    async (keyword = '') => {
+      let courses = await searchCoursesByName({
+        ...filter,
+        keyword,
+      })
 
-  useEffect(() => {
-    searchCoursesByName(filter).then((courses) =>
-      setMatchedCourses((state) => {
+      setMatchedCourses(() => {
         courses = sortCourses(courses, sorting)
 
         return {
@@ -126,8 +128,23 @@ const Courses: NextPageWithLayout = () => {
           displayed: courses.splice(0, 10),
         }
       })
-    )
-  }, [filter, sorting])
+    },
+    [filter, sorting]
+  )
+
+  useEffect(() => {
+    getFaculties(filter.university).then((faculties) => setFaculties(faculties))
+  }, [filter.university])
+
+  useEffect(() => {
+    loadCourses()
+
+    const sub = fromEvent<ChangeEvent<HTMLInputElement>>(keyword.current!, 'keyup')
+      .pipe(debounceTime(200 * Time.Millisecond), distinctUntilChanged())
+      .subscribe(async (event) => loadCourses(event.target.value))
+
+    return () => sub.unsubscribe()
+  }, [loadCourses])
 
   // Copy course code
   const [snackbarState, setSnackbarState] = useState<AlertState>({
@@ -162,13 +179,7 @@ const Courses: NextPageWithLayout = () => {
     <Stack spacing={3} sx={{ px: 2, py: 5 }}>
       {/* Searching */}
       <Stack spacing={4}>
-        <TextField
-          name="keyword"
-          label="Search"
-          size="small"
-          variant="outlined"
-          onChange={handleSearching}
-        />
+        <TextField name="keyword" label="Search" size="small" variant="outlined" ref={keyword} />
 
         <Stack direction="row" spacing={4}>
           <FormControl fullWidth>
@@ -183,7 +194,7 @@ const Courses: NextPageWithLayout = () => {
               size="small"
               value={filter.university}
               label="University"
-              onChange={handleSearching}
+              onChange={handleFilter}
             >
               {university.map((university) => (
                 <MenuItem key={university} value={university}>
@@ -205,7 +216,7 @@ const Courses: NextPageWithLayout = () => {
               size="small"
               value={filter.faculty}
               label="Faculty"
-              onChange={handleSearching}
+              onChange={handleFilter}
             >
               <MenuItem value="">All</MenuItem>
 
