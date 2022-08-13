@@ -8,7 +8,7 @@ import {
 } from '@/services'
 import {
   Course,
-  CourseFilter,
+  CourseSearching,
   CourseTableColumn,
   CourseTableColumnId,
   NextPageWithLayout,
@@ -97,7 +97,7 @@ const Courses: NextPageWithLayout = () => {
 
   // Searching
   const keyword = useRef<HTMLInputElement>(null)
-  const [filter, setFilter] = useState<CourseFilter>({
+  const [searching, setSearching] = useState<CourseSearching>({
     university: Univerisity.HCMIU,
     faculty: '',
     keyword: '',
@@ -108,15 +108,15 @@ const Courses: NextPageWithLayout = () => {
   })
   const hasCourseCode = matchedCourses.displayed[0]?.code !== undefined
 
-  function handleFilter(
+  function handleSearching(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent
   ) {
     // Reset keyword if other options changed
     if (event.target.name !== 'keyword') {
-      filter.keyword = ''
+      searching.keyword = ''
     }
 
-    setFilter((filter) => ({ ...filter, [event.target.name]: event.target.value }))
+    setSearching((searching) => ({ ...searching, [event.target.name]: event.target.value }))
   }
 
   function loadMoreCourses() {
@@ -131,8 +131,8 @@ const Courses: NextPageWithLayout = () => {
     async (keyword = '') => {
       let courses = await searchCoursesByName({
         keyword,
-        faculty: filter.faculty,
-        university: filter.university,
+        faculty: searching.faculty,
+        university: searching.university,
       })
 
       setMatchedCourses(() => {
@@ -144,13 +144,13 @@ const Courses: NextPageWithLayout = () => {
         }
       })
     },
-    [filter.faculty, filter.university, sorting]
+    [searching.faculty, searching.university, sorting]
   )
 
   useEffect(() => {
-    getUniversityUpdatedTime(filter.university).then((updatedAt) => setUpdatedAt(updatedAt))
-    getFaculties(filter.university).then((faculties) => setFaculties(faculties))
-  }, [filter.university])
+    getUniversityUpdatedTime(searching.university).then((updatedAt) => setUpdatedAt(updatedAt))
+    getFaculties(searching.university).then((faculties) => setFaculties(faculties))
+  }, [searching.university])
 
   useEffect(() => {
     loadCourses()
@@ -200,9 +200,9 @@ const Courses: NextPageWithLayout = () => {
           label="Search"
           size="small"
           variant="outlined"
-          value={filter.keyword}
+          value={searching.keyword}
           ref={keyword}
-          onChange={handleFilter}
+          onChange={handleSearching}
         />
 
         <Stack direction="row" spacing={4}>
@@ -216,9 +216,9 @@ const Courses: NextPageWithLayout = () => {
               labelId="university"
               id="demo-simple-select"
               size="small"
-              value={filter.university}
+              value={searching.university}
               label="University"
-              onChange={handleFilter}
+              onChange={handleSearching}
             >
               {university.map((university) => (
                 <MenuItem key={university} value={university}>
@@ -238,9 +238,9 @@ const Courses: NextPageWithLayout = () => {
               labelId="faculty"
               id="demo-simple-select"
               size="small"
-              value={filter.faculty}
+              value={searching.faculty}
               label="Faculty"
-              onChange={handleFilter}
+              onChange={handleSearching}
             >
               <MenuItem value="">All</MenuItem>
 
@@ -299,7 +299,7 @@ const Courses: NextPageWithLayout = () => {
             {matchedCourses.displayed.length !== 0
               ? 'Yay! You have seen it all'
               : faculties.length === 1
-              ? `${filter.university} is unvaialable now :(`
+              ? `${searching.university} is unvaialable now :(`
               : 'Oops! Nothing matched'}
           </Typography>
         }

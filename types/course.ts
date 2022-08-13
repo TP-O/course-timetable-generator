@@ -18,15 +18,7 @@ export type Lesson = {
   lecturers: string[]
 }
 
-export type CourseTableColumnId = keyof Omit<Course, 'classes'> | keyof Lesson
-
-export type CourseTableColumn = {
-  id: CourseTableColumnId
-  label: string
-  isSortable: boolean
-}
-
-export type CourseFilter = {
+export type CourseSearching = {
   keyword: string
   university: Univerisity
   faculty?: string
