@@ -1,4 +1,4 @@
-import { Course, CourseFilter, UniversityStorage } from '@/types'
+import { Course, CourseSearching, UniversityStorage } from '@/types'
 import { matchSorter } from 'match-sorter'
 import { Univerisity } from '@/enums'
 
@@ -36,20 +36,26 @@ export async function getFaculties(university: Univerisity) {
   return ['', ...Object.keys(storage[university]?.faculties || {})]
 }
 
-export async function searchCoursesByName(filter: CourseFilter) {
-  await loadUniversity(filter.university)
+export async function getCourseNames(university: Univerisity) {
+  await loadUniversity(university)
+
+  return Object.keys(storage[university]?.courses || {})
+}
+
+export async function searchCoursesByName(searching: CourseSearching) {
+  await loadUniversity(searching.university)
 
   const courseNames =
-    filter.faculty === undefined || filter.faculty === ''
-      ? Object.keys(storage[filter.university]?.courses || {})
-      : Object.keys(storage[filter.university]?.faculties[filter.faculty].courses || {})
+    searching.faculty === undefined || searching.faculty === ''
+      ? Object.keys(storage[searching.university]?.courses || {})
+      : Object.keys(storage[searching.university]?.faculties[searching.faculty].courses || {})
 
   const filteredCourseNames =
-    filter.keyword === '' ? courseNames : matchSorter(courseNames, filter.keyword)
+    searching.keyword === '' ? courseNames : matchSorter(courseNames, searching.keyword)
   const filteredCourses: Course[] = []
 
   for (const courseName of filteredCourseNames) {
-    filteredCourses.push(...(storage[filter.university]?.courses[courseName] || []))
+    filteredCourses.push(...(storage[searching.university]?.courses[courseName] || []))
   }
 
   return filteredCourses

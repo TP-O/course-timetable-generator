@@ -60,7 +60,7 @@ const Courses: NextPageWithLayout = () => {
     createColumn('room'),
     createColumn('lecturers'),
   ]
-  const university = getUniversities()
+  const universities = getUniversities()
   const [updatedAt, setUpdatedAt] = useState<Timestamp | undefined>(undefined)
   const [faculties, setFaculties] = useState<string[]>([])
 
@@ -201,26 +201,25 @@ const Courses: NextPageWithLayout = () => {
           size="small"
           variant="outlined"
           value={searching.keyword}
-          ref={keyword}
+          inputRef={keyword}
           onChange={handleSearching}
         />
 
         <Stack direction="row" spacing={4}>
           <FormControl fullWidth>
-            <InputLabel id="university" size="small">
+            <InputLabel id="university-selection-label" size="small">
               University
             </InputLabel>
 
             <Select
               name="university"
-              labelId="university"
-              id="demo-simple-select"
+              labelId="university-selection-label"
               size="small"
               value={searching.university}
               label="University"
               onChange={handleSearching}
             >
-              {university.map((university) => (
+              {universities.map((university) => (
                 <MenuItem key={university} value={university}>
                   {university}
                 </MenuItem>
@@ -229,14 +228,13 @@ const Courses: NextPageWithLayout = () => {
           </FormControl>
 
           <FormControl fullWidth>
-            <InputLabel id="faculty" size="small">
+            <InputLabel id="faculty-selection-label" size="small">
               Faculty
             </InputLabel>
 
             <Select
               name="faculty"
-              labelId="faculty"
-              id="demo-simple-select"
+              labelId="faculty-selection-label"
               size="small"
               value={searching.faculty}
               label="Faculty"
