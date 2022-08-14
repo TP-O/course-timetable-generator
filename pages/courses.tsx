@@ -45,31 +45,33 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs'
 import date from 'date-and-time'
 
+const universities = getUniversities()
+const sortableColumnIds: CourseTableColumnId[] = ['name', 'capacity', 'credits']
+
+function createColumn(id: CourseTableColumnId): CourseTableColumn {
+  const label = id[0].toUpperCase() + id.slice(1)
+  const isSortable = sortableColumnIds.includes(id)
+
+  return { id, label, isSortable }
+}
+
+const columns: readonly CourseTableColumn[] = [
+  createColumn('id'),
+  createColumn('name'),
+  createColumn('credits'),
+  createColumn('classId'),
+  createColumn('capacity'),
+  createColumn('day'),
+  createColumn('begin'),
+  createColumn('periods'),
+  createColumn('room'),
+  createColumn('lecturers'),
+]
+
 const Courses: NextPageWithLayout = () => {
   // Perpare data
-  const sortableColumnIds: CourseTableColumnId[] = ['name', 'capacity', 'credits']
-  const columns: readonly CourseTableColumn[] = [
-    createColumn('id'),
-    createColumn('name'),
-    createColumn('credits'),
-    createColumn('classId'),
-    createColumn('capacity'),
-    createColumn('day'),
-    createColumn('begin'),
-    createColumn('periods'),
-    createColumn('room'),
-    createColumn('lecturers'),
-  ]
-  const universities = getUniversities()
   const [updatedAt, setUpdatedAt] = useState<Timestamp | undefined>(undefined)
   const [faculties, setFaculties] = useState<string[]>([])
-
-  function createColumn(id: CourseTableColumnId): CourseTableColumn {
-    const label = id[0].toUpperCase() + id.slice(1)
-    const isSortable = sortableColumnIds.includes(id)
-
-    return { id, label, isSortable }
-  }
 
   function isOutdatedData() {
     return date.subtract(new Date(), new Date(updatedAt?.second || 0)).toDays() >= 90
@@ -114,6 +116,10 @@ const Courses: NextPageWithLayout = () => {
     // Reset keyword if other options changed
     if (event.target.name !== 'keyword') {
       searching.keyword = ''
+    }
+
+    if (event.target.name === 'university') {
+      searching.faculty = ''
     }
 
     setSearching((searching) => ({ ...searching, [event.target.name]: event.target.value }))
@@ -205,7 +211,7 @@ const Courses: NextPageWithLayout = () => {
           onChange={handleSearching}
         />
 
-        <Stack direction="row" spacing={4}>
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={4}>
           <FormControl fullWidth>
             <InputLabel id="university-selection-label" size="small">
               University

@@ -1,10 +1,19 @@
 import { DayOfWeek, Univerisity } from '@/enums'
 import { MainLayout } from '@/layouts'
-import { getCourseNames, getLecturersOfCourse, getUniversities } from '@/services'
+import {
+  generateTimetables,
+  getCourseGroups,
+  getCourseNames,
+  getFaculties,
+  getLecturersOfCourse,
+  getUniversities,
+} from '@/services'
 import { NextPageWithLayout, TimetableFilter } from '@/types'
 import { convertDayNumberToDayString } from '@/utils'
 import {
   Autocomplete,
+  Box,
+  Button,
   Checkbox,
   FormControl,
   Grid,
@@ -18,7 +27,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { setFips } from 'crypto'
 import { ChangeEvent, Fragment, useEffect, useState } from 'react'
 import { from } from 'rxjs'
 
@@ -26,24 +34,35 @@ const universities = getUniversities()
 const daysOfWeek = Object.keys(DayOfWeek).filter((value) => isNaN(Number(value)))
 
 const Generation: NextPageWithLayout = () => {
-  // Change university
-  const [university, setUniversity] = useState<Univerisity>(Univerisity.HCMIU)
-
-  function handleUniversity(event: SelectChangeEvent) {
-    setUniversity(event.target.value as Univerisity)
-  }
-
   // Course searching
   const [courseNames, setCourseNames] = useState<String[]>([])
   const [selectedCoureNames, setSelectedCourseNames] = useState<String[]>([])
+  const [faculties, setFaculties] = useState<string[]>([])
+  const [courseSearching, setCourseSearching] = useState({
+    university: Univerisity.HCMIU,
+    faculty: '',
+  })
 
   function handleSelectedCourseNames(_: any, value: String[]) {
     setSelectedCourseNames(value)
   }
 
+  function handleCourseSearching(event: SelectChangeEvent) {
+    setCourseSearching((state) => ({
+      ...state,
+      [event.target.name]: event.target.value,
+    }))
+  }
+
   useEffect(() => {
-    getCourseNames(university).then((courseNames) => setCourseNames(courseNames))
-  }, [university])
+    getFaculties(courseSearching.university).then((faculties) => setFaculties(faculties))
+  }, [courseSearching.university])
+
+  useEffect(() => {
+    getCourseNames(courseSearching.university, courseSearching.faculty).then((courseNames) =>
+      setCourseNames(courseNames)
+    )
+  }, [courseSearching])
 
   // Timetable filter
   const [filter, setFilter] = useState<TimetableFilter>({
@@ -54,70 +73,98 @@ const Generation: NextPageWithLayout = () => {
     lecturer: {},
   })
   const [lecturersOfCourses, setLecturersOfCourses] = useState<
-    Record<Univerisity, Record<string, string[]>>
-  >({
-    'HCMIU - International Univerisity': {},
-    'UEH - University of Economics HCMC': {},
-  })
+    Record<string, Record<string, string[]>>
+  >({})
 
   function handleChangeDayOffFilter(
     event: SelectChangeEvent<DayOfWeek[]> | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
-    setFilter(
-      (filter) =>
-        ({
-          ...filter,
-          dayOff: {
-            ...filter.dayOff,
-            [event.target.name]: event.target.value,
-          },
-        } as TimetableFilter)
-    )
+    setFilter((state) => {
+      const newState = { ...state }
+
+      if (event.target.name === 'days' && typeof event.target.value === 'number') {
+        newState.dayOff!.days = event.target.value
+      } else if (event.target.name === 'specificDays' && Array.isArray(event.target.value)) {
+        newState.dayOff!.specificDays = event.target.value
+      }
+
+      return newState
+    })
+  }
+
+  function handleChangeLecturerFilter(courseName: string) {
+    return (event: SelectChangeEvent<string[]>) => {
+      setFilter((state) => {
+        const newState = { ...state }
+
+        if (event.target.name === 'expectations') {
+          newState.lecturer![courseName]!.expectations = Array.from(event.target.value)
+        } else if (event.target.name === 'unexpectations') {
+          newState.lecturer![courseName]!.unexpectations = Array.from(event.target.value)
+        }
+
+        return newState
+      })
+    }
   }
 
   useEffect(() => {
     // Update lecturer filter
     setFilter((state) => {
-      const newFilter = { ...state }
-      const currentCourseNames = Object.keys(newFilter.lecturer!)
+      const newState = { ...state }
+      const outdatedCourseNames = Object.keys(newState.lecturer!)
 
       // Add new courses
       selectedCoureNames.forEach((name) => {
-        if (!currentCourseNames.includes(String(name))) {
-          newFilter.lecturer![String(name)] = {
+        if (!outdatedCourseNames.includes(String(name))) {
+          newState.lecturer![String(name)] = {
             expectations: [],
             unexpectations: [],
           }
 
-          // Get new lecturer for new courses
-          from(getLecturersOfCourse(university, String(name))).subscribe((lecturers) => {
+          // Get lecturers for new course
+          getLecturersOfCourse(courseSearching.university, String(name)).then((lecturers) =>
             setLecturersOfCourses((state) => {
-              if (state[university][String(name)] !== undefined) {
-                return state
-              }
+              const newState = { ...state }
 
-              return {
-                ...state,
-                [university]: {
-                  ...state[university],
-                  [String(name)]: lecturers,
-                },
-              }
+              newState[courseSearching.university] =
+                newState[courseSearching.university] === undefined
+                  ? {}
+                  : state[courseSearching.university]
+
+              newState[courseSearching.university][String(name)] =
+                newState[courseSearching.university][String(name)] === undefined
+                  ? lecturers
+                  : newState[courseSearching.university][String(name)]
+
+              return newState
             })
-          })
+          )
         }
       })
 
       // Remove courses
-      currentCourseNames.forEach((name) => {
+      outdatedCourseNames.forEach((name) => {
         if (!selectedCoureNames.includes(name)) {
-          delete newFilter.lecturer![name]
+          delete newState.lecturer![name]
         }
       })
 
-      return newFilter
+      return newState
     })
-  }, [selectedCoureNames, university])
+  }, [courseSearching.university, selectedCoureNames])
+
+  // Generate timetables
+  async function handleGenerateTimetable() {
+    const courseGroups = await getCourseGroups(
+      courseSearching.university,
+      selectedCoureNames as string[]
+    )
+    const timetables = generateTimetables(courseGroups, filter)
+
+    console.log('======================')
+    console.log(timetables)
+  }
 
   return (
     <Stack sx={{ px: 2, py: 5 }}>
@@ -131,27 +178,51 @@ const Generation: NextPageWithLayout = () => {
           )}
           onChange={handleSelectedCourseNames}
         />
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={4}>
+          <FormControl fullWidth>
+            <InputLabel id="university-selection-label" size="small">
+              University
+            </InputLabel>
 
-        <FormControl>
-          <InputLabel id="university-selection-label" size="small">
-            University
-          </InputLabel>
+            <Select
+              name="university"
+              labelId="university-selection-label"
+              size="small"
+              value={courseSearching.university}
+              label="University"
+              onChange={handleCourseSearching}
+            >
+              {universities.map((university) => (
+                <MenuItem key={university} value={university}>
+                  {university}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-          <Select
-            name="university"
-            labelId="university-selection-label"
-            size="small"
-            value={university}
-            label="University"
-            onChange={handleUniversity}
-          >
-            {universities.map((university) => (
-              <MenuItem key={university} value={university}>
-                {university}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id="faculty-selection-label" size="small">
+              Faculty
+            </InputLabel>
+
+            <Select
+              name="faculty"
+              labelId="faculty-selection-label"
+              size="small"
+              value={courseSearching.faculty}
+              label="Faculty"
+              onChange={handleCourseSearching}
+            >
+              <MenuItem value="">All</MenuItem>
+
+              {faculties.map((faculty) => (
+                <MenuItem key={faculty} value={faculty}>
+                  {faculty}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Stack>
 
         <Fragment>
           <Typography variant="caption" component="div" sx={{ pl: 1 }}>
@@ -237,101 +308,109 @@ const Generation: NextPageWithLayout = () => {
             <b>Lecturer</b>
           </Typography>
 
-          <Stack
-            spacing={2}
-            direction={{
-              xs: 'column',
-              sm: 'row',
-            }}
-          >
-            {filter.lecturer &&
-              Object.entries(filter.lecturer).map(([courseName, option], i) => (
-                <Stack
-                  key={courseName}
-                  spacing={2}
-                  sx={{
-                    width: { xs: '100%', md: '30%', lg: '25%' },
-                  }}
-                >
-                  <Typography variant="caption" component="div" sx={{ pl: 1 }}>
-                    {courseName}
-                  </Typography>
+          <Box width="100%">
+            <Grid container rowSpacing={3} columnSpacing={1}>
+              {filter.lecturer &&
+                Object.entries(filter.lecturer).map(([courseName], i) => (
+                  <Grid key={courseName} item xs={12} md={6} lg={3}>
+                    <Stack spacing={2}>
+                      <Typography variant="caption" component="div" sx={{ pl: 1 }}>
+                        {courseName}
+                      </Typography>
 
-                  <FormControl>
-                    <InputLabel id={`expected-lecturer-label-${i}`} size="small">
-                      Expect
-                    </InputLabel>
-                    <Select
-                      name={courseName}
-                      multiple
-                      labelId={`expected-lecturer-label-${i}`}
-                      size="small"
-                      value={filter.lecturer![courseName]?.expectations}
-                      // onChange={handleChangeDayOffFilter}
-                      input={<OutlinedInput label="Expect" />}
-                      MenuProps={{
-                        PaperProps: {
-                          style: {
-                            maxHeight: 224,
-                            width: 250,
-                          },
-                        },
-                      }}
-                      sx={{ width: '100%' }}
-                      renderValue={(selected: string[]) => selected.join(', ')}
-                    >
-                      {lecturersOfCourses[university][courseName] === undefined ||
-                      lecturersOfCourses[university][courseName]?.length === 0 ? (
-                        <MenuItem disabled>Nothing here</MenuItem>
-                      ) : (
-                        lecturersOfCourses[university][courseName].map((lecturer, i) => (
-                          <MenuItem key={i} value={i}>
-                            {lecturer}
-                          </MenuItem>
-                        ))
-                      )}
-                    </Select>
-                  </FormControl>
+                      <FormControl>
+                        <InputLabel id={`expected-lecturer-label-${i}`} size="small">
+                          Expect
+                        </InputLabel>
+                        <Select
+                          name="expectations"
+                          multiple
+                          labelId={`expected-lecturer-label-${i}`}
+                          size="small"
+                          value={filter.lecturer![courseName]?.expectations}
+                          onChange={handleChangeLecturerFilter(courseName)}
+                          input={<OutlinedInput label="Expect" />}
+                          MenuProps={{
+                            PaperProps: {
+                              style: {
+                                maxHeight: 224,
+                                width: 250,
+                              },
+                            },
+                          }}
+                          sx={{ width: '100%' }}
+                          renderValue={(selected: string[]) => selected.join(', ')}
+                        >
+                          {!Array.isArray(
+                            lecturersOfCourses[courseSearching.university]?.[courseName]
+                          ) ? (
+                            <MenuItem disabled>Nothing here</MenuItem>
+                          ) : (
+                            lecturersOfCourses[courseSearching.university]?.[courseName].map(
+                              (lecturer, i) => (
+                                <MenuItem key={i} value={lecturer}>
+                                  {lecturer}
+                                </MenuItem>
+                              )
+                            )
+                          )}
+                        </Select>
+                      </FormControl>
 
-                  <FormControl>
-                    <InputLabel id={`unexpected-lecturer-label-${i}`} size="small">
-                      Unexpect
-                    </InputLabel>
-                    <Select
-                      name={courseName}
-                      multiple
-                      label={`unexpected-lecturer-label-${i}`}
-                      size="small"
-                      value={filter.lecturer![courseName]?.unexpectations}
-                      // onChange={handleChangeDayOffFilter}
-                      input={<OutlinedInput label="Unexpect" />}
-                      MenuProps={{
-                        PaperProps: {
-                          style: {
-                            maxHeight: 224,
-                            width: 250,
-                          },
-                        },
-                      }}
-                      sx={{ width: '100%' }}
-                      renderValue={(selected: string[]) => selected.join(', ')}
-                    >
-                      {lecturersOfCourses[university][courseName] === undefined ||
-                      lecturersOfCourses[university][courseName].length === 0 ? (
-                        <MenuItem disabled>Nothing here</MenuItem>
-                      ) : (
-                        lecturersOfCourses[university][courseName].map((lecturer, i) => (
-                          <MenuItem key={i} value={i}>
-                            {lecturer}
-                          </MenuItem>
-                        ))
-                      )}
-                    </Select>
-                  </FormControl>
-                </Stack>
-              ))}
-          </Stack>
+                      <FormControl>
+                        <InputLabel id={`unexpected-lecturer-label-${i}`} size="small">
+                          Unexpect
+                        </InputLabel>
+                        <Select
+                          name="unexpectations"
+                          multiple
+                          label={`unexpected-lecturer-label-${i}`}
+                          size="small"
+                          value={filter.lecturer![courseName]?.unexpectations}
+                          onChange={handleChangeLecturerFilter(courseName)}
+                          input={<OutlinedInput label="Unexpect" />}
+                          MenuProps={{
+                            PaperProps: {
+                              style: {
+                                maxHeight: 224,
+                                width: 250,
+                              },
+                            },
+                          }}
+                          sx={{ width: '100%' }}
+                          renderValue={(selected: string[]) => (
+                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                              {selected.map((value) => (
+                                <span key={value}>{value}&#44;</span>
+                              ))}
+                            </Box>
+                          )}
+                        >
+                          {!Array.isArray(
+                            lecturersOfCourses[courseSearching.university]?.[courseName]
+                          ) ? (
+                            <MenuItem disabled>Nothing here</MenuItem>
+                          ) : (
+                            lecturersOfCourses[courseSearching.university]?.[courseName].map(
+                              (lecturer, i) => (
+                                <MenuItem key={i} value={lecturer}>
+                                  {lecturer}
+                                </MenuItem>
+                              )
+                            )
+                          )}
+                        </Select>
+                      </FormControl>
+                    </Stack>
+                  </Grid>
+                ))}
+            </Grid>
+          </Box>
         </Fragment>
+
+        <Button variant="contained" onClick={handleGenerateTimetable}>
+          Generate
+        </Button>
       </Stack>
     </Stack>
   )

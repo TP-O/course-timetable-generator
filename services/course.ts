@@ -39,19 +39,21 @@ export async function getFaculties(university: Univerisity) {
 export async function getLecturersOfCourse(university: Univerisity, courseName: string) {
   await loadUniversity(university)
 
-  for (const faculty of Object.values(storage[university]?.faculties || {})) {
-    if (faculty.courses[courseName] !== undefined) {
-      return faculty.courses[courseName].lecturers
-    }
-  }
-
-  return []
+  return storage[university]?.courses[courseName].lecturers || []
 }
 
-export async function getCourseNames(university: Univerisity) {
+export async function getCourseNames(university: Univerisity, faculty = '') {
   await loadUniversity(university)
 
-  return Object.keys(storage[university]?.courses || {})
+  return faculty === ''
+    ? Object.keys(storage[university]?.courses || {})
+    : Object.keys(storage[university]?.faculties[faculty].courses || {})
+}
+
+export async function getCourseGroups(university: Univerisity, courseNames: string[]) {
+  await loadUniversity(university)
+
+  return courseNames.map((name) => Object.values(storage[university]?.courses[name]?.items || []))
 }
 
 export async function searchCoursesByName(searching: CourseSearching) {
@@ -60,14 +62,14 @@ export async function searchCoursesByName(searching: CourseSearching) {
   const courseNames =
     searching.faculty === undefined || searching.faculty === ''
       ? Object.keys(storage[searching.university]?.courses || {})
-      : Object.keys(storage[searching.university]?.faculties[searching.faculty].courses || {})
+      : Object.keys(storage[searching.university]?.faculties[searching.faculty]?.courses || {})
 
   const filteredCourseNames =
     searching.keyword === '' ? courseNames : matchSorter(courseNames, searching.keyword)
   const filteredCourses: Course[] = []
 
   for (const courseName of filteredCourseNames) {
-    filteredCourses.push(...(storage[searching.university]?.courses[courseName] || []))
+    filteredCourses.push(...(storage[searching.university]?.courses[courseName].items || []))
   }
 
   return filteredCourses

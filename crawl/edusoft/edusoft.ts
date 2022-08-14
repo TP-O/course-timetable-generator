@@ -180,20 +180,24 @@ export abstract class EdusoftCrawler implements Crawler {
 
         // Declare course of record if does not exist
         if (universityRecord.courses[courseItem.name] === undefined) {
-          universityRecord.courses[courseItem.name] = []
+          universityRecord.courses[courseItem.name] = {
+            items: [],
+            lecturers: [],
+          }
         }
 
         // Add new course to record
         if (
           !some(
-            universityRecord.courses[courseItem.name],
+            universityRecord.courses[courseItem.name].items,
             (e) => JSON.stringify(e) === JSON.stringify(courseItem)
           )
         ) {
-          universityRecord.courses[courseItem.name].push(courseItem)
+          universityRecord.courses[courseItem.name].items.push(courseItem)
         }
 
-        // Add new lecturers to faculty's lecturer and course's lecturer list
+        // Add new lecturers to faculty's lecturer, course's lecturer list
+        // and course group's lecturer
         courseItem.lessons.forEach((lesson) => {
           lesson.lecturers.forEach((lecturer) => {
             if (!universityRecord.faculties[facultyName].lecturers.includes(lecturer)) {
@@ -208,6 +212,10 @@ export abstract class EdusoftCrawler implements Crawler {
               universityRecord.faculties[facultyName].courses[courseItem.name].lecturers.push(
                 lecturer
               )
+            }
+
+            if (!universityRecord.courses[courseItem.name].lecturers.includes(lecturer)) {
+              universityRecord.courses[courseItem.name].lecturers.push(lecturer)
             }
           })
         })

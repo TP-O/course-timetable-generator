@@ -5,7 +5,7 @@ export type UniversityStorage = Record<Univerisity, UniversityRecord | null>
 
 export type UniversityRecord = {
   faculties: Record<string, FacultyRecord>
-  courses: Record<string, Course[]>
+  courses: Record<string, CourseGroup>
   updatedAt?: Timestamp
 }
 
@@ -20,5 +20,10 @@ export type FacultyRecord = {
 }
 
 export type CourseRecord = {
+  lecturers: string[]
+}
+
+export type CourseGroup = {
+  items: Course[]
   lecturers: string[]
 }

@@ -182,7 +182,7 @@ export function Sidebar() {
                 component="div"
                 sx={{ flexGrow: 1, color: 'sidebar.itemTitle' }}
               >
-                Course Filter
+                Course Searching
               </Typography>
             )}
           </Stack>

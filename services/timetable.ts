@@ -1,5 +1,6 @@
 import { Course, Timetable, TimetableFilter } from '@/types'
 import sortedIndexBy from 'lodash/sortedIndexBy'
+import cloneDeep from 'lodash/cloneDeep'
 
 export function generateTimetables(courseGroups: Course[][], filter = {} as TimetableFilter) {
   return generateTimetablesWithCourseFilter(courseGroups, filter).filter((timetable) =>
@@ -13,31 +14,36 @@ function generateTimetablesWithCourseFilter(courseGroups: Course[][], filter: Ti
     return [[[], [], [], [], [], [], []]]
   }
 
-  const timetables: Timetable[] = []
   const courses = courseGroups.splice(0, 1)[0]
-  const incompleteTimetables = generateTimetables(courseGroups, filter)
 
-  for (const course of courses) {
-    if (!isValidCourse(course, filter)) {
-      break
-    }
+  const incompleteTimetables = generateTimetablesWithCourseFilter(courseGroups, filter)
+  const timetables: Timetable[] = []
 
-    for (const incompleteTimetable of incompleteTimetables) {
-      if (!isOverlapped(course, incompleteTimetable)) {
-        for (const lesson of course.lessons) {
-          const newClass = {
-            ...course,
-            ...lesson,
-          }
-
-          // Add new class to day with order by begin property
-          incompleteTimetable[lesson.day].splice(
-            sortedIndexBy(incompleteTimetable[lesson.day], newClass, 'begin'),
-            0,
-            newClass
-          )
-        }
+  for (const incompleteTimetable of incompleteTimetables) {
+    for (const course of courses) {
+      if (!isValidCourse(course, filter) || isOverlapped(course, incompleteTimetable)) {
+        continue
       }
+
+      const cloneIncompleteTimetable = cloneDeep(incompleteTimetable)
+
+      for (const lesson of course.lessons) {
+        const newClass = {
+          ...course,
+          ...lesson,
+        }
+
+        // Add new class to day with order by begin property
+        cloneIncompleteTimetable[lesson.day].splice(
+          sortedIndexBy(cloneIncompleteTimetable[lesson.day], newClass, 'begin'),
+          0,
+          newClass
+        )
+      }
+
+      timetables.push(cloneIncompleteTimetable)
+
+      // console.log(cloneIncompleteTimetable)
     }
   }
 
