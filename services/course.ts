@@ -36,6 +36,18 @@ export async function getFaculties(university: Univerisity) {
   return ['', ...Object.keys(storage[university]?.faculties || {})]
 }
 
+export async function getLecturersOfCourse(university: Univerisity, courseName: string) {
+  await loadUniversity(university)
+
+  for (const faculty of Object.values(storage[university]?.faculties || {})) {
+    if (faculty.courses[courseName] !== undefined) {
+      return faculty.courses[courseName].lecturers
+    }
+  }
+
+  return []
+}
+
 export async function getCourseNames(university: Univerisity) {
   await loadUniversity(university)
 

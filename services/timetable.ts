@@ -70,18 +70,20 @@ function isValidCourse(course: Course, filter: TimetableFilter) {
       }
     }
 
-    if (filter.lecturer?.expectation !== undefined) {
-      for (const lecturer of filter.lecturer.expectation[course.name]) {
-        if (!lesson.lecturers.includes(lecturer)) {
-          return false
+    if (filter.lecturer?.[course.name] !== undefined) {
+      if (filter.lecturer![course.name]!.expectations !== undefined) {
+        for (const lecturer of filter.lecturer![course.name]!.expectations!) {
+          if (!lesson.lecturers.includes(lecturer)) {
+            return false
+          }
         }
       }
-    }
 
-    if (filter.lecturer?.unexpectation !== undefined) {
-      for (const lecturer of filter.lecturer.unexpectation[course.name]) {
-        if (lesson.lecturers.includes(lecturer)) {
-          return false
+      if (filter.lecturer![course.name]!.unexpectations !== undefined) {
+        for (const lecturer of filter.lecturer![course.name]!.unexpectations!) {
+          if (lesson.lecturers.includes(lecturer)) {
+            return false
+          }
         }
       }
     }

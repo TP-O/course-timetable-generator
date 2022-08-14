@@ -11,8 +11,11 @@ export type TimetableFilter = {
     days: number
     specificDays: DayOfWeek[]
   }>
-  lecturer?: RequireAtLeastOne<{
-    expectation: Record<string, string[]>
-    unexpectation: Record<string, string[]>
-  }>
+  lecturer?: Record<
+    string,
+    RequireAtLeastOne<{
+      expectations: string[]
+      unexpectations: string[]
+    }>
+  >
 }
