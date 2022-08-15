@@ -8,7 +8,7 @@ import {
   getLecturersOfCourse,
   getUniversities,
 } from '@/services'
-import { NextPageWithLayout, TimetableFilter } from '@/types'
+import { NextPageWithLayout, ScrollData, Timetable, TimetableFilter } from '@/types'
 import { convertDayNumberToDayString } from '@/utils'
 import {
   Autocomplete,
@@ -21,14 +21,21 @@ import {
   ListItemText,
   MenuItem,
   OutlinedInput,
+  Paper,
   Select,
   SelectChangeEvent,
   Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   TextField,
   Typography,
 } from '@mui/material'
 import { ChangeEvent, Fragment, useEffect, useState } from 'react'
-import { from } from 'rxjs'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 const universities = getUniversities()
 const daysOfWeek = Object.keys(DayOfWeek).filter((value) => isNaN(Number(value)))
@@ -155,6 +162,11 @@ const Generation: NextPageWithLayout = () => {
   }, [courseSearching.university, selectedCoureNames])
 
   // Generate timetables
+  const [timetables, setTimetables] = useState<ScrollData<Timetable>>({
+    hidden: [],
+    displayed: [],
+  })
+
   async function handleGenerateTimetable() {
     const courseGroups = await getCourseGroups(
       courseSearching.university,
@@ -162,8 +174,38 @@ const Generation: NextPageWithLayout = () => {
     )
     const timetables = generateTimetables(courseGroups, filter)
 
-    console.log('======================')
-    console.log(timetables)
+    setTimetables({
+      hidden: timetables,
+      displayed: timetables.splice(0, 10),
+    })
+  }
+
+  function loadMoreTimetable() {
+    setTimetables((state) => {
+      const displayed = [...state.displayed, ...state.hidden.splice(0, 5)]
+
+      return { ...state, displayed }
+    })
+  }
+
+  function getClass(timetable: Timetable, day: DayOfWeek, begin: number) {
+    for (const classs of timetable[day]) {
+      if (classs.begin === begin) {
+        return classs
+      }
+    }
+
+    return undefined
+  }
+
+  function isValidCell(timetable: Timetable, day: DayOfWeek, begin: number) {
+    for (const classs of timetable[day]) {
+      if (classs.begin < begin && classs.begin + classs.periods - 1 >= begin) {
+        return false
+      }
+    }
+
+    return true
   }
 
   return (
@@ -412,6 +454,90 @@ const Generation: NextPageWithLayout = () => {
           Generate
         </Button>
       </Stack>
+
+      <Box>
+        <InfiniteScroll
+          dataLength={timetables.hidden.length}
+          next={loadMoreTimetable}
+          hasMore={timetables.hidden.length > 0}
+          loader={
+            <Typography
+              variant="body2"
+              component="div"
+              sx={{
+                textAlign: 'center',
+                fontWeight: 500,
+                mt: 2,
+              }}
+            >
+              Scroll to see more...
+            </Typography>
+          }
+          endMessage={
+            <Typography
+              variant="body2"
+              component="div"
+              sx={{
+                textAlign: 'center',
+                fontWeight: 500,
+                mt: 2,
+              }}
+            >
+              Yay! You have seen it all
+            </Typography>
+          }
+        >
+          {timetables.displayed.map((timetable, i) => (
+            <TableContainer key={i} component={Paper} sx={{ mt: 5 }}>
+              <Table
+                size="small"
+                sx={{
+                  minWidth: 650,
+                  mx: 'auto',
+                  'th,td': {
+                    textAlign: 'center',
+                    borderLeft: '1px solid rgba(224, 224, 224, 1)',
+                  },
+                }}
+              >
+                <TableHead>
+                  <TableRow>
+                    {daysOfWeek.map((day) => (
+                      <TableCell
+                        key={day}
+                        sx={{
+                          width: `${100 / 7}%`,
+                          color: 'table.headerText',
+                          backgroundColor: 'table.headerBackground',
+                        }}
+                      >
+                        {day}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {[...Array(16)].map((_, row) => (
+                    <TableRow key={row} sx={{ width: '14%' }}>
+                      {daysOfWeek.map((day, i) =>
+                        isValidCell(timetable, i, row + 1) ? (
+                          <TableCell
+                            key={day}
+                            rowSpan={getClass(timetable, i, row + 1)?.periods || 1}
+                            sx={{ minHeight: 100 }}
+                          >
+                            {getClass(timetable, i, row + 1)?.name || 'day'}
+                          </TableCell>
+                        ) : null
+                      )}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          ))}
+        </InfiniteScroll>
+      </Box>
     </Stack>
   )
 }
