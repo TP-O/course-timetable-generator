@@ -23,6 +23,7 @@
     "date-and-time": "^2.4.1",
     "firebase": "^9.9.1",
     "firebase-admin": "^11.0.1",
+    "html2canvas": "^1.4.1",
     "lodash": "^4.17.21",
     "match-sorter": "^6.3.1",
     "next": "12.2.3",

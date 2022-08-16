@@ -187,14 +187,11 @@ const Courses: NextPageWithLayout = () => {
     })
   }
 
-  async function writeCodeToClipboard(code: string) {
-    try {
-      await navigator.clipboard.writeText(code)
-
-      handleShowSnackbar('Copied!')
-    } catch {
-      handleShowSnackbar('Unable to copy :(', false)
-    }
+  function writeCodeToClipboard(code: string) {
+    navigator.clipboard
+      .writeText(code)
+      .then(() => handleShowSnackbar('Copied!'))
+      .catch(() => handleShowSnackbar('Unable to copy :(', false))
   }
 
   return (

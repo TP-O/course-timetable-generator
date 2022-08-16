@@ -8,15 +8,17 @@ import {
   getLecturersOfCourse,
   getUniversities,
 } from '@/services'
-import { NextPageWithLayout, ScrollData, Timetable, TimetableFilter } from '@/types'
+import { AlertState, NextPageWithLayout, ScrollData, Timetable, TimetableFilter } from '@/types'
 import { convertDayNumberToDayString } from '@/utils'
 import {
+  Alert,
   Autocomplete,
   Box,
   Button,
   Checkbox,
   FormControl,
   Grid,
+  IconButton,
   InputLabel,
   ListItemText,
   MenuItem,
@@ -24,6 +26,7 @@ import {
   Paper,
   Select,
   SelectChangeEvent,
+  Snackbar,
   Stack,
   Table,
   TableBody,
@@ -32,10 +35,13 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Toolbar,
   Typography,
 } from '@mui/material'
-import { ChangeEvent, Fragment, useEffect, useState } from 'react'
+import { ChangeEvent, Fragment, MouseEvent, useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import html2canvas from 'html2canvas'
+import { CenterFocusStrong } from '@mui/icons-material'
 
 const universities = getUniversities()
 const daysOfWeek = Object.keys(DayOfWeek).filter((value) => isNaN(Number(value)))
@@ -206,6 +212,39 @@ const Generation: NextPageWithLayout = () => {
     }
 
     return true
+  }
+
+  // Capture timetable
+  const [snackbarState, setSnackbarState] = useState<AlertState>({
+    message: '',
+    status: 'success',
+    isOpen: false,
+  })
+
+  function handleCloseSnackbar() {
+    setSnackbarState((state) => ({ ...state, isOpen: false }))
+  }
+
+  function handleShowSnackbar(message: string, success = true) {
+    setSnackbarState({
+      message,
+      status: success ? 'success' : 'error',
+      isOpen: true,
+    })
+  }
+
+  function captureTimetable(event: MouseEvent<HTMLElement>) {
+    html2canvas(document.querySelector(`#${event.currentTarget.dataset.timetableId}`)!).then(
+      (canvas) => {
+        canvas.toBlob((blob) => {
+          const item = new ClipboardItem({ 'image/png': blob || '' })
+          navigator.clipboard
+            .write([item])
+            .then(() => handleShowSnackbar('Captured timetable!'))
+            .catch(() => handleShowSnackbar('Unable to capture timetable :(', false))
+        })
+      }
+    )
   }
 
   return (
@@ -488,56 +527,82 @@ const Generation: NextPageWithLayout = () => {
           }
         >
           {timetables.displayed.map((timetable, i) => (
-            <TableContainer key={i} component={Paper} sx={{ mt: 5 }}>
-              <Table
-                size="small"
-                sx={{
-                  minWidth: 650,
-                  mx: 'auto',
-                  'th,td': {
-                    textAlign: 'center',
-                    borderLeft: '1px solid rgba(224, 224, 224, 1)',
-                  },
-                }}
-              >
-                <TableHead>
-                  <TableRow>
-                    {daysOfWeek.map((day) => (
-                      <TableCell
-                        key={day}
-                        sx={{
-                          width: `${100 / 7}%`,
-                          color: 'table.headerText',
-                          backgroundColor: 'table.headerBackground',
-                        }}
-                      >
-                        {day}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {[...Array(16)].map((_, row) => (
-                    <TableRow key={row} sx={{ width: '14%' }}>
-                      {daysOfWeek.map((day, i) =>
-                        isValidCell(timetable, i, row + 1) ? (
-                          <TableCell
-                            key={day}
-                            rowSpan={getClass(timetable, i, row + 1)?.periods || 1}
-                            sx={{ minHeight: 100 }}
-                          >
-                            {getClass(timetable, i, row + 1)?.name || 'day'}
-                          </TableCell>
-                        ) : null
-                      )}
+            <Box key={i} sx={{ py: 2 }}>
+              <Toolbar>
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  data-timetable-id={`timetable-${i}`}
+                  sx={{ mr: 2 }}
+                  onClick={captureTimetable}
+                >
+                  <CenterFocusStrong />
+                </IconButton>
+              </Toolbar>
+
+              <TableContainer id={`timetable-${i}`} component={Paper}>
+                <Table
+                  size="small"
+                  sx={{
+                    minWidth: 650,
+                    mx: 'auto',
+                    'th,td': {
+                      textAlign: 'center',
+                      borderLeft: '1px solid rgba(224, 224, 224, 1)',
+                    },
+                  }}
+                >
+                  <TableHead>
+                    <TableRow>
+                      {daysOfWeek.map((day) => (
+                        <TableCell
+                          key={day}
+                          sx={{
+                            width: `${100 / 7}%`,
+                            color: 'table.headerText',
+                            backgroundColor: 'table.headerBackground',
+                          }}
+                        >
+                          {day}
+                        </TableCell>
+                      ))}
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                  </TableHead>
+                  <TableBody>
+                    {[...Array(16)].map((_, row) => (
+                      <TableRow key={row} sx={{ width: '14%' }}>
+                        {daysOfWeek.map((day, i) =>
+                          isValidCell(timetable, i, row + 1) ? (
+                            <TableCell
+                              key={day}
+                              rowSpan={getClass(timetable, i, row + 1)?.periods || 1}
+                              sx={{ minHeight: 100 }}
+                            >
+                              {getClass(timetable, i, row + 1)?.name || 'day'}
+                            </TableCell>
+                          ) : null
+                        )}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
           ))}
         </InfiniteScroll>
       </Box>
+
+      <Snackbar open={snackbarState.isOpen} autoHideDuration={1000} onClose={handleCloseSnackbar}>
+        <Alert
+          variant="filled"
+          severity={snackbarState.status}
+          sx={{ width: '100%' }}
+          onClose={handleCloseSnackbar}
+        >
+          {snackbarState.message}
+        </Alert>
+      </Snackbar>
     </Stack>
   )
 }
