@@ -16,6 +16,7 @@ import {
   Box,
   Button,
   Checkbox,
+  Chip,
   FormControl,
   Grid,
   IconButton,
@@ -42,7 +43,7 @@ import {
 import { ChangeEvent, Fragment, MouseEvent, useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import html2canvas from 'html2canvas'
-import { CenterFocusStrong } from '@mui/icons-material'
+import { CenterFocusStrong, Cancel } from '@mui/icons-material'
 
 const universities = getUniversities()
 const daysOfWeek = Object.keys(DayOfWeek).filter(
@@ -428,6 +429,32 @@ const Generation: NextPageWithLayout = () => {
                           value={timetableFilter.lecturer![courseName]?.expectations}
                           onChange={handleChangeLecturerFilter(courseName)}
                           input={<OutlinedInput label="Expect" />}
+                          renderValue={(selected) => (
+                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                              {selected.map((value) => (
+                                <Chip
+                                  key={value}
+                                  label={value}
+                                  deleteIcon={
+                                    <Cancel onMouseDown={(event) => event.stopPropagation()} />
+                                  }
+                                  onDelete={(e) => {
+                                    setTimetableFilter((state) => {
+                                      const newState = { ...state }
+                                      const deletedIndex =
+                                        newState.lecturer![courseName]!.expectations?.indexOf('')
+                                      newState.lecturer![courseName]!.expectations?.splice(
+                                        deletedIndex || 0,
+                                        1
+                                      )
+
+                                      return newState
+                                    })
+                                  }}
+                                />
+                              ))}
+                            </Box>
+                          )}
                           MenuProps={{
                             PaperProps: {
                               style: {
@@ -437,7 +464,6 @@ const Generation: NextPageWithLayout = () => {
                             },
                           }}
                           sx={{ width: '100%' }}
-                          renderValue={(selected: string[]) => selected.join(', ')}
                         >
                           {!Array.isArray(
                             lecturersOfCourses[courseBatchFilter.university]?.[courseName]
@@ -467,6 +493,32 @@ const Generation: NextPageWithLayout = () => {
                           value={timetableFilter.lecturer![courseName]?.unexpectations}
                           onChange={handleChangeLecturerFilter(courseName)}
                           input={<OutlinedInput label="Unexpect" />}
+                          renderValue={(selected) => (
+                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                              {selected.map((value) => (
+                                <Chip
+                                  key={value}
+                                  label={value}
+                                  deleteIcon={
+                                    <Cancel onMouseDown={(event) => event.stopPropagation()} />
+                                  }
+                                  onDelete={(e) => {
+                                    setTimetableFilter((state) => {
+                                      const newState = { ...state }
+                                      const deletedIndex =
+                                        newState.lecturer![courseName]!.unexpectations?.indexOf('')
+                                      newState.lecturer![courseName]!.unexpectations?.splice(
+                                        deletedIndex || 0,
+                                        1
+                                      )
+
+                                      return newState
+                                    })
+                                  }}
+                                />
+                              ))}
+                            </Box>
+                          )}
                           MenuProps={{
                             PaperProps: {
                               style: {
@@ -476,13 +528,6 @@ const Generation: NextPageWithLayout = () => {
                             },
                           }}
                           sx={{ width: '100%' }}
-                          renderValue={(selected: string[]) => (
-                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                              {selected.map((value) => (
-                                <span key={value}>{value}&#44;</span>
-                              ))}
-                            </Box>
-                          )}
                         >
                           {!Array.isArray(
                             lecturersOfCourses[courseBatchFilter.university]?.[courseName]
