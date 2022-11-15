@@ -4,7 +4,10 @@ import { Course, Lesson } from './course'
 
 export type Timetable = TimetableDay[]
 
-export type TimetableDay = (Omit<Course, 'lesson'> & Lesson)[]
+export type TimetableDay = (Omit<Course, 'lesson'> &
+  Lesson & {
+    color: string
+  })[]
 
 export type TimetableFilter = {
   dayOff?: RequireAtLeastOne<{

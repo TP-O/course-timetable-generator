@@ -2,10 +2,29 @@ import { Course, Timetable, TimetableFilter } from '@/types'
 import sortedIndexBy from 'lodash/sortedIndexBy'
 import cloneDeep from 'lodash/cloneDeep'
 
+const colors = [
+  '#D8BFD8',
+  '#8A2BE2',
+  '#7B68EE',
+  '#FFA07A',
+  '#FF7F50',
+  '#FFD700',
+  '#BDB76B',
+  '#3CB371',
+  '#66CDAA',
+  '#B0C4DE',
+  '#5F9EA0',
+]
+let colorIndex = 0
+const assignedColors: Record<string, string> = {}
+
 export function generateTimetables(courseGroups: Course[][], filter = {} as TimetableFilter) {
-  return generateTimetablesWithCourseFilter(courseGroups, filter).filter((timetable) =>
+  const timetable = generateTimetablesWithCourseFilter(courseGroups, filter).filter((timetable) =>
     isValidTimetable(timetable, filter)
   )
+  colorIndex = 0
+
+  return timetable
 }
 
 function generateTimetablesWithCourseFilter(courseGroups: Course[][], filter: TimetableFilter) {
@@ -15,14 +34,17 @@ function generateTimetablesWithCourseFilter(courseGroups: Course[][], filter: Ti
   }
 
   const courses = courseGroups.splice(0, 1)[0]
-
-  const incompleteTimetables = generateTimetablesWithCourseFilter(courseGroups, filter)
   const timetables: Timetable[] = []
+  const incompleteTimetables = generateTimetablesWithCourseFilter(courseGroups, filter)
 
   for (const incompleteTimetable of incompleteTimetables) {
     for (const course of courses) {
       if (!isValidCourse(course, filter) || isOverlapped(course, incompleteTimetable)) {
         continue
+      }
+
+      if (!assignedColors[course.id]) {
+        assignedColors[course.id] = colors[colorIndex++]
       }
 
       const cloneIncompleteTimetable = cloneDeep(incompleteTimetable)
@@ -31,6 +53,7 @@ function generateTimetablesWithCourseFilter(courseGroups: Course[][], filter: Ti
         const newClass = {
           ...course,
           ...lesson,
+          color: assignedColors[course.id],
         }
 
         // Add new class to day with order by begin property
@@ -42,8 +65,6 @@ function generateTimetablesWithCourseFilter(courseGroups: Course[][], filter: Ti
       }
 
       timetables.push(cloneIncompleteTimetable)
-
-      // console.log(cloneIncompleteTimetable)
     }
   }
 

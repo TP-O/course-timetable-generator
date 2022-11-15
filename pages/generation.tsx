@@ -36,6 +36,7 @@ import {
   TableRow,
   TextField,
   Toolbar,
+  Tooltip,
   Typography,
 } from '@mui/material'
 import { ChangeEvent, Fragment, MouseEvent, useEffect, useState } from 'react'
@@ -48,37 +49,37 @@ const daysOfWeek = Object.keys(DayOfWeek).filter((value) => isNaN(Number(value))
 
 const Generation: NextPageWithLayout = () => {
   // Course searching
-  const [courseNames, setCourseNames] = useState<String[]>([])
-  const [selectedCoureNames, setSelectedCourseNames] = useState<String[]>([])
-  const [faculties, setFaculties] = useState<string[]>([])
-  const [courseSearching, setCourseSearching] = useState({
+  const [enteredCoureNames, setEnteredCourseNames] = useState<String[]>([])
+  const [courseBatchFilter, setCourseBatchFilter] = useState({
     university: Univerisity.HCMIU,
     faculty: '',
   })
+  const [avaliableFaculties, setAvailableFaculties] = useState<string[]>([])
+  const [availableCourseNames, setAvailableCourseNames] = useState<String[]>([])
 
-  function handleSelectedCourseNames(_: any, value: String[]) {
-    setSelectedCourseNames(value)
+  function handleEnteredCourseNames(_: any, value: String[]) {
+    setEnteredCourseNames(value)
   }
 
-  function handleCourseSearching(event: SelectChangeEvent) {
-    setCourseSearching((state) => ({
+  function handleCourseBatchFilter(event: SelectChangeEvent) {
+    setCourseBatchFilter((state) => ({
       ...state,
       [event.target.name]: event.target.value,
     }))
   }
 
   useEffect(() => {
-    getFaculties(courseSearching.university).then((faculties) => setFaculties(faculties))
-  }, [courseSearching.university])
+    getFaculties(courseBatchFilter.university).then((faculties) => setAvailableFaculties(faculties))
+  }, [courseBatchFilter.university])
 
   useEffect(() => {
-    getCourseNames(courseSearching.university, courseSearching.faculty).then((courseNames) =>
-      setCourseNames(courseNames)
+    getCourseNames(courseBatchFilter.university, courseBatchFilter.faculty).then((courseNames) =>
+      setAvailableCourseNames(courseNames)
     )
-  }, [courseSearching])
+  }, [courseBatchFilter])
 
   // Timetable filter
-  const [filter, setFilter] = useState<TimetableFilter>({
+  const [timetableFilter, setTimetableFilter] = useState<TimetableFilter>({
     dayOff: {
       days: 1,
       specificDays: [DayOfWeek.Sun],
@@ -92,7 +93,7 @@ const Generation: NextPageWithLayout = () => {
   function handleChangeDayOffFilter(
     event: SelectChangeEvent<DayOfWeek[]> | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
-    setFilter((state) => {
+    setTimetableFilter((state) => {
       const newState = { ...state }
 
       if (event.target.name === 'days' && typeof event.target.value === 'number') {
@@ -107,7 +108,7 @@ const Generation: NextPageWithLayout = () => {
 
   function handleChangeLecturerFilter(courseName: string) {
     return (event: SelectChangeEvent<string[]>) => {
-      setFilter((state) => {
+      setTimetableFilter((state) => {
         const newState = { ...state }
 
         if (event.target.name === 'expectations') {
@@ -123,32 +124,30 @@ const Generation: NextPageWithLayout = () => {
 
   useEffect(() => {
     // Update lecturer filter
-    setFilter((state) => {
+    setTimetableFilter((state) => {
       const newState = { ...state }
-      const outdatedCourseNames = Object.keys(newState.lecturer!)
+      const oldCourseNames = Object.keys(newState.lecturer!)
 
       // Add new courses
-      selectedCoureNames.forEach((name) => {
-        if (!outdatedCourseNames.includes(String(name))) {
+      enteredCoureNames.forEach((name) => {
+        if (!oldCourseNames.includes(String(name))) {
           newState.lecturer![String(name)] = {
             expectations: [],
             unexpectations: [],
           }
 
           // Get lecturers for new course
-          getLecturersOfCourse(courseSearching.university, String(name)).then((lecturers) =>
+          getLecturersOfCourse(courseBatchFilter.university, String(name)).then((lecturers) =>
             setLecturersOfCourses((state) => {
               const newState = { ...state }
 
-              newState[courseSearching.university] =
-                newState[courseSearching.university] === undefined
-                  ? {}
-                  : state[courseSearching.university]
+              if (!newState[courseBatchFilter.university]) {
+                newState[courseBatchFilter.university] = {}
+              }
 
-              newState[courseSearching.university][String(name)] =
-                newState[courseSearching.university][String(name)] === undefined
-                  ? lecturers
-                  : newState[courseSearching.university][String(name)]
+              if (!newState[courseBatchFilter.university][String(name)]) {
+                newState[courseBatchFilter.university][String(name)] = lecturers
+              }
 
               return newState
             })
@@ -157,15 +156,15 @@ const Generation: NextPageWithLayout = () => {
       })
 
       // Remove courses
-      outdatedCourseNames.forEach((name) => {
-        if (!selectedCoureNames.includes(name)) {
+      oldCourseNames.forEach((name) => {
+        if (!enteredCoureNames.includes(name)) {
           delete newState.lecturer![name]
         }
       })
 
       return newState
     })
-  }, [courseSearching.university, selectedCoureNames])
+  }, [courseBatchFilter.university, enteredCoureNames])
 
   // Generate timetables
   const [timetables, setTimetables] = useState<ScrollData<Timetable>>({
@@ -175,10 +174,10 @@ const Generation: NextPageWithLayout = () => {
 
   async function handleGenerateTimetable() {
     const courseGroups = await getCourseGroups(
-      courseSearching.university,
-      selectedCoureNames as string[]
+      courseBatchFilter.university,
+      enteredCoureNames as string[]
     )
-    const timetables = generateTimetables(courseGroups, filter)
+    const timetables = generateTimetables(courseGroups, timetableFilter)
 
     setTimetables({
       hidden: timetables,
@@ -187,8 +186,10 @@ const Generation: NextPageWithLayout = () => {
   }
 
   function loadMoreTimetable() {
+    const size = 5
+
     setTimetables((state) => {
-      const displayed = [...state.displayed, ...state.hidden.splice(0, 5)]
+      const displayed = [...state.displayed, ...state.hidden.splice(0, size)]
 
       return { ...state, displayed }
     })
@@ -252,12 +253,12 @@ const Generation: NextPageWithLayout = () => {
       <Stack spacing={3}>
         <Autocomplete
           multiple
-          options={courseNames}
-          value={selectedCoureNames}
+          options={availableCourseNames}
+          value={enteredCoureNames}
           renderInput={(params) => (
             <TextField {...params} label="Select courses" placeholder="Enter course name" />
           )}
-          onChange={handleSelectedCourseNames}
+          onChange={handleEnteredCourseNames}
         />
         <Stack direction={{ xs: 'column', md: 'row' }} spacing={4}>
           <FormControl fullWidth>
@@ -269,9 +270,9 @@ const Generation: NextPageWithLayout = () => {
               name="university"
               labelId="university-selection-label"
               size="small"
-              value={courseSearching.university}
+              value={courseBatchFilter.university}
               label="University"
-              onChange={handleCourseSearching}
+              onChange={handleCourseBatchFilter}
             >
               {universities.map((university) => (
                 <MenuItem key={university} value={university}>
@@ -290,13 +291,13 @@ const Generation: NextPageWithLayout = () => {
               name="faculty"
               labelId="faculty-selection-label"
               size="small"
-              value={courseSearching.faculty}
+              value={courseBatchFilter.faculty}
               label="Faculty"
-              onChange={handleCourseSearching}
+              onChange={handleCourseBatchFilter}
             >
               <MenuItem value="">All</MenuItem>
 
-              {faculties.map((faculty) => (
+              {avaliableFaculties.map((faculty) => (
                 <MenuItem key={faculty} value={faculty}>
                   {faculty}
                 </MenuItem>
@@ -330,7 +331,7 @@ const Generation: NextPageWithLayout = () => {
                 label="Number of days"
                 type="number"
                 size="small"
-                value={filter.dayOff?.days}
+                value={timetableFilter.dayOff?.days}
                 InputProps={{
                   inputProps: {
                     min: 0,
@@ -358,7 +359,7 @@ const Generation: NextPageWithLayout = () => {
                 labelId="daysoff-selection-label"
                 multiple
                 size="small"
-                value={filter.dayOff?.specificDays}
+                value={timetableFilter.dayOff?.specificDays}
                 onChange={handleChangeDayOffFilter}
                 input={<OutlinedInput label="Specific days" />}
                 renderValue={(selected: DayOfWeek[]) =>
@@ -375,7 +376,7 @@ const Generation: NextPageWithLayout = () => {
               >
                 {daysOfWeek.map((day, i) => (
                   <MenuItem key={i} value={i}>
-                    <Checkbox checked={filter.dayOff!.specificDays!.indexOf(i) > -1} />
+                    <Checkbox checked={timetableFilter.dayOff!.specificDays!.indexOf(i) > -1} />
                     <ListItemText primary={day} />
                   </MenuItem>
                 ))}
@@ -391,11 +392,21 @@ const Generation: NextPageWithLayout = () => {
 
           <Box width="100%">
             <Grid container rowSpacing={3} columnSpacing={1}>
-              {filter.lecturer &&
-                Object.entries(filter.lecturer).map(([courseName], i) => (
+              {timetableFilter.lecturer &&
+                Object.entries(timetableFilter.lecturer).map(([courseName], i) => (
                   <Grid key={courseName} item xs={12} md={6} lg={3}>
                     <Stack spacing={2}>
-                      <Typography variant="caption" component="div" sx={{ pl: 1 }}>
+                      <Typography
+                        variant="caption"
+                        component="div"
+                        sx={{
+                          pl: 1,
+                          display: '-webkit-box',
+                          overflow: 'hidden',
+                          WebkitBoxOrient: 'vertical',
+                          WebkitLineClamp: 1,
+                        }}
+                      >
                         {courseName}
                       </Typography>
 
@@ -408,7 +419,7 @@ const Generation: NextPageWithLayout = () => {
                           multiple
                           labelId={`expected-lecturer-label-${i}`}
                           size="small"
-                          value={filter.lecturer![courseName]?.expectations}
+                          value={timetableFilter.lecturer![courseName]?.expectations}
                           onChange={handleChangeLecturerFilter(courseName)}
                           input={<OutlinedInput label="Expect" />}
                           MenuProps={{
@@ -423,11 +434,11 @@ const Generation: NextPageWithLayout = () => {
                           renderValue={(selected: string[]) => selected.join(', ')}
                         >
                           {!Array.isArray(
-                            lecturersOfCourses[courseSearching.university]?.[courseName]
+                            lecturersOfCourses[courseBatchFilter.university]?.[courseName]
                           ) ? (
                             <MenuItem disabled>Nothing here</MenuItem>
                           ) : (
-                            lecturersOfCourses[courseSearching.university]?.[courseName].map(
+                            lecturersOfCourses[courseBatchFilter.university]?.[courseName].map(
                               (lecturer, i) => (
                                 <MenuItem key={i} value={lecturer}>
                                   {lecturer}
@@ -447,7 +458,7 @@ const Generation: NextPageWithLayout = () => {
                           multiple
                           label={`unexpected-lecturer-label-${i}`}
                           size="small"
-                          value={filter.lecturer![courseName]?.unexpectations}
+                          value={timetableFilter.lecturer![courseName]?.unexpectations}
                           onChange={handleChangeLecturerFilter(courseName)}
                           input={<OutlinedInput label="Unexpect" />}
                           MenuProps={{
@@ -468,11 +479,11 @@ const Generation: NextPageWithLayout = () => {
                           )}
                         >
                           {!Array.isArray(
-                            lecturersOfCourses[courseSearching.university]?.[courseName]
+                            lecturersOfCourses[courseBatchFilter.university]?.[courseName]
                           ) ? (
                             <MenuItem disabled>Nothing here</MenuItem>
                           ) : (
-                            lecturersOfCourses[courseSearching.university]?.[courseName].map(
+                            lecturersOfCourses[courseBatchFilter.university]?.[courseName].map(
                               (lecturer, i) => (
                                 <MenuItem key={i} value={lecturer}>
                                   {lecturer}
@@ -572,17 +583,66 @@ const Generation: NextPageWithLayout = () => {
                   <TableBody>
                     {[...Array(16)].map((_, row) => (
                       <TableRow key={row} sx={{ width: '14%' }}>
-                        {daysOfWeek.map((day, i) =>
-                          isValidCell(timetable, i, row + 1) ? (
-                            <TableCell
+                        {daysOfWeek.map((day, i) => {
+                          if (!isValidCell(timetable, i, row + 1)) {
+                            return null
+                          }
+
+                          const cls = getClass(timetable, i, row + 1)
+
+                          return (
+                            <Tooltip
                               key={day}
-                              rowSpan={getClass(timetable, i, row + 1)?.periods || 1}
-                              sx={{ py: 2 }}
+                              title={
+                                <Fragment>
+                                  <Typography color="inherit" sx={{ mb: 0.5 }}>
+                                    <b>Name:</b> {cls?.name}
+                                  </Typography>
+                                  <Typography color="inherit" sx={{ mb: 0.5 }}>
+                                    <b>Room:</b> {cls?.room}
+                                  </Typography>
+                                  <Typography color="inherit" sx={{ mb: 0.5 }}>
+                                    <b>Lecturers:</b> {cls?.lecturers.join(', ')}
+                                  </Typography>
+                                </Fragment>
+                              }
+                              disableHoverListener={!cls}
                             >
-                              {getClass(timetable, i, row + 1)?.name}
-                            </TableCell>
-                          ) : null
-                        )}
+                              <TableCell
+                                rowSpan={cls?.periods || 1}
+                                sx={{
+                                  py: 2,
+                                  backgroundColor: cls?.color || 'transparent',
+                                }}
+                              >
+                                <Typography
+                                  variant="caption"
+                                  sx={{
+                                    fontWeight: 'bold',
+                                    display: '-webkit-box',
+                                    overflow: 'hidden',
+                                    WebkitBoxOrient: 'vertical',
+                                    WebkitLineClamp: 2,
+                                  }}
+                                >
+                                  {cls?.name}
+                                </Typography>
+                                <Typography
+                                  variant="caption"
+                                  sx={{ display: 'block', fontWeight: 'bold' }}
+                                >
+                                  {cls?.room}
+                                </Typography>
+                                <Typography
+                                  variant="caption"
+                                  sx={{ display: 'block', fontWeight: 'bold' }}
+                                >
+                                  {cls?.lecturers}
+                                </Typography>
+                              </TableCell>
+                            </Tooltip>
+                          )
+                        })}
                       </TableRow>
                     ))}
                   </TableBody>
