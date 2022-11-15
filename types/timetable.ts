@@ -10,11 +10,11 @@ export type TimetableDay = (Omit<Course, 'lesson'> &
   })[]
 
 export type TimetableFilter = {
-  dayOff?: RequireAtLeastOne<{
+  dayOff: {
     days: number
     specificDays: DayOfWeek[]
-  }>
-  lecturer?: Record<
+  }
+  lecturer: Record<
     string,
     RequireAtLeastOne<{
       expectations: string[]

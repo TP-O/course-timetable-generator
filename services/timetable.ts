@@ -95,28 +95,26 @@ function isOverlapped(course: Course, timetable: Timetable) {
 }
 
 function isValidCourse(course: Course, filter: TimetableFilter) {
+  const lecturers: string[] = []
+
   for (const lesson of course.lessons) {
-    if (filter.dayOff?.specificDays !== undefined) {
-      if (filter.dayOff.specificDays.includes(lesson.day)) {
+    lecturers.push(...lesson.lecturers)
+
+    if (filter.dayOff.specificDays.includes(lesson.day)) {
+      return false
+    }
+  }
+
+  if (filter.lecturer[course.name]) {
+    for (const lecturer of filter.lecturer[course.name]!.expectations!) {
+      if (!lecturers.includes(lecturer)) {
         return false
       }
     }
 
-    if (filter.lecturer?.[course.name] !== undefined) {
-      if (filter.lecturer![course.name]!.expectations !== undefined) {
-        for (const lecturer of filter.lecturer![course.name]!.expectations!) {
-          if (!lesson.lecturers.includes(lecturer)) {
-            return false
-          }
-        }
-      }
-
-      if (filter.lecturer![course.name]!.unexpectations !== undefined) {
-        for (const lecturer of filter.lecturer![course.name]!.unexpectations!) {
-          if (lesson.lecturers.includes(lecturer)) {
-            return false
-          }
-        }
+    for (const lecturer of filter.lecturer![course.name]!.unexpectations!) {
+      if (lecturers.includes(lecturer)) {
+        return false
       }
     }
   }
@@ -125,12 +123,10 @@ function isValidCourse(course: Course, filter: TimetableFilter) {
 }
 
 function isValidTimetable(timetable: Timetable, filter: TimetableFilter) {
-  if (filter.dayOff?.days !== undefined) {
-    const numberOfdaysOff = timetable.reduce((p, c) => (c.length === 0 ? p + 1 : p), 0)
+  const numberOfdaysOff = timetable.reduce((p, c) => (c.length === 0 ? p + 1 : p), 0)
 
-    if (numberOfdaysOff < filter.dayOff.days) {
-      return false
-    }
+  if (numberOfdaysOff < filter.dayOff.days) {
+    return false
   }
 
   return true
