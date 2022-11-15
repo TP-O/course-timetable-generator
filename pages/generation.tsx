@@ -577,9 +577,9 @@ const Generation: NextPageWithLayout = () => {
                             <TableCell
                               key={day}
                               rowSpan={getClass(timetable, i, row + 1)?.periods || 1}
-                              sx={{ minHeight: 100 }}
+                              sx={{ py: 2 }}
                             >
-                              {getClass(timetable, i, row + 1)?.name || 'day'}
+                              {getClass(timetable, i, row + 1)?.name}
                             </TableCell>
                           ) : null
                         )}
