@@ -1,6 +1,7 @@
 import { Course, Timetable, TimetableFilter } from '@/types'
 import sortedIndexBy from 'lodash/sortedIndexBy'
 import cloneDeep from 'lodash/cloneDeep'
+import { DayOfWeek } from '@/enums'
 
 const colors = [
   '#D8BFD8',
@@ -33,7 +34,7 @@ function generateTimetablesWithCourseFilter(courseGroups: Course[][], filter: Ti
     return [[[], [], [], [], [], [], []]]
   }
 
-  const courses = courseGroups.splice(0, 1)[0]
+  const [courses] = courseGroups.splice(0, 1)
   const timetables: Timetable[] = []
   const incompleteTimetables = generateTimetablesWithCourseFilter(courseGroups, filter)
 
@@ -50,6 +51,10 @@ function generateTimetablesWithCourseFilter(courseGroups: Course[][], filter: Ti
       const cloneIncompleteTimetable = cloneDeep(incompleteTimetable)
 
       for (const lesson of course.lessons) {
+        if (lesson.day === DayOfWeek.Unknown) {
+          continue
+        }
+
         const newClass = {
           ...course,
           ...lesson,

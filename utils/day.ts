@@ -27,7 +27,8 @@ export function convertDayStringToDayNumber(day: string) {
       return DayOfWeek.Sat
 
     default:
-      return DayOfWeek.Sun
+      // return DayOfWeek.Sun
+      return DayOfWeek.Unknown
   }
 }
 

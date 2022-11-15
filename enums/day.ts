@@ -1,4 +1,5 @@
 export enum DayOfWeek {
+  Unknown = -1,
   Mon = 0,
   Tue = 1,
   Wed = 2,

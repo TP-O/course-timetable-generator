@@ -45,7 +45,9 @@ import html2canvas from 'html2canvas'
 import { CenterFocusStrong } from '@mui/icons-material'
 
 const universities = getUniversities()
-const daysOfWeek = Object.keys(DayOfWeek).filter((value) => isNaN(Number(value)))
+const daysOfWeek = Object.keys(DayOfWeek).filter(
+  (value) => value !== 'Unknown' && isNaN(Number(value))
+)
 
 const Generation: NextPageWithLayout = () => {
   // Course searching
@@ -206,6 +208,10 @@ const Generation: NextPageWithLayout = () => {
   }
 
   function isValidCell(timetable: Timetable, day: DayOfWeek, begin: number) {
+    if (day === DayOfWeek.Unknown) {
+      return false
+    }
+
     for (const classs of timetable[day]) {
       if (classs.begin < begin && classs.begin + classs.periods - 1 >= begin) {
         return false
