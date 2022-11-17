@@ -16,9 +16,9 @@ export type TimetableFilter = {
   }
   lecturer: Record<
     string,
-    RequireAtLeastOne<{
+    {
       expectations: string[]
       unexpectations: string[]
-    }>
+    }
   >
 }

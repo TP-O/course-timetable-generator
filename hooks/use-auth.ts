@@ -15,7 +15,6 @@ export function useAuth() {
     SwrKey.JWT,
     async () => {
       await firebaseClient.setPersistence(browserLocalPersistence)
-
       return firebaseClient.currentUser
     },
     {

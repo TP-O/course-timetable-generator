@@ -1,4 +1,4 @@
-import { Course, CourseSearching, UniversityStorage } from '@/types'
+import { Course, CourseFilter, UniversityStorage } from '@/types'
 import { matchSorter } from 'match-sorter'
 import { Univerisity } from '@/enums'
 
@@ -27,7 +27,12 @@ export function getUniversities() {
 export async function getUniversityUpdatedTime(university: Univerisity) {
   await loadUniversity(university)
 
-  return storage[university]?.updatedAt
+  return (
+    storage[university]?.updatedAt || {
+      second: 0,
+      text: 'Unknown',
+    }
+  )
 }
 
 export async function getFaculties(university: Univerisity) {
@@ -47,7 +52,7 @@ export async function getCourseNames(university: Univerisity, faculty = '') {
 
   return faculty === ''
     ? Object.keys(storage[university]?.courses || {})
-    : Object.keys(storage[university]?.faculties[faculty].courses || {})
+    : Object.keys(storage[university]?.faculties[faculty]?.courses || {})
 }
 
 export async function getCourseGroups(university: Univerisity, courseNames: string[]) {
@@ -56,20 +61,20 @@ export async function getCourseGroups(university: Univerisity, courseNames: stri
   return courseNames.map((name) => Object.values(storage[university]?.courses[name]?.items || []))
 }
 
-export async function searchCoursesByName(searching: CourseSearching) {
-  await loadUniversity(searching.university)
+export async function searchCourses(filter: CourseFilter) {
+  await loadUniversity(filter.university)
 
   const courseNames =
-    searching.faculty === undefined || searching.faculty === ''
-      ? Object.keys(storage[searching.university]?.courses || {})
-      : Object.keys(storage[searching.university]?.faculties[searching.faculty]?.courses || {})
+    filter.faculty === undefined || filter.faculty === ''
+      ? Object.keys(storage[filter.university]?.courses || {})
+      : Object.keys(storage[filter.university]?.faculties[filter.faculty]?.courses || {})
 
   const filteredCourseNames =
-    searching.keyword === '' ? courseNames : matchSorter(courseNames, searching.keyword)
+    filter.keyword === '' ? courseNames : matchSorter(courseNames, filter.keyword)
   const filteredCourses: Course[] = []
 
   for (const courseName of filteredCourseNames) {
-    filteredCourses.push(...(storage[searching.university]?.courses[courseName].items || []))
+    filteredCourses.push(...(storage[filter.university]?.courses[courseName].items || []))
   }
 
   return filteredCourses

@@ -8,6 +8,7 @@ import Head from 'next/head'
 import { ThemeProvider } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
 import { createEmotionCache, theme } from '@/utils/mui'
+import { AppProvider } from '@/contexts'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -33,9 +34,11 @@ function MyApp(props: AppPropsWithLayout) {
             fetcher: (url) => axiosClient.get(url),
           }}
         >
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <AppProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </AppProvider>
         </SWRConfig>
       </ThemeProvider>
     </CacheProvider>

@@ -18,8 +18,8 @@ export type Lesson = {
   lecturers: string[]
 }
 
-export type CourseSearching = {
+export type CourseFilter = {
   keyword: string
   university: Univerisity
-  faculty?: string
+  faculty: string
 }

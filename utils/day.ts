@@ -26,8 +26,10 @@ export function convertDayStringToDayNumber(day: string) {
     case 'Sat':
       return DayOfWeek.Sat
 
+    case 'Sun':
+      return DayOfWeek.Sun
+
     default:
-      // return DayOfWeek.Sun
       return DayOfWeek.Unknown
   }
 }
@@ -52,7 +54,14 @@ export function convertDayNumberToDayString(day: number | DayOfWeek) {
     case DayOfWeek.Sat:
       return 'Sat'
 
-    default:
+    case DayOfWeek.Sun:
       return 'Sun'
+
+    default:
+      return 'Unknown'
   }
+}
+
+export function getDaysOfWeek() {
+  return Object.keys(DayOfWeek).filter((value) => value !== 'Unknown' && isNaN(Number(value)))
 }

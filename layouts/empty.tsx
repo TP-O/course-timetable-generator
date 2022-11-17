@@ -1,27 +1,30 @@
 import { Footer } from '@/components/common'
 import { LayoutProps } from '@/types'
 import { Stack } from '@mui/material'
+import { CommonLayout } from './common'
 
 export function EmptyLayout({ children }: LayoutProps) {
   return (
-    <Stack
-      sx={{
-        minHeight: '100vh',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
+    <CommonLayout>
       <Stack
-        flexGrow={1}
         sx={{
+          minHeight: '100vh',
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        {children}
-      </Stack>
+        <Stack
+          flexGrow={1}
+          sx={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {children}
+        </Stack>
 
-      <Footer />
-    </Stack>
+        <Footer />
+      </Stack>
+    </CommonLayout>
   )
 }

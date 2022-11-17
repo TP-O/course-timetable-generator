@@ -2,15 +2,15 @@ import { AlertColor } from '@mui/material'
 import { SvgIconComponent } from '@mui/icons-material'
 import { Course, Lesson } from './course'
 
-export type AlertState = {
+export type Notification = {
   message: string
   status: AlertColor
-  isOpen: boolean
+  isShowed: boolean
 }
 
 export type ScrollData<T> = {
-  hidden: T[]
-  displayed: T[]
+  show: T[]
+  hide: T[]
 }
 
 export type SidebarMenuItem = {
