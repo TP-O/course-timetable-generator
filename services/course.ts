@@ -44,7 +44,7 @@ export async function getUniversityUpdatedTime(university: Univerisity) {
 export async function getFaculties(university: Univerisity) {
   await loadUniversity(university)
 
-  return ['', ...Object.keys(storage[university]?.faculties || {})]
+  return Object.keys(storage[university]?.faculties || {})
 }
 
 export async function getCourseLecturers(university: Univerisity, courseName: string) {

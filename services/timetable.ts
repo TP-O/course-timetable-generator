@@ -1,3 +1,4 @@
+import _difference from 'lodash/difference'
 import { Course, TimetableType } from '@/types'
 import sortedIndexBy from 'lodash/sortedIndexBy'
 import cloneDeep from 'lodash/cloneDeep'
@@ -107,13 +108,13 @@ function isValidCourse(course: Course, filter: TimetableFilter) {
   }
 
   if (filter.lecturers[course.name]) {
-    for (const lecturer of filter.lecturers[course.name]!.expectations!) {
-      if (!lecturers.includes(lecturer)) {
-        return false
-      }
+    const { expectations, unexpectations } = filter.lecturers[course.name]!
+
+    if (_difference(lecturers, expectations).length === lecturers.length) {
+      return false
     }
 
-    for (const lecturer of filter.lecturers![course.name]!.unexpectations!) {
+    for (const lecturer of unexpectations) {
       if (lecturers.includes(lecturer)) {
         return false
       }
