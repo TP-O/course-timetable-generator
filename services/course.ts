@@ -56,7 +56,7 @@ export async function getCourseLecturers(university: Univerisity, courseName: st
 export async function getCourseNames(university: Univerisity, faculty = '') {
   await loadUniversity(university)
 
-  return faculty === ''
+  return faculty === 'All' || ''
     ? Object.keys(storage[university]?.courses || {})
     : Object.keys(storage[university]?.faculties[faculty]?.courseLecturers || {})
 }
@@ -71,7 +71,7 @@ export async function searchCourses(keyword: string, filter: CourseFilterType) {
   await loadUniversity(filter.university)
 
   const courseNames =
-    filter.faculty === undefined || filter.faculty === ''
+    filter.faculty === '' || filter.faculty === 'All'
       ? Object.keys(storage[filter.university]?.courses || {})
       : Object.keys(storage[filter.university]?.faculties[filter.faculty]?.courseLecturers || {})
 

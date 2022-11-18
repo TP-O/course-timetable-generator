@@ -84,8 +84,8 @@ function isOverlapped(course: Course, timetable: TimetableType) {
       for (const lesson of course.lessons) {
         if (
           classs.day === lesson.day &&
-          classs.begin <= lesson.begin &&
-          classs.begin + classs.periods - 1 >= lesson.begin
+          ((classs.begin <= lesson.begin && classs.begin + classs.periods > lesson.begin) ||
+            (lesson.begin <= classs.begin && lesson.begin + lesson.periods > classs.begin))
         ) {
           return true
         }
