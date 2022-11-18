@@ -63,7 +63,7 @@ export function CourseFilter({ filter, updateFilter }: CourseFilterProps) {
           label="Faculty"
           onChange={updateCourseFilter}
         >
-          <MenuItem value="">All</MenuItem>
+          <MenuItem value="All">All</MenuItem>
 
           {faculties.map((faculty) => (
             <MenuItem key={faculty} value={faculty}>

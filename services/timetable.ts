@@ -6,26 +6,31 @@ import { DayOfWeek } from '@/enums'
 import { TimetableFilter } from '@/types/filter'
 
 const colors = [
-  '#D8BFD8',
-  '#8A2BE2',
-  '#7B68EE',
-  '#FFA07A',
-  '#FF7F50',
-  '#FFD700',
-  '#BDB76B',
-  '#3CB371',
-  '#66CDAA',
-  '#B0C4DE',
-  '#5F9EA0',
+  '#BA94D1',
+  '#FEBE8C',
+  '#B6E2A1',
+  '#DEF5E5',
+  '#8EC3B0',
+  '#B1B2FF',
+  '#C3F8FF',
+  '#7FBCD2',
+  '#E3C770',
+  '#E9DAC1',
+  '#FF87B2',
+  '#6E85B7',
+  '#E0DECA',
+  '#AD8B73',
+  '#968C83',
 ]
 let colorIndex = 0
-const assignedColors: Record<string, string> = {}
+let assignedColors: Record<string, string> = {}
 
 export function generateTimetables(courseGroups: Course[][], filter = {} as TimetableFilter) {
   const timetable = generateTimetablesWithCourseFilter(courseGroups, filter).filter((timetable) =>
     isValidTimetable(timetable, filter)
   )
   colorIndex = 0
+  assignedColors = {}
 
   return timetable
 }

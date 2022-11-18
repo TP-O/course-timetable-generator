@@ -23,6 +23,7 @@ export const theme = createTheme({
       divider: 'rgba(255, 255, 255, 0.1)',
       listHeader: 'rgba(255, 255, 255, 0.5)',
       itemTitle: 'rgba(255, 255, 255, 0.8)',
+      activeItemTitle: '#669df6',
       hoveringItemTitle: 'rgba(255, 255, 255)',
       selectedItemTitle: '#669df6',
       notificationContent: 'rgba(255, 255, 255, 0.7)',

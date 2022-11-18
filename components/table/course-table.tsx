@@ -19,6 +19,7 @@ import { AppContext } from '@/contexts'
 import { searchCourses } from '@/services'
 import { CourseFilterType } from '@/types/filter'
 import { CourseTableColumn, CourseTableColumnId, LazyData, Sorting } from '@/types/component'
+import { NotificationType } from '@/enums'
 
 type CourseTableProps = {
   empty?: boolean
@@ -110,8 +111,20 @@ export function CourseTable({ empty = false, keyword, courseFilter }: CourseTabl
 
     navigator.clipboard
       .writeText(code)
-      .then(() => showNotification(`Copied ${course} code!`, 'success'))
-      .catch(() => showNotification('Unable to copy :(', 'error'))
+      .then(() =>
+        showNotification({
+          type: NotificationType.Snackbar,
+          message: `Copied ${course} code!`,
+          status: 'success',
+        })
+      )
+      .catch(() =>
+        showNotification({
+          type: NotificationType.Snackbar,
+          message: 'Unable to copy :(',
+          status: 'success',
+        })
+      )
   }
 
   return (

@@ -28,7 +28,7 @@ const Courses: NextPageWithLayout = () => {
   const [keyword, setKeyword] = useState('')
   const [courseFilter, setCourseFilter] = useState<CourseFilterType>({
     university: Univerisity.HCMIU,
-    faculty: '',
+    faculty: 'All',
   })
 
   useEffect(() => {

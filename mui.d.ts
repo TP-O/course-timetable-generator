@@ -9,6 +9,7 @@ type SidebarPalette = {
   divider: string
   listHeader: string
   itemTitle: string
+  activeItemTitle: string
   hoveringItemTitle: string
   selectedItemTitle: string
   notificationContent: string

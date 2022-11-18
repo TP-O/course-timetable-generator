@@ -134,7 +134,7 @@ export function LecturerFilter({ filter, university, courses, updateFilter }: Le
                     onChange={updateLecturerFilter(course)}
                     input={<OutlinedInput label="Expect" />}
                     renderValue={(selected) => (
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, py: 0.5 }}>
                         {selected.map((value) => (
                           <Chip
                             key={value}
@@ -180,7 +180,7 @@ export function LecturerFilter({ filter, university, courses, updateFilter }: Le
                     onChange={updateLecturerFilter(course)}
                     input={<OutlinedInput label="Unexpect" />}
                     renderValue={(selected) => (
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, py: 0.5 }}>
                         {selected.map((value) => (
                           <Chip
                             key={value}

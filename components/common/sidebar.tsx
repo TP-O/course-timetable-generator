@@ -32,16 +32,19 @@ import {
   Typography,
 } from '@mui/material'
 import NextLink from 'next/link'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { debounceTime, fromEvent, tap } from 'rxjs'
 
 export function Sidebar() {
+  const router = useRouter()
+
   // Menu data
   const menuItems: SidebarMenuItem[] = [
     {
-      title: 'Generation',
-      href: '/generation',
-      Icon: AddCircle,
+      title: 'Courses',
+      href: '/courses',
+      Icon: TableView,
     },
     {
       title: 'Analytics',
@@ -174,15 +177,26 @@ export function Sidebar() {
               },
             }}
           >
-            <TableView fontSize="medium" sx={{ color: 'sidebar.itemTitle' }} />
+            <AddCircle
+              fontSize="medium"
+              sx={{
+                color:
+                  router.pathname === Url.Main ? 'sidebar.activeItemTitle' : 'sidebar.itemTitle',
+                fontWeight: 500,
+              }}
+            />
 
             {shouldShowSidebar && (
               <Typography
                 variant="subtitle2"
                 component="div"
-                sx={{ flexGrow: 1, color: 'sidebar.itemTitle' }}
+                sx={{
+                  flexGrow: 1,
+                  color:
+                    router.pathname === Url.Main ? 'sidebar.activeItemTitle' : 'sidebar.itemTitle',
+                }}
               >
-                Course Searching
+                Generation
               </Typography>
             )}
           </Stack>
@@ -198,13 +212,7 @@ export function Sidebar() {
           </Box>
         )}
 
-        <MenuList
-          sx={{
-            color: 'sidebar.itemTitle',
-            px: shouldShowSidebar ? 1.25 : 0,
-            py: 0,
-          }}
-        >
+        <MenuList sx={{ px: shouldShowSidebar ? 1.25 : 0, py: 0 }}>
           {menuItems.map((item, i) => (
             <NextLink href={item.href} key={i}>
               <MenuItem
@@ -222,20 +230,42 @@ export function Sidebar() {
                     color: 'sidebar.hoveringItemTitle',
                     backgroundColor: 'sidebar.hoveringWrapperBackground',
                     '.MuiSvgIcon-root': {
-                      color: 'sidebar.hoveringItemTitle',
+                      ...(router.pathname !== item.href
+                        ? {
+                            color: 'sidebar.hoveringItemTitle',
+                          }
+                        : {}),
                     },
                   },
                 }}
               >
                 <ListItemIcon>
-                  <item.Icon fontSize="medium" sx={{ color: 'sidebar.itemTitle' }} />
+                  <item.Icon
+                    fontSize="medium"
+                    sx={{
+                      color:
+                        router.pathname === item.href
+                          ? 'sidebar.activeItemTitle'
+                          : 'sidebar.itemTitle',
+                    }}
+                  />
                 </ListItemIcon>
 
                 {shouldShowSidebar && (
                   <ListItemText
                     disableTypography
                     primary={
-                      <Typography variant="body2" component="span" fontWeight={500}>
+                      <Typography
+                        variant="body2"
+                        component="span"
+                        sx={{
+                          color:
+                            router.pathname === item.href
+                              ? 'sidebar.activeItemTitle'
+                              : 'sidebar.itemTitle',
+                          fontWeight: 500,
+                        }}
+                      >
                         {item.title}
                       </Typography>
                     }
@@ -356,7 +386,7 @@ export function Sidebar() {
         sx={{
           position: 'fixed',
           top: 10,
-          left: 0,
+          left: -10,
           zIndex: 1200,
           px: 3,
         }}

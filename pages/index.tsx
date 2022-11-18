@@ -1,19 +1,24 @@
-import { NextPageWithLayout } from '@/types/component'
-import { useRouter } from 'next/router'
 import { Url } from '@/enums'
-import { useEffect } from 'react'
+import { NextPageWithLayout } from '@/types/component'
+import { Avatar, Button, Stack } from '@mui/material'
+import { useRouter } from 'next/router'
 
 const Home: NextPageWithLayout = () => {
   const router = useRouter()
 
-  useEffect(() => {
-    router.push(Url.Main)
-  })
-
   return (
-    <div>
-      <p>Home page</p>
-    </div>
+    <Stack>
+      <Avatar
+        alt="welcome"
+        src={Url.PepeWelcome}
+        variant="square"
+        sx={{ width: 224, height: 224, mb: 4 }}
+      />
+
+      <Button variant="contained" autoFocus onClick={() => router.replace(Url.Main)}>
+        Explore
+      </Button>
+    </Stack>
   )
 }
 

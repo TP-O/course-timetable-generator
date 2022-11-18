@@ -1,4 +1,4 @@
-import { DayOfWeek } from '@/enums'
+import { DayOfWeek, NotificationType } from '@/enums'
 import { TimetableType } from '@/types'
 import { CenterFocusStrong } from '@mui/icons-material'
 import {
@@ -63,8 +63,20 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
           const item = new ClipboardItem({ 'image/png': blob || '' })
           navigator.clipboard
             .write([item])
-            .then(() => app.showNotification('Captured timetable!', 'success'))
-            .catch(() => app.showNotification('Unable to capture timetable :(', 'error'))
+            .then(() =>
+              app.showNotification({
+                type: NotificationType.Snackbar,
+                message: 'Captured timetable!',
+                status: 'success',
+              })
+            )
+            .catch(() =>
+              app.showNotification({
+                type: NotificationType.Snackbar,
+                message: 'Unable to capture timetable :(',
+                status: 'error',
+              })
+            )
         })
       }
     )

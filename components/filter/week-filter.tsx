@@ -4,6 +4,9 @@ import { convertDayNumberToDayString, getDaysOfWeek } from '@/utils'
 import {
   Checkbox,
   FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
   InputLabel,
   ListItemText,
   MenuItem,
@@ -23,13 +26,21 @@ type WeekFilterProps = {
 const daysOfWeek = getDaysOfWeek()
 
 export function WeekFilter({ filter, updateFilter }: WeekFilterProps) {
-  function updateWeekFilter(
-    event: SelectChangeEvent<DayOfWeek[]> | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
-    if (event.target.name === 'days') {
-      filter.days = Number(event.target.value)
-    } else if (event.target.name === 'specificDays' && Array.isArray(event.target.value)) {
-      filter.specificDays = event.target.value
+  function updateWeekFilter({ target: { name, value, checked } }: ChangeEvent<HTMLInputElement>) {
+    const parsedValue = Number(value)
+
+    if (name === 'days') {
+      filter.days = parsedValue
+    } else if (name === 'specificDays') {
+      if (checked) {
+        filter.specificDays.push(parsedValue)
+      } else {
+        const removedIndex = filter.specificDays.indexOf(parsedValue)
+
+        if (removedIndex !== -1) {
+          filter.specificDays.splice(removedIndex, 1)
+        }
+      }
     }
 
     updateFilter(() => ({ ...filter }))
@@ -37,10 +48,10 @@ export function WeekFilter({ filter, updateFilter }: WeekFilterProps) {
 
   return (
     <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
-      <FormControl sx={{ width: { xs: '100%', md: '15%' } }}>
+      <FormControl sx={{ width: { xs: '100%', md: '50%' } }}>
         <TextField
           name="days"
-          label="Number of days"
+          label="Minimum days off"
           type="number"
           size="small"
           value={filter.days}
@@ -54,12 +65,25 @@ export function WeekFilter({ filter, updateFilter }: WeekFilterProps) {
         />
       </FormControl>
 
-      <FormControl sx={{ width: { xs: '100%', md: '85%' } }}>
-        <InputLabel id="daysoff-selection-label" size="small">
-          Specific days
-        </InputLabel>
+      <FormControl sx={{ width: { xs: '100%', md: '50%' } }}>
+        <FormGroup row sx={{ justifyContent: 'space-between', pl: 1.75 }}>
+          {daysOfWeek.map((day, i) => (
+            <FormControlLabel
+              key={i}
+              control={
+                <Checkbox
+                  name="specificDays"
+                  value={i}
+                  checked={filter.specificDays.indexOf(i) > -1}
+                  onChange={updateWeekFilter}
+                />
+              }
+              label={day}
+            ></FormControlLabel>
+          ))}
+        </FormGroup>
 
-        <Select
+        {/* <Select
           name="specificDays"
           labelId="daysoff-selection-label"
           multiple
@@ -85,7 +109,7 @@ export function WeekFilter({ filter, updateFilter }: WeekFilterProps) {
               <ListItemText primary={day} />
             </MenuItem>
           ))}
-        </Select>
+        </Select> */}
       </FormControl>
     </Stack>
   )

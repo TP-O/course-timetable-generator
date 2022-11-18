@@ -1,20 +1,21 @@
-import { DayOfWeek, Univerisity } from '@/enums'
+import { DayOfWeek, NotificationType, Univerisity } from '@/enums'
 import { MainLayout } from '@/layouts'
 import { generateTimetables, getCourseGroups, getCourseNames } from '@/services'
 import { TimetableType } from '@/types'
 import { Autocomplete, Button, Stack, TextField, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { TimetableList } from '@/components/table'
 import { CourseFilter, LecturerFilter, WeekFilter } from '@/components/filter'
 import { LazyData, NextPageWithLayout } from '@/types/component'
 import { CourseFilterType, LecturerFilterType, WeekFilterType } from '@/types/filter'
+import { AppContext } from '@/contexts'
 
 const Generation: NextPageWithLayout = () => {
   // Course searching
   const [selectedCoures, setSelectedCourse] = useState<String[]>([])
   const [courseFilter, setCourseFilter] = useState<CourseFilterType>({
     university: Univerisity.HCMIU,
-    faculty: '',
+    faculty: 'All',
   })
   const [recommededCourses, setRecommededCourses] = useState<String[]>([])
 
@@ -35,6 +36,7 @@ const Generation: NextPageWithLayout = () => {
   })
 
   // Generate timetables
+  const { showNotification } = useContext(AppContext)
   const [timetables, setTimetables] = useState<LazyData<TimetableType>>({
     hide: [],
     show: [],
@@ -46,6 +48,14 @@ const Generation: NextPageWithLayout = () => {
       week: weekFilter,
       lecturers: lecturerFilter,
     })
+
+    if (!timetables.length) {
+      showNotification({
+        type: NotificationType.Dialog,
+        message: 'There is no timetable satisfying your ambition :(',
+        status: 'success',
+      })
+    }
 
     setTimetables({
       hide: timetables,

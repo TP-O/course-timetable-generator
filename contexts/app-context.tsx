@@ -1,11 +1,11 @@
+import { NotificationType } from '@/enums'
 import { Notification } from '@/types'
-import { AlertColor } from '@mui/material'
 import { createContext, ReactElement, useState } from 'react'
 
 type AppContextType = {
   notification: Notification
   closeNotification: () => void
-  showNotification: (message: string, status: AlertColor) => void
+  showNotification: (setting: Omit<Notification, 'isShowed'>) => void
 }
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
@@ -13,6 +13,7 @@ export const AppContext = createContext<AppContextType>({} as AppContextType)
 export function AppProvider({ children }: { children: ReactElement }) {
   const [notification, setNotification] = useState<Notification>({
     isShowed: false,
+    type: NotificationType.Snackbar,
     message: '',
     status: 'success',
   })
@@ -24,11 +25,10 @@ export function AppProvider({ children }: { children: ReactElement }) {
     }))
   }
 
-  function showNotification(message: string, status: AlertColor) {
+  function showNotification(setting: Omit<Notification, 'isShowed'>) {
     setNotification(() => ({
       isShowed: true,
-      status,
-      message,
+      ...setting,
     }))
   }
 
