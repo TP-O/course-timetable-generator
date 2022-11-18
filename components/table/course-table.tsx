@@ -1,11 +1,4 @@
-import {
-  Course,
-  CourseFilter,
-  CourseTableColumn,
-  CourseTableColumnId,
-  ScrollData,
-  Sorting,
-} from '@/types'
+import { Course } from '@/types'
 import {
   IconButton,
   Paper,
@@ -24,11 +17,13 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { convertDayNumberToDayString } from '@/utils'
 import { AppContext } from '@/contexts'
 import { searchCourses } from '@/services'
+import { CourseFilterType } from '@/types/filter'
+import { CourseTableColumn, CourseTableColumnId, LazyData, Sorting } from '@/types/component'
 
 type CourseTableProps = {
   empty?: boolean
   keyword: string
-  courseFilter: Omit<CourseFilter, 'keyword'>
+  courseFilter: CourseFilterType
 }
 
 const sortableColumnIds: CourseTableColumnId[] = ['name', 'capacity', 'credits']
@@ -74,7 +69,7 @@ export function CourseTable({ empty = false, keyword, courseFilter }: CourseTabl
   }
 
   // Load courses
-  const [courses, setCourses] = useState<ScrollData<Course>>({
+  const [courses, setCourses] = useState<LazyData<Course>>({
     show: [],
     hide: [],
   })
@@ -91,10 +86,7 @@ export function CourseTable({ empty = false, keyword, courseFilter }: CourseTabl
 
   useEffect(() => {
     ;(async () => {
-      let courses = await searchCourses({
-        ...courseFilter,
-        keyword,
-      })
+      let courses = await searchCourses(keyword, courseFilter)
 
       setCourses(() => {
         courses = sortCourses(courses, sorting)

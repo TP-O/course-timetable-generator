@@ -1,5 +1,5 @@
 import { Time, Url } from '@/enums'
-import { SidebarMenuItem } from '@/types'
+import { SidebarMenuItem } from '@/types/component'
 import { theme } from '@/utils/mui'
 import {
   AddCircle,

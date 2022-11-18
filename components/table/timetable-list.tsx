@@ -1,11 +1,11 @@
-import { Timetable } from '@/types'
+import { TimetableType } from '@/types'
 import { Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { AloneTimetable } from './alone-timetable'
+import { Timetable } from './timetable'
 
 type TimetableListProps = {
-  timetables: Timetable[]
+  timetables: TimetableType[]
   length: number
   hasMore: boolean
   loadMore: () => void
@@ -46,7 +46,7 @@ export function TimetableList({ length, hasMore, timetables, loadMore }: Timetab
         }
       >
         {timetables.map((timetable, i) => (
-          <AloneTimetable key={i} id={i} timetable={timetable} />
+          <Timetable key={i} id={i} timetable={timetable} />
         ))}
       </InfiniteScroll>
     </Box>

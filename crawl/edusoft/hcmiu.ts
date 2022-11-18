@@ -11,8 +11,8 @@ export class HCMIUCrawler extends EdusoftCrawler {
       host: 'https://edusoftweb.hcmiu.edu.vn',
       signInPath: '/',
       coursePath: '/Default.aspx?page=dkmonhoc',
-      account: {
-        id: String(env.HCMIU_ID),
+      credentials: {
+        username: String(env.HCMIU_ID),
         password: String(env.HCMIU_PASSWORD),
       },
     })

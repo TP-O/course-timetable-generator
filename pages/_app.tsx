@@ -1,6 +1,6 @@
 import '@/styles/globals.css'
 import { EmptyLayout } from '@/layouts'
-import { AppPropsWithLayout } from '@/types'
+import { AppPropsWithLayout } from '@/types/component'
 import { SWRConfig } from 'swr'
 import { axiosClient } from '@/services/axios'
 import { CacheProvider } from '@emotion/react'

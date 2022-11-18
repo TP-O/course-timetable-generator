@@ -1,4 +1,4 @@
-import { NextPageWithLayout } from '@/types'
+import { NextPageWithLayout } from '@/types/component'
 import { useRouter } from 'next/router'
 import { Url } from '@/enums'
 import { useEffect } from 'react'

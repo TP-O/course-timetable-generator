@@ -8,7 +8,7 @@ import {
 } from 'firebase/auth'
 import useSWR from 'swr'
 import { LocalStorageKey, SwrKey, Time } from '@/enums'
-import { SignInPayload, SignUpPayload } from '@/types'
+import { SignInPayload, SignUpPayload } from '@/types/auth'
 
 export function useAuth() {
   const { data: user, mutate } = useSWR(

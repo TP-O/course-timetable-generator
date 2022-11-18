@@ -1,9 +1,10 @@
-import { Crawler, UniversityRecord } from '@/types'
 import { Browser, Builder } from 'selenium-webdriver'
 import { config } from 'dotenv'
 import { writeFileSync } from 'fs'
 import date from 'date-and-time'
 import { HCMIUCrawler } from './edusoft/hcmiu'
+import { Crawler } from '@/types/crawl'
+import { UniversityRecord } from '@/types/storage'
 
 config({
   path: '.env.crawl.local',
@@ -36,9 +37,9 @@ config({
       driver.manage().deleteAllCookies()
     }
 
-    if (universityRecord !== undefined && Object.keys(universityRecord).length > 0) {
+    if (universityRecord && Object.keys(universityRecord).length > 0) {
       universityRecord.updatedAt = {
-        second: Date.now(),
+        seconds: Date.now(),
         text: date.format(new Date(), 'ddd, MMM/DD/YYYY HH:mm:ss'),
       }
 

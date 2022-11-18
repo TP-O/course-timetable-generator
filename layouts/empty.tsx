@@ -1,5 +1,5 @@
 import { Footer } from '@/components/common'
-import { LayoutProps } from '@/types'
+import { LayoutProps } from '@/types/component'
 import { Stack } from '@mui/material'
 import { CommonLayout } from './common'
 

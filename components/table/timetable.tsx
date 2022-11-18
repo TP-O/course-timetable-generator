@@ -1,5 +1,5 @@
 import { DayOfWeek } from '@/enums'
-import { Timetable } from '@/types'
+import { TimetableType } from '@/types'
 import { CenterFocusStrong } from '@mui/icons-material'
 import {
   Box,
@@ -22,12 +22,12 @@ import { AppContext } from '@/contexts'
 
 type TimetableTableProps = {
   id: number | string
-  timetable: Timetable
+  timetable: TimetableType
 }
 
 const daysOfWeek = getDaysOfWeek()
 
-export function AloneTimetable({ id, timetable }: TimetableTableProps) {
+export function Timetable({ id, timetable }: TimetableTableProps) {
   function getClass(day: DayOfWeek, begin: number) {
     for (const classs of timetable[day]) {
       if (classs.begin === begin) {

@@ -1,7 +1,9 @@
 import { By, until, WebDriver, WebElement } from 'selenium-webdriver'
 import some from 'lodash/some'
-import { Course, Crawler, CrawlerDetails, Lesson, UniversityRecord } from '@/types'
+import { Course, Lesson } from '@/types'
 import { convertDayStringToDayNumber } from '@/utils'
+import { Crawler, CrawlerDetails } from '@/types/crawl'
+import { UniversityRecord } from '@/types/storage'
 
 export abstract class EdusoftCrawler implements Crawler {
   constructor(readonly driver: WebDriver, readonly details: CrawlerDetails) {}
@@ -10,10 +12,10 @@ export abstract class EdusoftCrawler implements Crawler {
     await this.driver.get(this.details.host + this.details.signInPath)
     await this.driver
       .findElement(By.id('ctl00_ContentPlaceHolder1_ctl00_ucDangNhap_txtTaiKhoa'))
-      .sendKeys(this.details.account.id)
+      .sendKeys(this.details.credentials.username)
     await this.driver
       .findElement(By.id('ctl00_ContentPlaceHolder1_ctl00_ucDangNhap_txtMatKhau'))
-      .sendKeys(this.details.account.password)
+      .sendKeys(this.details.credentials.password)
     await this.driver
       .findElement(By.id('ctl00_ContentPlaceHolder1_ctl00_ucDangNhap_btnDangNhap'))
       .click()
@@ -80,11 +82,7 @@ export abstract class EdusoftCrawler implements Crawler {
         begin: begins[i],
         periods: periods[i],
         lecturers: [
-          lecturers[i] === undefined ||
-          lecturers[i] === null ||
-          lecturers[i].replace(/\s/g, '') === ''
-            ? 'Unknown'
-            : lecturers[i],
+          !lecturers[i] || lecturers[i].replace(/\s/g, '') === '' ? 'Unknown' : lecturers[i],
         ],
       }
 
@@ -138,7 +136,10 @@ export abstract class EdusoftCrawler implements Crawler {
     const universityRecord: UniversityRecord = {
       faculties: {},
       courses: {},
-      updatedAt: undefined,
+      updatedAt: {
+        seconds: 0,
+        text: 'Unknown',
+      },
     }
     const faculties = await this.driver.findElements(
       By.css('#selectKhoa option:not(:first-child):not(:nth-last-child(2)):not(:last-child)')
@@ -155,8 +156,8 @@ export abstract class EdusoftCrawler implements Crawler {
       const coursesTable = await this.driver.findElements(By.css('#divTDK > table'))
 
       universityRecord.faculties[facultyName] = {
-        courses: {},
         lecturers: [],
+        courseLecturers: {},
       }
 
       for (const courseRow of coursesTable) {
@@ -172,14 +173,12 @@ export abstract class EdusoftCrawler implements Crawler {
         const courseItem = await this.filterCourse(courseRow)
 
         // Declare course of faculty if does not exist
-        if (universityRecord.faculties[facultyName].courses[courseItem.name] === undefined) {
-          universityRecord.faculties[facultyName].courses[courseItem.name] = {
-            lecturers: [],
-          }
+        if (!universityRecord.faculties[facultyName].courseLecturers[courseItem.name]) {
+          universityRecord.faculties[facultyName].courseLecturers[courseItem.name] = []
         }
 
         // Declare course of record if does not exist
-        if (universityRecord.courses[courseItem.name] === undefined) {
+        if (!universityRecord.courses[courseItem.name]) {
           universityRecord.courses[courseItem.name] = {
             items: [],
             lecturers: [],
@@ -205,11 +204,11 @@ export abstract class EdusoftCrawler implements Crawler {
             }
 
             if (
-              !universityRecord.faculties[facultyName].courses[courseItem.name].lecturers.includes(
+              !universityRecord.faculties[facultyName].courseLecturers[courseItem.name].includes(
                 lecturer
               )
             ) {
-              universityRecord.faculties[facultyName].courses[courseItem.name].lecturers.push(
+              universityRecord.faculties[facultyName].courseLecturers[courseItem.name].push(
                 lecturer
               )
             }

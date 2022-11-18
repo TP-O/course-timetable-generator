@@ -1,5 +1,5 @@
 import { DayOfWeek } from '@/enums'
-import { TimetableFilter } from '@/types'
+import { WeekFilterType } from '@/types/filter'
 import { convertDayNumberToDayString, getDaysOfWeek } from '@/utils'
 import {
   Checkbox,
@@ -16,8 +16,8 @@ import {
 import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 
 type WeekFilterProps = {
-  filter: TimetableFilter['dayOff']
-  updateFilter: Dispatch<SetStateAction<TimetableFilter['dayOff']>>
+  filter: WeekFilterType
+  updateFilter: Dispatch<SetStateAction<WeekFilterType>>
 }
 
 const daysOfWeek = getDaysOfWeek()

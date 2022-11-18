@@ -1,7 +1,8 @@
-import { Course, Timetable, TimetableFilter } from '@/types'
+import { Course, TimetableType } from '@/types'
 import sortedIndexBy from 'lodash/sortedIndexBy'
 import cloneDeep from 'lodash/cloneDeep'
 import { DayOfWeek } from '@/enums'
+import { TimetableFilter } from '@/types/filter'
 
 const colors = [
   '#D8BFD8',
@@ -35,7 +36,7 @@ function generateTimetablesWithCourseFilter(courseGroups: Course[][], filter: Ti
   }
 
   const [courses] = courseGroups.splice(0, 1)
-  const timetables: Timetable[] = []
+  const timetables: TimetableType[] = []
   const incompleteTimetables = generateTimetablesWithCourseFilter(courseGroups, filter)
 
   for (const incompleteTimetable of incompleteTimetables) {
@@ -76,7 +77,7 @@ function generateTimetablesWithCourseFilter(courseGroups: Course[][], filter: Ti
   return timetables
 }
 
-function isOverlapped(course: Course, timetable: Timetable) {
+function isOverlapped(course: Course, timetable: TimetableType) {
   for (const day of timetable) {
     for (const classs of day) {
       for (const lesson of course.lessons) {
@@ -100,19 +101,19 @@ function isValidCourse(course: Course, filter: TimetableFilter) {
   for (const lesson of course.lessons) {
     lecturers.push(...lesson.lecturers)
 
-    if (filter.dayOff.specificDays.includes(lesson.day)) {
+    if (filter.week.specificDays.includes(lesson.day)) {
       return false
     }
   }
 
-  if (filter.lecturer[course.name]) {
-    for (const lecturer of filter.lecturer[course.name]!.expectations!) {
+  if (filter.lecturers[course.name]) {
+    for (const lecturer of filter.lecturers[course.name]!.expectations!) {
       if (!lecturers.includes(lecturer)) {
         return false
       }
     }
 
-    for (const lecturer of filter.lecturer![course.name]!.unexpectations!) {
+    for (const lecturer of filter.lecturers![course.name]!.unexpectations!) {
       if (lecturers.includes(lecturer)) {
         return false
       }
@@ -122,10 +123,10 @@ function isValidCourse(course: Course, filter: TimetableFilter) {
   return true
 }
 
-function isValidTimetable(timetable: Timetable, filter: TimetableFilter) {
+function isValidTimetable(timetable: TimetableType, filter: TimetableFilter) {
   const numberOfdaysOff = timetable.reduce((p, c) => (c.length === 0 ? p + 1 : p), 0)
 
-  if (numberOfdaysOff < filter.dayOff.days) {
+  if (numberOfdaysOff < filter.week.days) {
     return false
   }
 

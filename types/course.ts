@@ -1,4 +1,4 @@
-import { DayOfWeek, Univerisity } from '@/enums'
+import { DayOfWeek } from '@/enums'
 
 export type Course = {
   code?: string
@@ -16,10 +16,4 @@ export type Lesson = {
   begin: number
   periods: number
   lecturers: string[]
-}
-
-export type CourseFilter = {
-  keyword: string
-  university: Univerisity
-  faculty: string
 }

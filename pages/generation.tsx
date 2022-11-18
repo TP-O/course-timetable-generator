@@ -1,16 +1,18 @@
 import { DayOfWeek, Univerisity } from '@/enums'
 import { MainLayout } from '@/layouts'
 import { generateTimetables, getCourseGroups, getCourseNames } from '@/services'
-import { CourseFilter, NextPageWithLayout, ScrollData, Timetable, TimetableFilter } from '@/types'
+import { TimetableType } from '@/types'
 import { Autocomplete, Button, Stack, TextField, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { TimetableList } from '@/components/table'
-import { CourseFilterComponent, LecturerFilter, WeekFilter } from '@/components/filter'
+import { CourseFilter, LecturerFilter, WeekFilter } from '@/components/filter'
+import { LazyData, NextPageWithLayout } from '@/types/component'
+import { CourseFilterType, LecturerFilterType, WeekFilterType } from '@/types/filter'
 
 const Generation: NextPageWithLayout = () => {
   // Course searching
   const [selectedCoures, setSelectedCourse] = useState<String[]>([])
-  const [courseFilter, setCourseFilter] = useState<Omit<CourseFilter, 'keyword'>>({
+  const [courseFilter, setCourseFilter] = useState<CourseFilterType>({
     university: Univerisity.HCMIU,
     faculty: '',
   })
@@ -24,16 +26,16 @@ const Generation: NextPageWithLayout = () => {
   }, [courseFilter])
 
   // Timetable filter
-  const [weekFilter, setWeekFilter] = useState<TimetableFilter['dayOff']>({
+  const [weekFilter, setWeekFilter] = useState<WeekFilterType>({
     days: 1,
     specificDays: [DayOfWeek.Sun],
   })
-  const [lecturerFilter, setLecturerFilter] = useState<TimetableFilter['lecturer']>({
+  const [lecturerFilter, setLecturerFilter] = useState<LecturerFilterType>({
     //
   })
 
   // Generate timetables
-  const [timetables, setTimetables] = useState<ScrollData<Timetable>>({
+  const [timetables, setTimetables] = useState<LazyData<TimetableType>>({
     hide: [],
     show: [],
   })
@@ -41,8 +43,8 @@ const Generation: NextPageWithLayout = () => {
   async function generateNewTimetables() {
     const courseGroups = await getCourseGroups(courseFilter.university, selectedCoures as string[])
     const timetables = generateTimetables(courseGroups, {
-      dayOff: weekFilter,
-      lecturer: lecturerFilter,
+      week: weekFilter,
+      lecturers: lecturerFilter,
     })
 
     setTimetables({
@@ -74,7 +76,7 @@ const Generation: NextPageWithLayout = () => {
           onChange={(_: any, value: String[]) => setSelectedCourse(value)}
         />
 
-        <CourseFilterComponent filter={courseFilter} updateFilter={setCourseFilter} />
+        <CourseFilter filter={courseFilter} updateFilter={setCourseFilter} />
 
         <Typography variant="caption" component="div" sx={{ pl: 1 }}>
           <b>Day off</b>

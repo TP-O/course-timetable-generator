@@ -1,20 +1,26 @@
-import { Course, CourseFilter, UniversityStorage } from '@/types'
+import { Course } from '@/types'
 import { matchSorter } from 'match-sorter'
 import { Univerisity } from '@/enums'
+import { UniversityStorage } from '@/types/storage'
+import { CourseFilterType } from '@/types/filter'
 
 const storage: UniversityStorage = {
-  'HCMIU - International Univerisity': null,
-  'UEH - University of Economics HCMC': null,
+  'HCMIU - International Univerisity': undefined,
+  'UEH - University of Economics HCMC': undefined,
 }
 
 export async function loadUniversity(university: Univerisity) {
-  if (storage[university] === null) {
+  if (!storage[university]) {
     try {
       storage[university] = await import(`@/data/${university}.json`)
     } catch {
       storage[university] = {
         faculties: {},
         courses: {},
+        updatedAt: {
+          seconds: 0,
+          text: 'Unknown',
+        },
       }
     }
   }
@@ -29,7 +35,7 @@ export async function getUniversityUpdatedTime(university: Univerisity) {
 
   return (
     storage[university]?.updatedAt || {
-      second: 0,
+      seconds: 0,
       text: 'Unknown',
     }
   )
@@ -41,7 +47,7 @@ export async function getFaculties(university: Univerisity) {
   return ['', ...Object.keys(storage[university]?.faculties || {})]
 }
 
-export async function getLecturersOfCourse(university: Univerisity, courseName: string) {
+export async function getCourseLecturers(university: Univerisity, courseName: string) {
   await loadUniversity(university)
 
   return storage[university]?.courses[courseName].lecturers || []
@@ -52,7 +58,7 @@ export async function getCourseNames(university: Univerisity, faculty = '') {
 
   return faculty === ''
     ? Object.keys(storage[university]?.courses || {})
-    : Object.keys(storage[university]?.faculties[faculty]?.courses || {})
+    : Object.keys(storage[university]?.faculties[faculty]?.courseLecturers || {})
 }
 
 export async function getCourseGroups(university: Univerisity, courseNames: string[]) {
@@ -61,16 +67,15 @@ export async function getCourseGroups(university: Univerisity, courseNames: stri
   return courseNames.map((name) => Object.values(storage[university]?.courses[name]?.items || []))
 }
 
-export async function searchCourses(filter: CourseFilter) {
+export async function searchCourses(keyword: string, filter: CourseFilterType) {
   await loadUniversity(filter.university)
 
   const courseNames =
     filter.faculty === undefined || filter.faculty === ''
       ? Object.keys(storage[filter.university]?.courses || {})
-      : Object.keys(storage[filter.university]?.faculties[filter.faculty]?.courses || {})
+      : Object.keys(storage[filter.university]?.faculties[filter.faculty]?.courseLecturers || {})
 
-  const filteredCourseNames =
-    filter.keyword === '' ? courseNames : matchSorter(courseNames, filter.keyword)
+  const filteredCourseNames = keyword === '' ? courseNames : matchSorter(courseNames, keyword)
   const filteredCourses: Course[] = []
 
   for (const courseName of filteredCourseNames) {

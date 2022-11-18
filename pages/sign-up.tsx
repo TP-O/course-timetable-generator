@@ -1,5 +1,5 @@
 import { useAuth } from '@/hooks'
-import { NextPageWithLayout, SignUpPayload } from '@/types'
+import { NextPageWithLayout } from '@/types/component'
 import {
   Alert,
   Avatar,
@@ -18,6 +18,7 @@ import { useForm } from 'react-hook-form'
 import { classValidatorResolver } from '@hookform/resolvers/class-validator'
 import { FirebaseErrorTag, Url } from '@/enums'
 import { OAuthList } from '@/components/auth'
+import { SignUpPayload } from '@/types/auth'
 
 const SignUp: NextPageWithLayout = () => {
   const router = useRouter()

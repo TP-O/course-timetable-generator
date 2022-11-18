@@ -1,16 +1,16 @@
 import { getFaculties, getUniversities } from '@/services'
-import { CourseFilter } from '@/types'
+import { CourseFilterType } from '@/types/filter'
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack } from '@mui/material'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 type CourseFilterProps = {
-  filter: Omit<CourseFilter, 'keyword'>
-  updateFilter: Dispatch<SetStateAction<Omit<CourseFilter, 'keyword'>>>
+  filter: CourseFilterType
+  updateFilter: Dispatch<SetStateAction<CourseFilterType>>
 }
 
 const universities = getUniversities()
 
-export function CourseFilterComponent({ filter, updateFilter }: CourseFilterProps) {
+export function CourseFilter({ filter, updateFilter }: CourseFilterProps) {
   const [faculties, setFaculties] = useState<string[]>([])
 
   function updateCourseFilter(event: SelectChangeEvent) {

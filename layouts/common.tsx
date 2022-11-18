@@ -1,5 +1,5 @@
 import { AppContext } from '@/contexts'
-import { LayoutProps } from '@/types'
+import { LayoutProps } from '@/types/component'
 import { Alert, Snackbar } from '@mui/material'
 import { Fragment, useContext } from 'react'
 

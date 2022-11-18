@@ -1,6 +1,6 @@
 export * from './time'
 export * from './swr'
-export * from './local-storage'
+export * from './storage'
 export * from './error'
 export * from './url'
 export * from './university'

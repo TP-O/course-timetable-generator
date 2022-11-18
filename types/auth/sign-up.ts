@@ -1,4 +1,3 @@
-import { Match } from '@/utils/validator'
 import { IsEmail, MinLength } from 'class-validator'
 
 export class SignInPayload {
@@ -14,11 +13,4 @@ export class SignInPayload {
     message: 'Password must be longer than or equal to 6 characters',
   })
   password: string
-}
-
-export class SignUpPayload extends SignInPayload {
-  @Match('password', {
-    message: 'Password does not match',
-  })
-  passwordConfirm: string
 }

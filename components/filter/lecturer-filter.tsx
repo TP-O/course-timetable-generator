@@ -1,6 +1,6 @@
 import { Univerisity } from '@/enums'
-import { getLecturersOfCourse } from '@/services'
-import { TimetableFilter } from '@/types'
+import { getCourseLecturers } from '@/services'
+import { LecturerFilterType } from '@/types/filter'
 import { Cancel } from '@mui/icons-material'
 import {
   Chip,
@@ -18,10 +18,10 @@ import { Box } from '@mui/system'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 type LecturerFilterProps = {
-  filter: TimetableFilter['lecturer']
+  filter: LecturerFilterType
   university: Univerisity
   courses: string[]
-  updateFilter: Dispatch<SetStateAction<TimetableFilter['lecturer']>>
+  updateFilter: Dispatch<SetStateAction<LecturerFilterType>>
 }
 
 export function LecturerFilter({ filter, university, courses, updateFilter }: LecturerFilterProps) {
@@ -57,11 +57,7 @@ export function LecturerFilter({ filter, university, courses, updateFilter }: Le
     }
   }
 
-  function deleteLecturer(
-    course: string,
-    lecturer: string,
-    key: keyof TimetableFilter['lecturer']['']
-  ) {
+  function deleteLecturer(course: string, lecturer: string, key: keyof LecturerFilterType['']) {
     if (!filter[course]) {
       return
     }
@@ -87,7 +83,7 @@ export function LecturerFilter({ filter, university, courses, updateFilter }: Le
       // Add lecturers of new courses
       courses.forEach((course) => {
         if (!oldCourses.includes(course)) {
-          getLecturersOfCourse(university, course).then((newLecturers) => {
+          getCourseLecturers(university, course).then((newLecturers) => {
             lecturers[university][course] = newLecturers
           })
         }
