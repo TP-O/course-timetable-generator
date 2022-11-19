@@ -5,4 +5,5 @@ export enum Url {
   BigLogo = '/big-logo.png',
   SmallLogo = '/small-logo.png',
   PepeWelcome = '/pepe-welcome.gif',
+  PepeWaiting = '/pepe-waiting.gif',
 }

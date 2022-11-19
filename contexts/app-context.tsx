@@ -4,8 +4,11 @@ import { createContext, ReactElement, useState } from 'react'
 
 type AppContextType = {
   notification: Notification
+  loading: boolean
   closeNotification: () => void
   showNotification: (setting: Omit<Notification, 'isShowed'>) => void
+  load: () => void
+  unload: () => void
 }
 
 export const AppContext = createContext<AppContextType>({} as AppContextType)
@@ -17,6 +20,7 @@ export function AppProvider({ children }: { children: ReactElement }) {
     message: '',
     status: 'success',
   })
+  const [loading, setLoading] = useState(false)
 
   function closeNotification() {
     setNotification((notification) => ({
@@ -32,8 +36,18 @@ export function AppProvider({ children }: { children: ReactElement }) {
     }))
   }
 
+  function load() {
+    setLoading(true)
+  }
+
+  function unload() {
+    setLoading(false)
+  }
+
   return (
-    <AppContext.Provider value={{ notification, showNotification, closeNotification }}>
+    <AppContext.Provider
+      value={{ notification, loading, load, unload, showNotification, closeNotification }}
+    >
       {children}
     </AppContext.Provider>
   )

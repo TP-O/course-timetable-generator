@@ -1,6 +1,6 @@
 import { DayOfWeek, NotificationType } from '@/enums'
 import { TimetableType } from '@/types'
-import { CenterFocusStrong } from '@mui/icons-material'
+import { CenterFocusStrong, Download } from '@mui/icons-material'
 import {
   Box,
   IconButton,
@@ -15,7 +15,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
-import { Fragment, MouseEvent, useContext } from 'react'
+import { Fragment, MouseEvent, useContext, useEffect, useState } from 'react'
 import html2canvas from 'html2canvas'
 import { getDaysOfWeek } from '@/utils'
 import { AppContext } from '@/contexts'
@@ -53,33 +53,47 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
     return true
   }
 
-  // Store timetable image into clipboard
+  // Copy and download timetable
   const app = useContext(AppContext)
+  let [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null)
 
-  function captureTimetable(event: MouseEvent<HTMLElement>) {
-    html2canvas(document.querySelector(`#${event.currentTarget.dataset.timetableId}`)!).then(
-      (canvas) => {
-        canvas.toBlob((blob) => {
-          const item = new ClipboardItem({ 'image/png': blob || '' })
-          navigator.clipboard
-            .write([item])
-            .then(() =>
-              app.showNotification({
-                type: NotificationType.Snackbar,
-                message: 'Captured timetable!',
-                status: 'success',
-              })
-            )
-            .catch(() =>
-              app.showNotification({
-                type: NotificationType.Snackbar,
-                message: 'Unable to capture timetable :(',
-                status: 'error',
-              })
-            )
-        })
-      }
-    )
+  async function captureTimetable() {
+    if (!canvas) {
+      canvas = await html2canvas(document.querySelector(`#timetable-${id}`)!)
+      setCanvas(canvas)
+    }
+
+    canvas?.toBlob((blob) => {
+      const item = new ClipboardItem({ 'image/png': blob || '' })
+      navigator.clipboard
+        .write([item])
+        .then(() =>
+          app.showNotification({
+            type: NotificationType.Snackbar,
+            message: 'Captured timetable!',
+            status: 'success',
+          })
+        )
+        .catch(() =>
+          app.showNotification({
+            type: NotificationType.Snackbar,
+            message: 'Unable to capture timetable :(',
+            status: 'error',
+          })
+        )
+    })
+  }
+
+  async function downloadTimetable(event: MouseEvent<HTMLElement>) {
+    if (!canvas) {
+      canvas = await html2canvas(document.querySelector(`#timetable-${id}`)!)
+      setCanvas(canvas)
+    }
+
+    const link = document.createElement('a')
+    link.href = canvas.toDataURL()
+    link.download = 'timetable'
+    link.click()
   }
 
   return (
@@ -95,10 +109,21 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
         >
           <CenterFocusStrong />
         </IconButton>
+
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          sx={{ mr: 2 }}
+          onClick={downloadTimetable}
+        >
+          <Download />
+        </IconButton>
       </Toolbar>
 
-      <TableContainer id={`timetable-${id}`} component={Paper}>
+      <TableContainer component={Paper}>
         <Table
+          id={`timetable-${id}`}
           size="small"
           sx={{
             minWidth: 650,
@@ -126,7 +151,7 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
             </TableRow>
           </TableHead>
 
-          <TableBody>
+          <TableBody sx={{ backgroundColor: 'white' }}>
             {[...Array(16)].map((_, row) => (
               <TableRow key={row} sx={{ width: '14%' }}>
                 {daysOfWeek.map((day, i) => {
@@ -136,29 +161,32 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
 
                   const cls = getClass(i, row + 1)
 
-                  return (
+                  return cls ? (
                     <Tooltip
                       key={day}
                       title={
                         <Fragment>
                           <Typography color="inherit" sx={{ mb: 0.5 }}>
-                            <b>Name:</b> {cls?.name}
+                            <b>Name:</b> {cls.name}
                           </Typography>
                           <Typography color="inherit" sx={{ mb: 0.5 }}>
-                            <b>Room:</b> {cls?.room}
+                            <b>Room:</b> {cls.room}
                           </Typography>
                           <Typography color="inherit" sx={{ mb: 0.5 }}>
-                            <b>Lecturers:</b> {cls?.lecturers.join(', ')}
+                            <b>Duration:</b> {cls.begin} &ndash; {cls.begin + cls.periods - 1}
+                          </Typography>
+                          <Typography color="inherit" sx={{ mb: 0.5 }}>
+                            <b>Lecturers:</b> {cls.lecturers.join(', ')}
                           </Typography>
                         </Fragment>
                       }
                       disableHoverListener={!cls}
                     >
                       <TableCell
-                        rowSpan={cls?.periods || 1}
+                        rowSpan={cls.periods}
                         sx={{
                           py: 2,
-                          backgroundColor: cls?.color || 'transparent',
+                          backgroundColor: cls.color,
                         }}
                       >
                         <Typography
@@ -171,16 +199,24 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
                             WebkitLineClamp: 2,
                           }}
                         >
-                          {cls?.name}
+                          {cls.name}
                         </Typography>
                         <Typography variant="caption" sx={{ display: 'block', fontWeight: 'bold' }}>
-                          {cls?.room}
+                          {cls.room}
                         </Typography>
                         <Typography variant="caption" sx={{ display: 'block', fontWeight: 'bold' }}>
-                          {cls?.lecturers}
+                          {cls.lecturers}
                         </Typography>
                       </TableCell>
                     </Tooltip>
+                  ) : (
+                    <TableCell
+                      rowSpan={1}
+                      sx={{
+                        py: 2,
+                        backgroundColor: 'transparent',
+                      }}
+                    />
                   )
                 })}
               </TableRow>

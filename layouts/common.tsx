@@ -1,8 +1,10 @@
 import { AppContext } from '@/contexts'
-import { NotificationType } from '@/enums'
+import { NotificationType, Url } from '@/enums'
 import { LayoutProps } from '@/types/component'
 import {
   Alert,
+  Avatar,
+  Backdrop,
   Button,
   Dialog,
   DialogActions,
@@ -10,11 +12,13 @@ import {
   DialogContentText,
   DialogTitle,
   Snackbar,
+  Stack,
+  Typography,
 } from '@mui/material'
 import { Fragment, useContext } from 'react'
 
 export function CommonLayout({ children }: LayoutProps) {
-  const { notification, closeNotification } = useContext(AppContext)
+  const { notification, loading, closeNotification } = useContext(AppContext)
 
   return (
     <Fragment>
@@ -47,6 +51,21 @@ export function CommonLayout({ children }: LayoutProps) {
           </DialogActions>
         </Dialog>
       )}
+
+      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
+        <Stack>
+          <Avatar
+            alt="welcome"
+            src={Url.PepeWaiting}
+            variant="square"
+            sx={{ width: 224, height: 224, mb: 4 }}
+          />
+
+          <Typography variant="h6" sx={{ fontWeight: 500, textAlign: 'center' }}>
+            Wait...
+          </Typography>
+        </Stack>
+      </Backdrop>
     </Fragment>
   )
 }
