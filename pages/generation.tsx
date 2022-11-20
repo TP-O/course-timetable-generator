@@ -1,23 +1,78 @@
-import { DayOfWeek, NotificationType, Univerisity } from '@/enums'
+import { DayOfWeek, LocalStorageKey, NotificationType, Univerisity } from '@/enums'
 import { MainLayout } from '@/layouts'
 import { generateTimetables, getCourseGroups, getCourseNames } from '@/services'
 import { TimetableType } from '@/types'
-import { Autocomplete, Button, Stack, TextField, Typography } from '@mui/material'
-import { useContext, useEffect, useState } from 'react'
+import { Autocomplete, Button, IconButton, Stack, TextField, Typography } from '@mui/material'
+import { KeyboardEvent, useContext, useEffect, useState } from 'react'
 import { TimetableList } from '@/components/table'
 import { CourseFilter, LecturerFilter, WeekFilter } from '@/components/filter'
 import { LazyData, NextPageWithLayout } from '@/types/component'
 import { CourseFilterType, LecturerFilterType, WeekFilterType } from '@/types/filter'
 import { AppContext } from '@/contexts'
+import { ContentCopy } from '@mui/icons-material'
 
 const Generation: NextPageWithLayout = () => {
+  const { showNotification, load, unload } = useContext(AppContext)
+
   // Course searching
-  const [selectedCoures, setSelectedCourse] = useState<String[]>([])
+  const [selectedCoures, setSelectedCourse] = useState<String[]>(() => {
+    try {
+      return JSON.parse(localStorage.getItem(LocalStorageKey.SelectedCourses) || '[]')
+    } catch {
+      return []
+    }
+  })
   const [courseFilter, setCourseFilter] = useState<CourseFilterType>({
     university: Univerisity.HCMIU,
     faculty: 'All',
   })
   const [recommededCourses, setRecommededCourses] = useState<String[]>([])
+
+  function handleComplexCourseInput(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter') {
+      const parsedValue = event.target.value.split(',')
+
+      if (parsedValue.length < 2) {
+        return
+      }
+
+      const validCourses: String[] = []
+
+      parsedValue.forEach((val) => {
+        if (recommededCourses.includes(val) && !selectedCoures.includes(val)) {
+          validCourses.push(val)
+        }
+      })
+
+      if (validCourses.length) {
+        setSelectedCourse((courses) => [...courses, ...validCourses])
+      }
+    }
+  }
+
+  function updateSelectedCourses(_: any, value: String[]) {
+    setSelectedCourse(value)
+    localStorage.setItem(LocalStorageKey.SelectedCourses, JSON.stringify(value))
+  }
+
+  function copySelectedCourse() {
+    navigator.clipboard
+      .writeText(selectedCoures.join(','))
+      .then(() =>
+        showNotification({
+          type: NotificationType.Snackbar,
+          message: 'Captured timetable!',
+          status: 'success',
+        })
+      )
+      .catch(() =>
+        showNotification({
+          type: NotificationType.Snackbar,
+          message: 'Unable to capture timetable :(',
+          status: 'error',
+        })
+      )
+  }
 
   useEffect(() => {
     ;(async () => {
@@ -37,7 +92,6 @@ const Generation: NextPageWithLayout = () => {
 
   // Generate timetables
   const batchSize = 5
-  const { showNotification, load, unload } = useContext(AppContext)
   const [timetables, setTimetables] = useState<LazyData<TimetableType>>({
     hide: [],
     show: [],
@@ -85,15 +139,27 @@ const Generation: NextPageWithLayout = () => {
   return (
     <Stack sx={{ px: 2, py: 5 }}>
       <Stack spacing={3}>
-        <Autocomplete
-          multiple
-          options={recommededCourses}
-          value={selectedCoures}
-          renderInput={(params) => (
-            <TextField {...params} label="Select courses" placeholder="Enter course name" />
-          )}
-          onChange={(_: any, value: String[]) => setSelectedCourse(value)}
-        />
+        <Stack direction="row">
+          <Autocomplete
+            multiple
+            options={recommededCourses}
+            value={selectedCoures}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Select courses"
+                placeholder="Enter course name"
+                onKeyDown={handleComplexCourseInput}
+              />
+            )}
+            sx={{ flexGrow: 1 }}
+            onChange={updateSelectedCourses}
+          />
+
+          <IconButton sx={{ borderRadius: 0 }} onClick={copySelectedCourse}>
+            <ContentCopy />
+          </IconButton>
+        </Stack>
 
         <CourseFilter filter={courseFilter} updateFilter={setCourseFilter} />
 
