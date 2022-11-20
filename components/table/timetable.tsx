@@ -1,6 +1,6 @@
 import { DayOfWeek, NotificationType } from '@/enums'
 import { TimetableType } from '@/types'
-import { CenterFocusStrong, Download } from '@mui/icons-material'
+import { CenterFocusStrong, Download, Tune } from '@mui/icons-material'
 import {
   Box,
   IconButton,
@@ -55,9 +55,12 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
 
   // Copy and download timetable
   const app = useContext(AppContext)
+  const [btnLoading, setBtnLoading] = useState(false)
   let [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null)
 
   async function captureTimetable() {
+    setBtnLoading(true)
+
     if (!canvas) {
       canvas = await html2canvas(document.querySelector(`#timetable-${id}`)!)
       setCanvas(canvas)
@@ -82,9 +85,13 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
           })
         )
     })
+
+    setBtnLoading(false)
   }
 
-  async function downloadTimetable(event: MouseEvent<HTMLElement>) {
+  async function downloadTimetable() {
+    setBtnLoading(true)
+
     if (!canvas) {
       canvas = await html2canvas(document.querySelector(`#timetable-${id}`)!)
       setCanvas(canvas)
@@ -94,6 +101,8 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
     link.href = canvas.toDataURL()
     link.download = 'timetable'
     link.click()
+
+    setBtnLoading(false)
   }
 
   return (
@@ -103,6 +112,7 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
           size="large"
           edge="start"
           color="inherit"
+          disabled={btnLoading}
           data-timetable-id={`timetable-${id}`}
           sx={{ mr: 2 }}
           onClick={captureTimetable}
@@ -114,6 +124,7 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
           size="large"
           edge="start"
           color="inherit"
+          disabled={btnLoading}
           sx={{ mr: 2 }}
           onClick={downloadTimetable}
         >
