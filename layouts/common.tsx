@@ -56,7 +56,7 @@ export function CommonLayout({ children }: LayoutProps) {
         <Stack>
           <Avatar
             alt="welcome"
-            src={Path.PepeWaiting}
+            src={Path.PepeWaiting2}
             variant="square"
             sx={{ width: 224, height: 224, mb: 4 }}
           />

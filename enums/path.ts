@@ -7,4 +7,5 @@ export enum Path {
   PepeWelcome = '/pepe-welcome.gif',
   PepeWaiting = '/pepe-waiting.gif',
   PepeWaiting2 = '/pepe-waiting-2.gif',
+  PepeDancing = '/pepe-dancing.gif',
 }

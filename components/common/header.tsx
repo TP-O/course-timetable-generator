@@ -1,8 +1,7 @@
 import { useAuth } from '@/hooks'
-import { AccountCircle } from '@mui/icons-material'
+import { AccountCircle, Help } from '@mui/icons-material'
 import {
   AppBar,
-  Box,
   Button,
   IconButton,
   Menu,
@@ -13,7 +12,10 @@ import {
 } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
+import IntroJs, { Step } from 'intro.js'
+import { NotificationType, Path } from '@/enums'
+import { AppContext } from '@/contexts'
 
 export function Header() {
   // App bar title
@@ -40,6 +42,41 @@ export function Header() {
     setAnchorEl(null)
   }
 
+  // Guideline
+  const { showNotification } = useContext(AppContext)
+
+  function guide() {
+    const steps: Step[] = []
+    const guidableEls = document.querySelectorAll('[data-intro]') as NodeListOf<HTMLElement>
+
+    if (!guidableEls.length) {
+      showNotification({
+        type: NotificationType.Dialog,
+        message: 'Nothing to help here :D',
+        status: 'info',
+      })
+
+      return
+    }
+
+    guidableEls.forEach((el) => {
+      if (el.dataset.intro) {
+        steps.push({
+          element: el,
+          title: el.dataset.title,
+          intro: el.dataset.intro!,
+          disableInteraction: true,
+        })
+      }
+    })
+
+    steps.push({
+      intro: `<img style="width: 100%" src="${Path.PepeDancing}" />`,
+    })
+
+    IntroJs().addSteps(steps).start()
+  }
+
   return (
     <AppBar position="sticky" sx={{ backgroundColor: 'appBar.background' }}>
       <Toolbar variant="dense">
@@ -60,72 +97,88 @@ export function Header() {
           {appBarTitle}
         </Typography>
 
-        {user === null ? (
-          <Stack direction="row" spacing={3}>
-            <Link href="/sign-in">
-              <Button
-                variant="text"
+        <Stack direction="row" spacing={3}>
+          {!user ? (
+            <Fragment>
+              <IconButton
+                size="large"
+                // order="1"
                 sx={{
-                  fontSize: 14,
                   color: 'appBar.text',
-                  textTransform: 'capitalize',
-                  ':hover': {
-                    color: 'appBar.hoveringText',
-                  },
+                  p: 0.5,
                 }}
+                onClick={handleMenu}
               >
-                Sign in
-              </Button>
-            </Link>
+                <AccountCircle />
+              </IconButton>
 
-            <Link href="/sign-up">
-              <Button
-                variant="outlined"
-                sx={{
-                  fontSize: 14,
-                  color: 'appBar.text',
-                  textTransform: 'capitalize',
-                  borderColor: 'appBar.text',
-                  ':hover': {
-                    color: 'appBar.hoveringText',
-                    borderColor: 'appBar.hoveringText',
-                  },
+              <Menu
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
                 }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleCloseMenu}
               >
-                Sign up
-              </Button>
-            </Link>
-          </Stack>
-        ) : (
-          <Box>
-            <IconButton
-              size="large"
-              onClick={handleMenu}
-              sx={{
-                color: 'appBar.text',
-              }}
-            >
-              <AccountCircle />
-            </IconButton>
+                <MenuItem onClick={signOut}>Sign-out</MenuItem>
+              </Menu>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Link href="/sign-in">
+                <Button
+                  variant="text"
+                  sx={{
+                    fontSize: 14,
+                    color: 'appBar.text',
+                    textTransform: 'capitalize',
+                    ':hover': {
+                      color: 'appBar.hoveringText',
+                    },
+                  }}
+                >
+                  Sign in
+                </Button>
+              </Link>
 
-            <Menu
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleCloseMenu}
-            >
-              <MenuItem onClick={signOut}>Sign-out</MenuItem>
-            </Menu>
-          </Box>
-        )}
+              <Link href="/sign-up">
+                <Button
+                  variant="outlined"
+                  sx={{
+                    fontSize: 14,
+                    color: 'appBar.text',
+                    textTransform: 'capitalize',
+                    borderColor: 'appBar.text',
+                    ':hover': {
+                      color: 'appBar.hoveringText',
+                      borderColor: 'appBar.hoveringText',
+                    },
+                  }}
+                >
+                  Sign up
+                </Button>
+              </Link>
+            </Fragment>
+          )}
+
+          <IconButton
+            id="guide-btn"
+            size="large"
+            sx={{
+              color: 'appBar.text',
+              p: 0.5,
+            }}
+            onClick={guide}
+          >
+            <Help />
+          </IconButton>
+        </Stack>
       </Toolbar>
     </AppBar>
   )

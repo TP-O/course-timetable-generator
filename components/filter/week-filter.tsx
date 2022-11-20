@@ -1,21 +1,6 @@
-import { DayOfWeek } from '@/enums'
 import { WeekFilterType } from '@/types/filter'
-import { convertDayNumberToDayString, getDaysOfWeek } from '@/utils'
-import {
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  InputLabel,
-  ListItemText,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  SelectChangeEvent,
-  Stack,
-  TextField,
-} from '@mui/material'
+import { getDaysOfWeek } from '@/utils'
+import { Checkbox, FormControl, FormControlLabel, FormGroup, Stack, TextField } from '@mui/material'
 import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 
 type WeekFilterProps = {
@@ -24,6 +9,7 @@ type WeekFilterProps = {
 }
 
 const daysOfWeek = getDaysOfWeek()
+const guideTitle = 'Week filter'
 
 export function WeekFilter({ filter, updateFilter }: WeekFilterProps) {
   function updateWeekFilter({ target: { name, value, checked } }: ChangeEvent<HTMLInputElement>) {
@@ -61,12 +47,19 @@ export function WeekFilter({ filter, updateFilter }: WeekFilterProps) {
               max: 6,
             },
           }}
+          data-title={guideTitle}
+          data-intro="Enter the minimum number of days off you want in your timetable 🌴"
           onChange={updateWeekFilter}
         />
       </FormControl>
 
       <FormControl sx={{ width: { xs: '100%', md: '50%' } }}>
-        <FormGroup row sx={{ justifyContent: 'space-between', pl: 1.75 }}>
+        <FormGroup
+          row
+          sx={{ justifyContent: 'space-between', pl: 1.75 }}
+          data-title={guideTitle}
+          data-intro="If you want fixed days off in your timetable, use this ⛱️"
+        >
           {daysOfWeek.map((day, i) => (
             <FormControlLabel
               key={i}
@@ -82,34 +75,6 @@ export function WeekFilter({ filter, updateFilter }: WeekFilterProps) {
             ></FormControlLabel>
           ))}
         </FormGroup>
-
-        {/* <Select
-          name="specificDays"
-          labelId="daysoff-selection-label"
-          multiple
-          size="small"
-          value={filter.specificDays}
-          onChange={updateWeekFilter}
-          input={<OutlinedInput label="Specific days" />}
-          renderValue={(selected: DayOfWeek[]) =>
-            selected.map((val) => convertDayNumberToDayString(val)).join(', ')
-          }
-          MenuProps={{
-            PaperProps: {
-              style: {
-                maxHeight: 224,
-                width: 250,
-              },
-            },
-          }}
-        >
-          {daysOfWeek.map((day, i) => (
-            <MenuItem key={i} value={i}>
-              <Checkbox checked={filter.specificDays.indexOf(i) > -1} />
-              <ListItemText primary={day} />
-            </MenuItem>
-          ))}
-        </Select> */}
       </FormControl>
     </Stack>
   )

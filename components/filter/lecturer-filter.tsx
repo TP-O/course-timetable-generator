@@ -24,6 +24,8 @@ type LecturerFilterProps = {
   updateFilter: Dispatch<SetStateAction<LecturerFilterType>>
 }
 
+const guideTitle = 'Lecturer filter'
+
 export function LecturerFilter({ filter, university, courses, updateFilter }: LecturerFilterProps) {
   const [lecturers, setLecturers] = useState<Record<string, Record<string, string[]>>>({})
 
@@ -121,7 +123,10 @@ export function LecturerFilter({ filter, university, courses, updateFilter }: Le
                   {course}
                 </Typography>
 
-                <FormControl>
+                <FormControl
+                  data-title={!i ? guideTitle : ''}
+                  data-intro={!i ? 'Choose the lecturers you want to learn from 🧑‍🏫' : ''}
+                >
                   <InputLabel id={`expected-lecturer-label-${i}`} size="small">
                     Expect
                   </InputLabel>
@@ -167,7 +172,10 @@ export function LecturerFilter({ filter, university, courses, updateFilter }: Le
                   </Select>
                 </FormControl>
 
-                <FormControl>
+                <FormControl
+                  data-title={!i ? guideTitle : ''}
+                  data-intro={!i ? "Choose the lecturers you dont't want to learn from 🧑‍🏫" : ''}
+                >
                   <InputLabel id={`unexpected-lecturer-label-${i}`} size="small">
                     Unexpect
                   </InputLabel>

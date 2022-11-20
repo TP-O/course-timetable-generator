@@ -75,6 +75,7 @@ const Generation: NextPageWithLayout = () => {
     })
   }
 
+  // Unload if timetables are updated
   useEffect(() => {
     unload()
   }, [timetables]) // eslint-disable-line react-hooks/exhaustive-deps

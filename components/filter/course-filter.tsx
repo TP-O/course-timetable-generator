@@ -9,6 +9,7 @@ type CourseFilterProps = {
 }
 
 const universities = getUniversities()
+const guideTitle = 'Course filter'
 
 export function CourseFilter({ filter, updateFilter }: CourseFilterProps) {
   const [faculties, setFaculties] = useState<string[]>([])
@@ -40,6 +41,8 @@ export function CourseFilter({ filter, updateFilter }: CourseFilterProps) {
           size="small"
           value={filter.university}
           label="University"
+          data-title={guideTitle}
+          data-intro="Select your univeristy 🏫"
           onChange={updateCourseFilter}
         >
           {universities.map((university) => (
@@ -61,6 +64,8 @@ export function CourseFilter({ filter, updateFilter }: CourseFilterProps) {
           size="small"
           value={filter.faculty}
           label="Faculty"
+          data-title={guideTitle}
+          data-intro="Select the faculty you belong to 📚"
           onChange={updateCourseFilter}
         >
           <MenuItem value="All">All</MenuItem>
