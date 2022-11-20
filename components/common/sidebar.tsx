@@ -296,7 +296,7 @@ export function Sidebar() {
                   mb: 1.5,
                 }}
               >
-                Lizard
+                Have new data?
               </Typography>
 
               <Typography
@@ -304,13 +304,17 @@ export function Sidebar() {
                 color="sidebar.notificationContent"
                 sx={{ fontSize: 13, fontWeight: 500, lineHeight: '20px' }}
               >
-                Lizards are a widespread group of squamate reptiles, with over 6,000 species,
-                ranging across all continents except Antarctica
+                Create a new discussion to import data into this tool
               </Typography>
             </CardContent>
 
             <CardActions>
-              <Button size="small" sx={{ color: 'sidebar.notificationButton' }}>
+              <Button
+                size="small"
+                href="https://github.com/TP-O/course-timetable-generator/discussions/new"
+                target="_blank"
+                sx={{ color: 'sidebar.notificationButton' }}
+              >
                 Contribute
               </Button>
             </CardActions>

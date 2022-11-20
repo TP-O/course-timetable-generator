@@ -32,17 +32,19 @@ export function TimetableList({ length, hasMore, timetables, loadMore }: Timetab
           </Typography>
         }
         endMessage={
-          <Typography
-            variant="body2"
-            component="div"
-            sx={{
-              textAlign: 'center',
-              fontWeight: 500,
-              mt: 2,
-            }}
-          >
-            Yay! You have seen it all
-          </Typography>
+          timetables.length ? (
+            <Typography
+              variant="body2"
+              component="div"
+              sx={{
+                textAlign: 'center',
+                fontWeight: 500,
+                mt: 2,
+              }}
+            >
+              Yay! You have seen it all
+            </Typography>
+          ) : null
         }
       >
         {timetables.map((timetable, i) => (

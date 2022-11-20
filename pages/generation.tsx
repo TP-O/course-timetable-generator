@@ -36,13 +36,15 @@ const Generation: NextPageWithLayout = () => {
   })
 
   // Generate timetables
-  const { showNotification } = useContext(AppContext)
+  const { showNotification, load, unload } = useContext(AppContext)
   const [timetables, setTimetables] = useState<LazyData<TimetableType>>({
     hide: [],
     show: [],
   })
 
   async function generateNewTimetables() {
+    load()
+
     const courseGroups = await getCourseGroups(courseFilter.university, selectedCoures as string[])
     const timetables = generateTimetables(courseGroups, {
       week: weekFilter,
@@ -72,6 +74,10 @@ const Generation: NextPageWithLayout = () => {
       return { ...state, show: showTimetables }
     })
   }
+
+  useEffect(() => {
+    unload()
+  }, [timetables]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Stack sx={{ px: 2, py: 5 }}>

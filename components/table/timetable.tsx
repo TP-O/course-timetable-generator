@@ -185,7 +185,6 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
                       <TableCell
                         rowSpan={cls.periods}
                         sx={{
-                          py: 2,
                           backgroundColor: cls.color,
                         }}
                       >
@@ -211,6 +210,7 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
                     </Tooltip>
                   ) : (
                     <TableCell
+                      key={day}
                       rowSpan={1}
                       sx={{
                         py: 2,

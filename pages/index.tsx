@@ -15,7 +15,7 @@ const Home: NextPageWithLayout = () => {
         sx={{ width: 224, height: 224, mb: 4 }}
       />
 
-      <Button variant="contained" autoFocus onClick={() => router.replace(Url.Main)}>
+      <Button variant="contained" autoFocus onClick={() => router.push(Url.Main)}>
         Explore
       </Button>
     </Stack>

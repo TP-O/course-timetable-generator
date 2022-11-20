@@ -148,7 +148,7 @@ const SignUp: NextPageWithLayout = () => {
           pl: 6,
           justifyContent: 'center',
           display: {
-            sm: 'none',
+            xs: 'none',
             md: 'flex',
           },
         }}
