@@ -5,15 +5,16 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { Timetable } from './timetable'
 
 type TimetableListProps = {
+  id?: string
   timetables: TimetableType[]
   length: number
   hasMore: boolean
   loadMore: () => void
 }
 
-export function TimetableList({ length, hasMore, timetables, loadMore }: TimetableListProps) {
+export function TimetableList({ id, length, hasMore, timetables, loadMore }: TimetableListProps) {
   return (
-    <Box>
+    <Box id={id ?? 'timetable-list'}>
       <InfiniteScroll
         dataLength={length}
         next={loadMore}
@@ -47,9 +48,11 @@ export function TimetableList({ length, hasMore, timetables, loadMore }: Timetab
           ) : null
         }
       >
-        {timetables.map((timetable, i) => (
-          <Timetable key={i} id={i} timetable={timetable} />
-        ))}
+        <div>
+          {timetables.map((timetable, i) => (
+            <Timetable key={i} id={i} timetable={timetable} />
+          ))}
+        </div>
       </InfiniteScroll>
     </Box>
   )

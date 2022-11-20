@@ -132,6 +132,7 @@ export function CourseTable({ empty = false, keyword, courseFilter }: CourseTabl
       dataLength={courses.hide.length}
       next={loadMoreShowCourses}
       hasMore={courses.hide.length > 0}
+      scrollableTarget="course-table"
       loader={
         <Typography
           variant="body2"
@@ -162,7 +163,6 @@ export function CourseTable({ empty = false, keyword, courseFilter }: CourseTabl
             : 'Oops! Nothing matched'}
         </Typography>
       }
-      scrollableTarget="course-table"
     >
       <TableContainer
         id="course-table"

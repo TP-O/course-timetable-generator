@@ -36,6 +36,7 @@ const Generation: NextPageWithLayout = () => {
   })
 
   // Generate timetables
+  const batchSize = 5
   const { showNotification, load, unload } = useContext(AppContext)
   const [timetables, setTimetables] = useState<LazyData<TimetableType>>({
     hide: [],
@@ -61,23 +62,24 @@ const Generation: NextPageWithLayout = () => {
 
     setTimetables({
       hide: timetables,
-      show: timetables.splice(0, 10),
+      show: timetables.splice(0, batchSize),
     })
   }
 
   function loadMoreTimetables() {
-    const size = 5
-
     setTimetables((state) => {
-      const showTimetables = [...state.show, ...state.hide.splice(0, size)]
+      const showTimetables = [...state.show, ...state.hide.splice(0, batchSize)]
 
       return { ...state, show: showTimetables }
     })
   }
 
-  // Unload if timetables are updated
   useEffect(() => {
-    unload()
+    // Only execute when new timetables are generated
+    if (timetables.show.length <= batchSize) {
+      unload()
+      document.getElementById('timetable-list')?.scrollIntoView()
+    }
   }, [timetables]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -119,6 +121,7 @@ const Generation: NextPageWithLayout = () => {
 
       {/* Display list of matched timetables */}
       <TimetableList
+        id="timetable-list"
         length={timetables.hide.length}
         hasMore={timetables.hide.length > 0}
         timetables={timetables.show}
