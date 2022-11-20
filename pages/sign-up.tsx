@@ -16,7 +16,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { classValidatorResolver } from '@hookform/resolvers/class-validator'
-import { FirebaseErrorTag, Url } from '@/enums'
+import { FirebaseErrorTag, Path } from '@/enums'
 import { OAuthList } from '@/components/auth'
 import { SignUpPayload } from '@/types/auth'
 
@@ -37,7 +37,7 @@ const SignUp: NextPageWithLayout = () => {
     setLoading(true)
 
     signUp(payload)
-      .then(() => router.push(Url.Main))
+      .then(() => router.push(Path.Main))
       .catch((err) => {
         if (err.code === FirebaseErrorTag.EmailExists) {
           setError('email', { message: 'Email is taken' })
@@ -64,7 +64,7 @@ const SignUp: NextPageWithLayout = () => {
         <Stack alignItems="start">
           <Avatar
             alt="ctg-logo"
-            src={Url.SmallLogo}
+            src={Path.SmallLogo}
             variant="square"
             sx={{
               height: 28,
@@ -122,7 +122,7 @@ const SignUp: NextPageWithLayout = () => {
 
           <Stack direction="row" justifyContent="space-between">
             <Button tabIndex={-1} sx={{ textTransform: 'none' }}>
-              <Link href={Url.SignIn}>
+              <Link href={Path.SignIn}>
                 <span>Sign in instead</span>
               </Link>
             </Button>

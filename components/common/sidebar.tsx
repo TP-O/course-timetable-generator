@@ -1,4 +1,4 @@
-import { Time, Url } from '@/enums'
+import { Time, Path } from '@/enums'
 import { SidebarMenuItem } from '@/types/component'
 import { theme } from '@/utils/mui'
 import {
@@ -135,7 +135,7 @@ export function Sidebar() {
         >
           <Avatar
             alt="ctg-logo"
-            src={Url.SmallLogo}
+            src={Path.SmallLogo}
             sx={{
               height: 28,
               width: 28,
@@ -163,7 +163,7 @@ export function Sidebar() {
             'url("https://www.gstatic.com/mobilesdk/190424_mobilesdk/nav_nachos@2x.png")',
         }}
       >
-        <NextLink href={Url.Main}>
+        <NextLink href={Path.Main}>
           <Stack
             direction="row"
             spacing={2}
@@ -181,7 +181,7 @@ export function Sidebar() {
               fontSize="medium"
               sx={{
                 color:
-                  router.pathname === Url.Main ? 'sidebar.activeItemTitle' : 'sidebar.itemTitle',
+                  router.pathname === Path.Main ? 'sidebar.activeItemTitle' : 'sidebar.itemTitle',
                 fontWeight: 500,
               }}
             />
@@ -193,7 +193,7 @@ export function Sidebar() {
                 sx={{
                   flexGrow: 1,
                   color:
-                    router.pathname === Url.Main ? 'sidebar.activeItemTitle' : 'sidebar.itemTitle',
+                    router.pathname === Path.Main ? 'sidebar.activeItemTitle' : 'sidebar.itemTitle',
                 }}
               >
                 Generation

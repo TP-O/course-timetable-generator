@@ -1,5 +1,5 @@
 import { OAuthList } from '@/components/auth'
-import { Url } from '@/enums'
+import { Path } from '@/enums'
 import { useAuth } from '@/hooks'
 import { SignInPayload } from '@/types/auth'
 import { NextPageWithLayout } from '@/types/component'
@@ -22,7 +22,7 @@ const SignIn: NextPageWithLayout = () => {
     setLoading(true)
 
     signIn(payload)
-      .then(() => router.push(Url.Main))
+      .then(() => router.push(Path.Main))
       .catch(() => setSystemError('Email or password are incorrect!'))
       .finally(() => setLoading(false))
   }
@@ -41,7 +41,7 @@ const SignIn: NextPageWithLayout = () => {
       <Stack alignItems="center">
         <Avatar
           alt="ctg-logo"
-          src={Url.SmallLogo}
+          src={Path.SmallLogo}
           variant="square"
           sx={{
             height: 28,
@@ -104,7 +104,7 @@ const SignIn: NextPageWithLayout = () => {
 
         <Stack direction="row" justifyContent="space-between">
           <Button tabIndex={-1} sx={{ textTransform: 'none' }}>
-            <Link href={Url.SignUp}>
+            <Link href={Path.SignUp}>
               <span>Create account</span>
             </Link>
           </Button>

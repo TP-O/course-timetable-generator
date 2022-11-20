@@ -1,5 +1,5 @@
 import { AppContext } from '@/contexts'
-import { NotificationType, Url } from '@/enums'
+import { NotificationType, Path } from '@/enums'
 import { LayoutProps } from '@/types/component'
 import {
   Alert,
@@ -56,7 +56,7 @@ export function CommonLayout({ children }: LayoutProps) {
         <Stack>
           <Avatar
             alt="welcome"
-            src={Url.PepeWaiting}
+            src={Path.PepeWaiting}
             variant="square"
             sx={{ width: 224, height: 224, mb: 4 }}
           />

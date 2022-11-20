@@ -1,4 +1,4 @@
-import { Url } from '@/enums'
+import { Path } from '@/enums'
 import { NextPageWithLayout } from '@/types/component'
 import { Avatar, Button, Stack } from '@mui/material'
 import { useRouter } from 'next/router'
@@ -10,12 +10,12 @@ const Home: NextPageWithLayout = () => {
     <Stack>
       <Avatar
         alt="welcome"
-        src={Url.PepeWelcome}
+        src={Path.PepeWelcome}
         variant="square"
         sx={{ width: 224, height: 224, mb: 4 }}
       />
 
-      <Button variant="contained" autoFocus onClick={() => router.push(Url.Main)}>
+      <Button variant="contained" autoFocus onClick={() => router.push(Path.Main)}>
         Explore
       </Button>
     </Stack>

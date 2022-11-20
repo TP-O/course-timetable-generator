@@ -9,6 +9,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
 import { createEmotionCache, theme } from '@/utils/mui'
 import { AppProvider } from '@/contexts'
+import NextNProgress from 'nextjs-progressbar'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -36,6 +37,8 @@ function MyApp(props: AppPropsWithLayout) {
         >
           <AppProvider>
             <Layout>
+              <NextNProgress />
+
               <Component {...pageProps} />
             </Layout>
           </AppProvider>
