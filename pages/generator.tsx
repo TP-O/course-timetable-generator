@@ -3,7 +3,15 @@ import { MainLayout } from '@/layouts'
 import { generateTimetables, getCourseGroups, getCourseNames } from '@/services'
 import { TimetableType } from '@/types'
 import { Autocomplete, Button, IconButton, Stack, TextField, Typography } from '@mui/material'
-import { ChangeEvent, KeyboardEvent, useContext, useEffect, useRef, useState } from 'react'
+import {
+  ChangeEvent,
+  Fragment,
+  KeyboardEvent,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { TimetableList } from '@/components/table'
 import { CourseFilter, LecturerFilter, WeekFilter } from '@/components/filter'
 import { LazyData, NextPageWithLayout } from '@/types/component'
@@ -11,6 +19,7 @@ import { CourseFilterType, LecturerFilterType, WeekFilterType } from '@/types/fi
 import { AppContext } from '@/contexts'
 import { ContentCopy } from '@mui/icons-material'
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs'
+import { Seo } from '@/components/common'
 
 const Generation: NextPageWithLayout = () => {
   const { showNotification, load, unload } = useContext(AppContext)
@@ -146,63 +155,70 @@ const Generation: NextPageWithLayout = () => {
   }, [timetables]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Stack sx={{ px: 2, py: 5 }}>
-      <Stack spacing={3}>
-        <Stack direction="row">
-          <Autocomplete
-            multiple
-            options={recommededCourses}
-            value={selectedCoures}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Select courses"
-                placeholder="Enter course name"
-                inputRef={keywordEl}
-              />
-            )}
-            sx={{ flexGrow: 1 }}
-            onChange={updateSelectedCourses}
+    <Fragment>
+      <Seo
+        title="Generator"
+        description="Generate list of timetables based on the selected courses and powerful filters."
+      />
+
+      <Stack sx={{ px: 2, py: 5 }}>
+        <Stack spacing={3}>
+          <Stack direction="row">
+            <Autocomplete
+              multiple
+              options={recommededCourses}
+              value={selectedCoures}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Select courses"
+                  placeholder="Enter course name"
+                  inputRef={keywordEl}
+                />
+              )}
+              sx={{ flexGrow: 1 }}
+              onChange={updateSelectedCourses}
+            />
+
+            <IconButton sx={{ borderRadius: 0 }} onClick={copySelectedCourse}>
+              <ContentCopy />
+            </IconButton>
+          </Stack>
+
+          <CourseFilter filter={courseFilter} updateFilter={setCourseFilter} />
+
+          <Typography variant="caption" component="div" sx={{ pl: 1 }}>
+            <b>Day off</b>
+          </Typography>
+
+          <WeekFilter filter={weekFilter} updateFilter={setWeekFilter} />
+
+          <Typography variant="caption" component="div" sx={{ pl: 1 }}>
+            <b>Lecturer</b>
+          </Typography>
+
+          <LecturerFilter
+            filter={lecturerFilter}
+            university={courseFilter.university}
+            courses={selectedCoures as string[]}
+            updateFilter={setLecturerFilter}
           />
 
-          <IconButton sx={{ borderRadius: 0 }} onClick={copySelectedCourse}>
-            <ContentCopy />
-          </IconButton>
+          <Button variant="contained" onClick={generateNewTimetables}>
+            Generate
+          </Button>
         </Stack>
 
-        <CourseFilter filter={courseFilter} updateFilter={setCourseFilter} />
-
-        <Typography variant="caption" component="div" sx={{ pl: 1 }}>
-          <b>Day off</b>
-        </Typography>
-
-        <WeekFilter filter={weekFilter} updateFilter={setWeekFilter} />
-
-        <Typography variant="caption" component="div" sx={{ pl: 1 }}>
-          <b>Lecturer</b>
-        </Typography>
-
-        <LecturerFilter
-          filter={lecturerFilter}
-          university={courseFilter.university}
-          courses={selectedCoures as string[]}
-          updateFilter={setLecturerFilter}
+        {/* Display list of matched timetables */}
+        <TimetableList
+          id="timetable-list"
+          length={timetables.hide.length}
+          hasMore={timetables.hide.length > 0}
+          timetables={timetables.show}
+          loadMore={loadMoreTimetables}
         />
-
-        <Button variant="contained" onClick={generateNewTimetables}>
-          Generate
-        </Button>
       </Stack>
-
-      {/* Display list of matched timetables */}
-      <TimetableList
-        id="timetable-list"
-        length={timetables.hide.length}
-        hasMore={timetables.hide.length > 0}
-        timetables={timetables.show}
-        loadMore={loadMoreTimetables}
-      />
-    </Stack>
+    </Fragment>
   )
 }
 

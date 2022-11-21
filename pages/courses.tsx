@@ -3,13 +3,14 @@ import { MainLayout } from '@/layouts'
 import { getFaculties, getUniversityUpdatedTime } from '@/services'
 import { NextPageWithLayout } from '@/types/component'
 import { Stack, TextField, Typography } from '@mui/material'
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, Fragment, useEffect, useRef, useState } from 'react'
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs'
 import date from 'date-and-time'
 import { CourseTable } from '@/components/table'
 import { CourseFilter } from '@/components/filter'
 import { CourseFilterType } from '@/types/filter'
 import { Timestamp } from '@/types/storage'
+import { Seo } from '@/components/common'
 
 const Courses: NextPageWithLayout = () => {
   // Perpare data
@@ -52,38 +53,42 @@ const Courses: NextPageWithLayout = () => {
   }, [])
 
   return (
-    <Stack spacing={3} sx={{ px: 2, py: 5 }}>
-      {/* Searching */}
-      <Stack spacing={4}>
-        <TextField
-          name="keyword"
-          label="Search"
-          size="small"
-          variant="outlined"
-          autoComplete="off"
-          inputRef={keywordEl}
-        />
+    <Fragment>
+      <Seo title="Course Searching" description="Search courses to get their details." />
 
-        <CourseFilter filter={courseFilter} updateFilter={setCourseFilter} />
+      <Stack spacing={3} sx={{ px: 2, py: 5 }}>
+        {/* Searching */}
+        <Stack spacing={4}>
+          <TextField
+            name="keyword"
+            label="Search"
+            size="small"
+            variant="outlined"
+            autoComplete="off"
+            inputRef={keywordEl}
+          />
+
+          <CourseFilter filter={courseFilter} updateFilter={setCourseFilter} />
+        </Stack>
+
+        {/* Display updated time */}
+        {updatedAt !== undefined && (
+          <Typography
+            variant="caption"
+            component="div"
+            sx={{
+              color: checkOutdatedData() ? 'red' : 'green',
+              textAlign: 'right',
+            }}
+          >
+            Updated at: {updatedAt.text}
+          </Typography>
+        )}
+
+        {/* Display course tabe */}
+        <CourseTable empty={faculties.length === 1} keyword={keyword} courseFilter={courseFilter} />
       </Stack>
-
-      {/* Display updated time */}
-      {updatedAt !== undefined && (
-        <Typography
-          variant="caption"
-          component="div"
-          sx={{
-            color: checkOutdatedData() ? 'red' : 'green',
-            textAlign: 'right',
-          }}
-        >
-          Updated at: {updatedAt.text}
-        </Typography>
-      )}
-
-      {/* Display course tabe */}
-      <CourseTable empty={faculties.length === 1} keyword={keyword} courseFilter={courseFilter} />
-    </Stack>
+    </Fragment>
   )
 }
 

@@ -1,5 +1,5 @@
 export enum Path {
-  Main = '/generation',
+  Main = '/generator',
   SignIn = '/sign-in',
   SignUp = '/sign-up',
   BigLogo = '/big-logo.png',
