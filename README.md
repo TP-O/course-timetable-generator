@@ -1,6 +1,7 @@
 # Course Timetable Generator
 
-
+Searching, scrolling, filtering, typing,... over and over are the boring things we usually do to make a suitable course timetable before the new semester comes, that's why we need something to automate this process. For this reason, I developed
+a simple tool which listens our wishes and then automatically generates a list of possible timetables.
 
 ## Techniques
 
