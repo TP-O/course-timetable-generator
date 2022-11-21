@@ -1,5 +1,5 @@
 import { Univerisity } from '@/enums'
-import { WebDriver } from 'selenium-webdriver'
+import { Page } from 'puppeteer'
 import { UniversityRecord } from '../storage'
 
 type Credentials = {
@@ -7,7 +7,7 @@ type Credentials = {
   password: string
 }
 
-export type CrawlerDetails = {
+export type ScraperDetails = {
   university: Univerisity
 
   /**
@@ -31,9 +31,9 @@ export type CrawlerDetails = {
   credentials: Credentials
 }
 
-export interface Crawler {
-  driver: WebDriver
-  details: CrawlerDetails
+export interface Scraper {
+  page: Page
+  details: ScraperDetails
 
-  crawl(): Promise<UniversityRecord>
+  scrape(): Promise<UniversityRecord>
 }

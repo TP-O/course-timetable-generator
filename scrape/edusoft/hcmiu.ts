@@ -1,12 +1,12 @@
 import { Univerisity } from '@/enums'
 import { Lesson } from '@/types'
 import { env } from 'process'
-import { WebDriver } from 'selenium-webdriver'
-import { EdusoftCrawler } from './edusoft'
+import { Page } from 'puppeteer'
+import { EdusoftScraper } from './edusoft'
 
-export class HCMIUCrawler extends EdusoftCrawler {
-  constructor(readonly driver: WebDriver) {
-    super(driver, {
+export class HCMIUScraper extends EdusoftScraper {
+  constructor(readonly page: Page) {
+    super(page, {
       university: Univerisity.HCMIU,
       host: 'https://edusoftweb.hcmiu.edu.vn',
       signInPath: '/',

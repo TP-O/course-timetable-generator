@@ -1,0 +1,41 @@
+name: Scrape
+
+on:
+  # schedule:
+  #   # Run every 4 hours
+  #   - cron: '0 */4 * * *'
+  push:
+    branches:
+      - main
+
+jobs:
+  scrape:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
+
+      - uses: actions/setup-node@v2
+        env:
+          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install --include=dev
+
+      - name: Scrape
+        env:
+          NODE_ENV: production
+          HCMIU_ID: ${{ secrets.SCRAPE_HCMIU_ID }}
+          HCMIU_PASSWORD: ${{ secrets.SCRAPE_HCMIU_PASSWORD }}
+        run: npm run scrape
+
+      - name: Push code
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'data'
+          message: 'chore: update data'
+          push: true

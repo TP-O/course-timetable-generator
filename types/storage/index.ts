@@ -1,1 +1,1 @@
-export * from './crawl-storage'
+export * from './scrape-storage'
