@@ -199,7 +199,7 @@ export function Sidebar() {
                         : 'sidebar.itemTitle',
                   }}
                 >
-                  Generation
+                  Generator
                 </Typography>
               )}
             </Stack>

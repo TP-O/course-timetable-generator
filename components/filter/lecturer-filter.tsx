@@ -128,7 +128,7 @@ export function LecturerFilter({ filter, university, courses, updateFilter }: Le
                   data-intro={!i ? 'Choose the lecturers you want to learn from 🧑‍🏫' : ''}
                 >
                   <InputLabel id={`expected-lecturer-label-${i}`} size="small">
-                    Expect
+                    Pick
                   </InputLabel>
                   <Select
                     name="expectations"
@@ -174,10 +174,12 @@ export function LecturerFilter({ filter, university, courses, updateFilter }: Le
 
                 <FormControl
                   data-title={!i ? guideTitle : ''}
-                  data-intro={!i ? "Choose the lecturers you dont't want to learn from 🧑‍🏫" : ''}
+                  data-intro={
+                    !i ? "Choose the lecturers you <b>dont't</b> want to learn from 🧑‍🏫" : ''
+                  }
                 >
                   <InputLabel id={`unexpected-lecturer-label-${i}`} size="small">
-                    Unexpect
+                    Ban
                   </InputLabel>
                   <Select
                     name="unexpectations"

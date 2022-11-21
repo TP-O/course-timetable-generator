@@ -43,14 +43,14 @@ const Generation: NextPageWithLayout = () => {
       .then(() =>
         showNotification({
           type: NotificationType.Snackbar,
-          message: 'Captured timetable!',
+          message: 'Copied selected courses!',
           status: 'success',
         })
       )
       .catch(() =>
         showNotification({
           type: NotificationType.Snackbar,
-          message: 'Unable to capture timetable :(',
+          message: 'Unable to copy selected courses :(',
           status: 'error',
         })
       )
@@ -193,8 +193,17 @@ const Generation: NextPageWithLayout = () => {
 
           <WeekFilter filter={weekFilter} updateFilter={setWeekFilter} />
 
-          <Typography variant="caption" component="div" sx={{ pl: 1 }}>
-            <b>Lecturer</b>
+          <Typography
+            variant="caption"
+            component="div"
+            data-title="Pick & Ban lecturers"
+            data-intro={`
+              Pick: Choose the lecturers you want to learn from 🧑‍🏫
+              <br /><br />
+              Ban: Choose the lecturers you <b>don't</b> want to learn from 🧑‍🏫`}
+            sx={{ pl: 1 }}
+          >
+            <b>Lecturer</b> (Pick/Ban phase has a great effect on the score!!!)
           </Typography>
 
           <LecturerFilter

@@ -2,6 +2,7 @@ import { useAuth } from '@/hooks'
 import { AccountCircle, Help } from '@mui/icons-material'
 import {
   AppBar,
+  Box,
   Button,
   IconButton,
   Menu,
@@ -98,7 +99,7 @@ export function Header() {
         </Typography>
 
         <Stack direction="row" spacing={3}>
-          {!user ? (
+          {user ? (
             <Fragment>
               <IconButton
                 size="large"
@@ -131,21 +132,23 @@ export function Header() {
             </Fragment>
           ) : (
             <Fragment>
-              <Link href="/sign-in">
-                <Button
-                  variant="text"
-                  sx={{
-                    fontSize: 14,
-                    color: 'appBar.text',
-                    textTransform: 'capitalize',
-                    ':hover': {
-                      color: 'appBar.hoveringText',
-                    },
-                  }}
-                >
-                  Sign in
-                </Button>
-              </Link>
+              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                <Link href="/sign-in">
+                  <Button
+                    variant="text"
+                    sx={{
+                      fontSize: 14,
+                      color: 'appBar.text',
+                      textTransform: 'capitalize',
+                      ':hover': {
+                        color: 'appBar.hoveringText',
+                      },
+                    }}
+                  >
+                    Sign in
+                  </Button>
+                </Link>
+              </Box>
 
               <Link href="/sign-up">
                 <Button
