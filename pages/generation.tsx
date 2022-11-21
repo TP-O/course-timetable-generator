@@ -1,54 +1,27 @@
-import { DayOfWeek, LocalStorageKey, NotificationType, Univerisity } from '@/enums'
+import { DayOfWeek, LocalStorageKey, NotificationType, Time, Univerisity } from '@/enums'
 import { MainLayout } from '@/layouts'
 import { generateTimetables, getCourseGroups, getCourseNames } from '@/services'
 import { TimetableType } from '@/types'
 import { Autocomplete, Button, IconButton, Stack, TextField, Typography } from '@mui/material'
-import { KeyboardEvent, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, KeyboardEvent, useContext, useEffect, useRef, useState } from 'react'
 import { TimetableList } from '@/components/table'
 import { CourseFilter, LecturerFilter, WeekFilter } from '@/components/filter'
 import { LazyData, NextPageWithLayout } from '@/types/component'
 import { CourseFilterType, LecturerFilterType, WeekFilterType } from '@/types/filter'
 import { AppContext } from '@/contexts'
 import { ContentCopy } from '@mui/icons-material'
+import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs'
 
 const Generation: NextPageWithLayout = () => {
   const { showNotification, load, unload } = useContext(AppContext)
 
   // Course searching
-  const [selectedCoures, setSelectedCourse] = useState<String[]>(() => {
-    try {
-      return JSON.parse(localStorage.getItem(LocalStorageKey.SelectedCourses) || '[]')
-    } catch {
-      return []
-    }
-  })
+  const [selectedCoures, setSelectedCourse] = useState<String[]>([])
   const [courseFilter, setCourseFilter] = useState<CourseFilterType>({
     university: Univerisity.HCMIU,
     faculty: 'All',
   })
   const [recommededCourses, setRecommededCourses] = useState<String[]>([])
-
-  function handleComplexCourseInput(event: KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter') {
-      const parsedValue = event.target.value.split(',')
-
-      if (parsedValue.length < 2) {
-        return
-      }
-
-      const validCourses: String[] = []
-
-      parsedValue.forEach((val) => {
-        if (recommededCourses.includes(val) && !selectedCoures.includes(val)) {
-          validCourses.push(val)
-        }
-      })
-
-      if (validCourses.length) {
-        setSelectedCourse((courses) => [...courses, ...validCourses])
-      }
-    }
-  }
 
   function updateSelectedCourses(_: any, value: String[]) {
     setSelectedCourse(value)
@@ -80,6 +53,42 @@ const Generation: NextPageWithLayout = () => {
       setRecommededCourses(courseNames)
     })()
   }, [courseFilter])
+
+  // Load from here to prevent the fucking hydration error
+  useEffect(() => {
+    try {
+      setSelectedCourse(JSON.parse(localStorage.getItem(LocalStorageKey.SelectedCourses) || '[]'))
+    } catch {
+      //
+    }
+  }, [])
+
+  // Keyword tracking
+  const keywordEl = useRef<HTMLInputElement>(null)
+
+  // Handle multiple-courses input
+  useEffect(() => {
+    if (!keywordEl.current) return
+    // Prevent redundant keyword changes
+    const sub = fromEvent<ChangeEvent<HTMLInputElement>>(keywordEl.current, 'keyup')
+      .pipe(debounceTime(250 * Time.Millisecond), distinctUntilChanged())
+      .subscribe((event) => {
+        const parsedValue = event.target.value.split(',')
+        if (parsedValue.length < 2) {
+          return
+        }
+        const validCourses: String[] = []
+        parsedValue.forEach((val) => {
+          if (recommededCourses.includes(val) && !selectedCoures.includes(val)) {
+            validCourses.push(val)
+          }
+        })
+        if (validCourses.length) {
+          setSelectedCourse((courses) => [...courses, ...validCourses])
+        }
+      })
+    return () => sub.unsubscribe()
+  }, [recommededCourses, selectedCoures])
 
   // Timetable filter
   const [weekFilter, setWeekFilter] = useState<WeekFilterType>({
@@ -149,7 +158,7 @@ const Generation: NextPageWithLayout = () => {
                 {...params}
                 label="Select courses"
                 placeholder="Enter course name"
-                onKeyDown={handleComplexCourseInput}
+                inputRef={keywordEl}
               />
             )}
             sx={{ flexGrow: 1 }}
@@ -198,5 +207,4 @@ const Generation: NextPageWithLayout = () => {
 }
 
 Generation.Layout = MainLayout
-
 export default Generation

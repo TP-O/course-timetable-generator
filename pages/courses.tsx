@@ -24,8 +24,6 @@ const Courses: NextPageWithLayout = () => {
   }
 
   // Course searching
-  const keywordElt = useRef<HTMLInputElement>(null)
-  const [keyword, setKeyword] = useState('')
   const [courseFilter, setCourseFilter] = useState<CourseFilterType>({
     university: Univerisity.HCMIU,
     faculty: 'All',
@@ -40,9 +38,13 @@ const Courses: NextPageWithLayout = () => {
     })()
   }, [courseFilter.university])
 
+  // Keyword tracking
+  const keywordEl = useRef<HTMLInputElement>(null)
+  const [keyword, setKeyword] = useState('')
+
   useEffect(() => {
     // Prevent redundant keyword changes
-    const sub = fromEvent<ChangeEvent<HTMLInputElement>>(keywordElt.current!, 'keyup')
+    const sub = fromEvent<ChangeEvent<HTMLInputElement>>(keywordEl.current!, 'keyup')
       .pipe(debounceTime(250 * Time.Millisecond), distinctUntilChanged())
       .subscribe((event) => setKeyword(event.target.value))
 
@@ -59,7 +61,7 @@ const Courses: NextPageWithLayout = () => {
           size="small"
           variant="outlined"
           autoComplete="off"
-          inputRef={keywordElt}
+          inputRef={keywordEl}
         />
 
         <CourseFilter filter={courseFilter} updateFilter={setCourseFilter} />
