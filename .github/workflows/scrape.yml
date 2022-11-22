@@ -1,12 +1,9 @@
 name: Scrape
 
 on:
-  # schedule:
-  #   # Run every 4 hours
-  #   - cron: '0 */4 * * *'
-  push:
-    branches:
-      - main
+  schedule:
+    # Run every 4 hours
+    - cron: '0 */4 * * *'
 
 jobs:
   scrape:
