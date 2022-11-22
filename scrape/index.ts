@@ -1,3 +1,4 @@
+import _isEqual from 'lodash/isEqual'
 import { config } from 'dotenv'
 import { writeFileSync } from 'fs'
 import date from 'date-and-time'
@@ -6,6 +7,7 @@ import { Scraper } from '@/types/scrape'
 import { UniversityRecord } from '@/types/storage'
 import puppeteer from 'puppeteer'
 import { env } from 'process'
+import { getUniversity } from '@/services'
 
 config({
   path: '.env.scrape.local',
@@ -28,8 +30,6 @@ config({
       try {
         universityRecord = await scraper.scrape()
 
-        console.log('Done!\n\n')
-
         break
       } catch (err) {
         console.error(err)
@@ -46,6 +46,15 @@ config({
     }
 
     if (universityRecord && Object.keys(universityRecord).length > 0) {
+      const university = await getUniversity(scraper.details.university)
+
+      if (_isEqual(university?.courses || {}, universityRecord.courses)) {
+        console.log('Nothing changes!')
+        continue
+      }
+
+      console.log('Done!')
+
       universityRecord.updatedAt = {
         seconds: Date.now(),
         text: date.format(new Date(), 'ddd, MMM/DD/YYYY HH:mm:ss'),
@@ -56,6 +65,8 @@ config({
         JSON.stringify(universityRecord)
       )
     }
+
+    console.log('Invalid data!')
   }
 
   await browser.close()

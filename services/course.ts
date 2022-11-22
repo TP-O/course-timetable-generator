@@ -30,6 +30,11 @@ export function getUniversities() {
   return Object.values(Univerisity)
 }
 
+export async function getUniversity(name: Univerisity) {
+  await loadUniversity(name)
+  return storage[name]
+}
+
 export async function getUniversityUpdatedTime(university: Univerisity) {
   await loadUniversity(university)
 

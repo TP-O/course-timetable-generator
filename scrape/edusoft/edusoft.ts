@@ -19,7 +19,6 @@ export abstract class EdusoftScraper implements Scraper {
       this.details.credentials.password
     )
     await this.page.click('#ctl00_ContentPlaceHolder1_ctl00_ucDangNhap_btnDangNhap')
-    await this.page.waitForNavigation()
 
     console.log('Logged in!')
   }
@@ -79,16 +78,16 @@ export abstract class EdusoftScraper implements Scraper {
           continue
         }
 
-        const courseItem = await this.filterCourse(courseRow)
+        const course = await this.filterCourse(courseRow)
 
         // Declare course of faculty if does not exist
-        if (!universityRecord.faculties[faculty.name].courseLecturers[courseItem.name]) {
-          universityRecord.faculties[faculty.name].courseLecturers[courseItem.name] = []
+        if (!universityRecord.faculties[faculty.name].courseLecturers[course.name]) {
+          universityRecord.faculties[faculty.name].courseLecturers[course.name] = []
         }
 
         // Declare course of record if does not exist
-        if (!universityRecord.courses[courseItem.name]) {
-          universityRecord.courses[courseItem.name] = {
+        if (!universityRecord.courses[course.name]) {
+          universityRecord.courses[course.name] = {
             items: [],
             lecturers: [],
           }
@@ -97,33 +96,31 @@ export abstract class EdusoftScraper implements Scraper {
         // Add new course to record
         if (
           !some(
-            universityRecord.courses[courseItem.name].items,
-            (e) => JSON.stringify(e) === JSON.stringify(courseItem)
+            universityRecord.courses[course.name].items,
+            (e) => JSON.stringify(e) === JSON.stringify(course)
           )
         ) {
-          universityRecord.courses[courseItem.name].items.push(courseItem)
+          universityRecord.courses[course.name].items.push(course)
         }
 
         // Add new lecturers to faculty's lecturer, course's lecturer list
         // and course group's lecturer
-        courseItem.lessons.forEach((lesson) => {
+        course.lessons.forEach((lesson) => {
           lesson.lecturers.forEach((lecturer) => {
             if (!universityRecord.faculties[faculty.name].lecturers.includes(lecturer)) {
               universityRecord.faculties[faculty.name].lecturers.push(lecturer)
             }
 
             if (
-              !universityRecord.faculties[faculty.name].courseLecturers[courseItem.name].includes(
+              !universityRecord.faculties[faculty.name].courseLecturers[course.name].includes(
                 lecturer
               )
             ) {
-              universityRecord.faculties[faculty.name].courseLecturers[courseItem.name].push(
-                lecturer
-              )
+              universityRecord.faculties[faculty.name].courseLecturers[course.name].push(lecturer)
             }
 
-            if (!universityRecord.courses[courseItem.name].lecturers.includes(lecturer)) {
-              universityRecord.courses[courseItem.name].lecturers.push(lecturer)
+            if (!universityRecord.courses[course.name].lecturers.includes(lecturer)) {
+              universityRecord.courses[course.name].lecturers.push(lecturer)
             }
           })
         })
@@ -152,22 +149,22 @@ export abstract class EdusoftScraper implements Scraper {
     // into one lesson in some special cases.
 
     const daysOfWeek = (
-      (await courseRow.$eval('tr > td:nth-child(13)', (el) => el.textContent)) || ''
+      await courseRow.$$eval('tr > td:nth-child(13) > .top-fline', (els) =>
+        els.map((el) => el.textContent)
+      )
+    ).map((dayStr) => convertDayStringToDayNumber(dayStr || ''))
+    const begins = await courseRow.$$eval('tr > td:nth-child(14) > .top-fline', (els) =>
+      els.map((el) => parseInt(el.textContent || '0'))
     )
-      .split('\n ')
-      .map((d) => convertDayStringToDayNumber(d))
-    const begins = ((await courseRow.$eval('tr > td:nth-child(14)', (el) => el.textContent)) || '')
-      .split('\n ')
-      .map((s) => parseInt(s))
-    const periods = ((await courseRow.$eval('tr > td:nth-child(15)', (el) => el.textContent)) || '')
-      .split('\n ')
-      .map((e) => parseInt(e))
-    const rooms = (
-      (await courseRow.$eval('tr > td:nth-child(16)', (el) => el.textContent)) || ''
-    ).split('\n ')
-    const lecturers = (
-      (await courseRow.$eval('tr > td:nth-child(17)', (el) => el.textContent)) || '0'
-    ).split('\n ')
+    const periods = await courseRow.$$eval('tr > td:nth-child(15) > .top-fline', (els) =>
+      els.map((el) => parseInt(el.textContent || '0'))
+    )
+    const rooms = await courseRow.$$eval('tr > td:nth-child(16) > .top-fline', (els) =>
+      els.map((el) => el.textContent || 'Homeless')
+    )
+    const lecturers = await courseRow.$$eval('tr > td:nth-child(17) > .top-fline', (els) =>
+      els.map((el) => el.textContent || 'Self-learning')
+    )
 
     // Create lesson list
     const lessons: Lesson[] = []
