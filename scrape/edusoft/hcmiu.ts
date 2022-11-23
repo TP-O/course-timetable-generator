@@ -15,6 +15,18 @@ export class HCMIUScraper extends EdusoftScraper {
         username: String(env.HCMIU_ID),
         password: String(env.HCMIU_PASSWORD),
       },
+      sensitiveTimes: [
+        {
+          from: {
+            hour: 0,
+            minute: 30,
+          },
+          to: {
+            hour: 3,
+            minute: 0,
+          },
+        },
+      ],
     })
   }
 

@@ -7,6 +7,17 @@ type Credentials = {
   password: string
 }
 
+type SensitiveTime = {
+  from: {
+    hour: number
+    minute: number
+  }
+  to: {
+    hour: number
+    minute: number
+  }
+}
+
 export type ScraperDetails = {
   university: Univerisity
 
@@ -29,6 +40,8 @@ export type ScraperDetails = {
    * University credentials.
    */
   credentials: Credentials
+
+  sensitiveTimes: SensitiveTime[]
 }
 
 export interface Scraper {

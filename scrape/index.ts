@@ -22,9 +22,29 @@ config({
   const scrapers: Scraper[] = [new HCMIUScraper(page)]
 
   for (const scraper of scrapers) {
-    let universityRecord: UniversityRecord | undefined = undefined
-
     console.log(`Scraping data [${scraper.details.university}]`)
+
+    let isSensitive = false
+    const now = new Date()
+
+    for (const time of scraper.details.sensitiveTimes) {
+      if (
+        (now.getUTCHours() > time.from.hour ||
+          (now.getUTCHours() == time.from.hour && now.getUTCMinutes() >= time.from.minute)) &&
+        (now.getUTCHours() < time.to.hour ||
+          (now.getUTCHours() == time.to.minute && now.getUTCMinutes() <= time.to.minute))
+      ) {
+        isSensitive = true
+        break
+      }
+    }
+
+    if (isSensitive) {
+      console.log(`Skip scraping data [${scraper.details.university}]`)
+      continue
+    }
+
+    let universityRecord: UniversityRecord | undefined = undefined
 
     for (let i = 1; i <= retry; i++) {
       try {
