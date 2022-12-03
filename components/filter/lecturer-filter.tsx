@@ -1,4 +1,4 @@
-import { Univerisity } from '@/enums'
+import { LocalStorageKey, Univerisity } from '@/enums'
 import { getCourseLecturers } from '@/services'
 import { LecturerFilterType } from '@/types/filter'
 import { Cancel } from '@mui/icons-material'
@@ -19,6 +19,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 type LecturerFilterProps = {
   filter: LecturerFilterType
+  cache: boolean
   university: Univerisity
   courses: string[]
   updateFilter: Dispatch<SetStateAction<LecturerFilterType>>
@@ -26,7 +27,13 @@ type LecturerFilterProps = {
 
 const guideTitle = 'Lecturer filter'
 
-export function LecturerFilter({ filter, university, courses, updateFilter }: LecturerFilterProps) {
+export function LecturerFilter({
+  filter,
+  university,
+  courses,
+  cache,
+  updateFilter,
+}: LecturerFilterProps) {
   const [lecturers, setLecturers] = useState<Record<string, string[]>>({})
 
   // Only apply for selection
@@ -55,7 +62,13 @@ export function LecturerFilter({ filter, university, courses, updateFilter }: Le
         )
       }
 
-      updateFilter({ ...filter })
+      updateFilter(() => {
+        if (cache) {
+          localStorage.setItem(LocalStorageKey.CachedLecturerFilter, JSON.stringify(filter))
+        }
+
+        return { ...filter }
+      })
     }
   }
 
@@ -71,7 +84,13 @@ export function LecturerFilter({ filter, university, courses, updateFilter }: Le
     }
 
     filter[course][key].splice(deletedIndex, 1)
-    updateFilter({ ...filter })
+    updateFilter(() => {
+      if (cache) {
+        localStorage.setItem(LocalStorageKey.CachedLecturerFilter, JSON.stringify(filter))
+      }
+
+      return { ...filter }
+    })
   }
 
   useEffect(() => {
@@ -83,8 +102,6 @@ export function LecturerFilter({ filter, university, courses, updateFilter }: Le
         if (!oldCourses.includes(course)) {
           const newLecturers = await getCourseLecturers(university, course)
           lecturers[course] = newLecturers
-
-          console.log('a', lecturers)
         }
       }
 
@@ -98,6 +115,16 @@ export function LecturerFilter({ filter, university, courses, updateFilter }: Le
       setLecturers({ ...lecturers })
     })()
   }, [university, courses]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (cache) {
+      const cachedFilterJSON = localStorage.getItem(LocalStorageKey.CachedLecturerFilter)
+
+      if (cachedFilterJSON) {
+        updateFilter(JSON.parse(cachedFilterJSON))
+      }
+    }
+  }, [cache, updateFilter])
 
   return (
     <Box width="100%">

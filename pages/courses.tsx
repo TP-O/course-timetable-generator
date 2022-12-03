@@ -68,7 +68,7 @@ const Courses: NextPageWithLayout = () => {
             inputRef={keywordEl}
           />
 
-          <CourseFilter filter={courseFilter} updateFilter={setCourseFilter} />
+          <CourseFilter filter={courseFilter} updateFilter={setCourseFilter} cache />
         </Stack>
 
         {/* Display updated time */}

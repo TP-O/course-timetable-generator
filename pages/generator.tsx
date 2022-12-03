@@ -125,17 +125,19 @@ const Generation: NextPageWithLayout = () => {
     })
 
     if (!timetables.length) {
+      unload()
+
       showNotification({
         type: NotificationType.Dialog,
         message: 'There is no timetable satisfying your ambition :(',
         status: 'success',
       })
+    } else {
+      setTimetables({
+        hide: timetables,
+        show: timetables.splice(0, batchSize),
+      })
     }
-
-    setTimetables({
-      hide: timetables,
-      show: timetables.splice(0, batchSize),
-    })
   }
 
   function loadMoreTimetables() {
@@ -185,13 +187,18 @@ const Generation: NextPageWithLayout = () => {
             </IconButton>
           </Stack>
 
-          <CourseFilter filter={courseFilter} updateFilter={setCourseFilter} />
+          <CourseFilter
+            filter={courseFilter}
+            updateFilter={setCourseFilter}
+            onUniversityChange={() => updateSelectedCourses(null, [])}
+            cache
+          />
 
           <Typography variant="caption" component="div" sx={{ pl: 1 }}>
             <b>Day off</b>
           </Typography>
 
-          <WeekFilter filter={weekFilter} updateFilter={setWeekFilter} />
+          <WeekFilter filter={weekFilter} updateFilter={setWeekFilter} cache />
 
           <Typography
             variant="caption"
@@ -207,6 +214,7 @@ const Generation: NextPageWithLayout = () => {
           </Typography>
 
           <LecturerFilter
+            cache
             filter={lecturerFilter}
             university={courseFilter.university}
             courses={selectedCoures as string[]}

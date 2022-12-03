@@ -1,17 +1,19 @@
+import { LocalStorageKey } from '@/enums'
 import { WeekFilterType } from '@/types/filter'
 import { getDaysOfWeek } from '@/utils'
 import { Checkbox, FormControl, FormControlLabel, FormGroup, Stack, TextField } from '@mui/material'
-import { ChangeEvent, Dispatch, SetStateAction } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useEffect } from 'react'
 
 type WeekFilterProps = {
   filter: WeekFilterType
+  cache: boolean
   updateFilter: Dispatch<SetStateAction<WeekFilterType>>
 }
 
 const daysOfWeek = getDaysOfWeek()
 const guideTitle = 'Week filter'
 
-export function WeekFilter({ filter, updateFilter }: WeekFilterProps) {
+export function WeekFilter({ filter, cache, updateFilter }: WeekFilterProps) {
   function updateWeekFilter({ target: { name, value, checked } }: ChangeEvent<HTMLInputElement>) {
     const parsedValue = Number(value)
 
@@ -29,8 +31,24 @@ export function WeekFilter({ filter, updateFilter }: WeekFilterProps) {
       }
     }
 
-    updateFilter(() => ({ ...filter }))
+    updateFilter(() => {
+      if (cache) {
+        localStorage.setItem(LocalStorageKey.CachedWeekFilter, JSON.stringify(filter))
+      }
+
+      return { ...filter }
+    })
   }
+
+  useEffect(() => {
+    if (cache) {
+      const cachedFilterJSON = localStorage.getItem(LocalStorageKey.CachedWeekFilter)
+
+      if (cachedFilterJSON) {
+        updateFilter(JSON.parse(cachedFilterJSON))
+      }
+    }
+  }, [cache, updateFilter])
 
   return (
     <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
