@@ -148,7 +148,7 @@ const Generation: NextPageWithLayout = () => {
 
   useEffect(() => {
     // Only execute when new timetables are generated
-    if (timetables.show.length <= batchSize) {
+    if (timetables.show.length > 0 && timetables.show.length <= batchSize) {
       unload()
       document.getElementById('timetable-list')?.scrollIntoView()
     }

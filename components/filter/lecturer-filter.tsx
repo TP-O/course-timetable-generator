@@ -27,7 +27,7 @@ type LecturerFilterProps = {
 const guideTitle = 'Lecturer filter'
 
 export function LecturerFilter({ filter, university, courses, updateFilter }: LecturerFilterProps) {
-  const [lecturers, setLecturers] = useState<Record<string, Record<string, string[]>>>({})
+  const [lecturers, setLecturers] = useState<Record<string, string[]>>({})
 
   // Only apply for selection
   function updateLecturerFilter(course: string) {
@@ -75,158 +75,154 @@ export function LecturerFilter({ filter, university, courses, updateFilter }: Le
   }
 
   useEffect(() => {
-    setLecturers((lecturers) => {
-      if (!lecturers[university]) {
-        lecturers[university] = {}
-      }
-
-      const oldCourses = Object.keys(lecturers[university])
+    ;(async () => {
+      const oldCourses = Object.keys(lecturers)
 
       // Add lecturers of new courses
-      courses.forEach((course) => {
+      for (const course of courses) {
         if (!oldCourses.includes(course)) {
-          getCourseLecturers(university, course).then((newLecturers) => {
-            lecturers[university][course] = newLecturers
-          })
+          const newLecturers = await getCourseLecturers(university, course)
+          lecturers[course] = newLecturers
+
+          console.log('a', lecturers)
         }
-      })
+      }
 
       // Remove lecturers of deleted courses
       oldCourses.forEach((course) => {
         if (!courses.includes(course)) {
-          delete lecturers[university][course]
+          delete lecturers[course]
         }
       })
 
-      return { ...lecturers }
-    })
-  }, [university, courses])
+      setLecturers({ ...lecturers })
+    })()
+  }, [university, courses]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Box width="100%">
       <Grid container rowSpacing={3} columnSpacing={1}>
-        {lecturers[university] &&
-          Object.entries(lecturers[university]).map(([course, courseLecturers], i) => (
-            <Grid key={course} item xs={12} md={6} lg={3}>
-              <Stack spacing={2}>
-                <Typography
-                  variant="caption"
-                  component="div"
-                  sx={{
-                    pl: 1,
-                    display: '-webkit-box',
-                    overflow: 'hidden',
-                    WebkitBoxOrient: 'vertical',
-                    WebkitLineClamp: 1,
+        {Object.entries(lecturers).map(([course, courseLecturers], i) => (
+          <Grid key={course} item xs={12} md={6} lg={3}>
+            <Stack spacing={2}>
+              <Typography
+                variant="caption"
+                component="div"
+                sx={{
+                  pl: 1,
+                  display: '-webkit-box',
+                  overflow: 'hidden',
+                  WebkitBoxOrient: 'vertical',
+                  WebkitLineClamp: 1,
+                }}
+              >
+                {course}
+              </Typography>
+
+              <FormControl
+                data-title={!i ? guideTitle : ''}
+                data-intro={!i ? 'Choose the lecturers you want to learn from 🧑‍🏫' : ''}
+              >
+                <InputLabel id={`expected-lecturer-label-${i}`} size="small">
+                  Pick
+                </InputLabel>
+                <Select
+                  name="expectations"
+                  multiple
+                  labelId={`expected-lecturer-label-${i}`}
+                  size="small"
+                  value={filter[course]?.expectations || []}
+                  onChange={updateLecturerFilter(course)}
+                  input={<OutlinedInput label="Expect" />}
+                  renderValue={(selected) => (
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, py: 0.5 }}>
+                      {selected.map((value) => (
+                        <Chip
+                          key={value}
+                          label={value}
+                          deleteIcon={<Cancel onMouseDown={(event) => event.stopPropagation()} />}
+                          onDelete={() => deleteLecturer(course, value, 'expectations')}
+                        />
+                      ))}
+                    </Box>
+                  )}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: 224,
+                        width: 250,
+                      },
+                    },
                   }}
+                  sx={{ width: '100%' }}
                 >
-                  {course}
-                </Typography>
+                  {!Array.isArray(courseLecturers) ? (
+                    <MenuItem disabled>Nothing here</MenuItem>
+                  ) : (
+                    courseLecturers.map((lecturer, i) => (
+                      <MenuItem key={i} value={lecturer}>
+                        {lecturer}
+                      </MenuItem>
+                    ))
+                  )}
+                </Select>
+              </FormControl>
 
-                <FormControl
-                  data-title={!i ? guideTitle : ''}
-                  data-intro={!i ? 'Choose the lecturers you want to learn from 🧑‍🏫' : ''}
-                >
-                  <InputLabel id={`expected-lecturer-label-${i}`} size="small">
-                    Pick
-                  </InputLabel>
-                  <Select
-                    name="expectations"
-                    multiple
-                    labelId={`expected-lecturer-label-${i}`}
-                    size="small"
-                    value={filter[course]?.expectations || []}
-                    onChange={updateLecturerFilter(course)}
-                    input={<OutlinedInput label="Expect" />}
-                    renderValue={(selected) => (
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, py: 0.5 }}>
-                        {selected.map((value) => (
-                          <Chip
-                            key={value}
-                            label={value}
-                            deleteIcon={<Cancel onMouseDown={(event) => event.stopPropagation()} />}
-                            onDelete={() => deleteLecturer(course, value, 'expectations')}
-                          />
-                        ))}
-                      </Box>
-                    )}
-                    MenuProps={{
-                      PaperProps: {
-                        style: {
-                          maxHeight: 224,
-                          width: 250,
-                        },
+              <FormControl
+                data-title={!i ? guideTitle : ''}
+                data-intro={
+                  !i ? "Choose the lecturers you <b>dont't</b> want to learn from 🧑‍🏫" : ''
+                }
+              >
+                <InputLabel id={`unexpected-lecturer-label-${i}`} size="small">
+                  Ban
+                </InputLabel>
+                <Select
+                  name="unexpectations"
+                  multiple
+                  label={`unexpected-lecturer-label-${i}`}
+                  size="small"
+                  value={filter[course]?.unexpectations || []}
+                  onChange={updateLecturerFilter(course)}
+                  input={<OutlinedInput label="Unexpect" />}
+                  renderValue={(selected) => (
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, py: 0.5 }}>
+                      {selected.map((value) => (
+                        <Chip
+                          key={value}
+                          label={value}
+                          deleteIcon={<Cancel onMouseDown={(event) => event.stopPropagation()} />}
+                          onDelete={() => {
+                            deleteLecturer(course, value, 'unexpectations')
+                          }}
+                        />
+                      ))}
+                    </Box>
+                  )}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: 224,
+                        width: 250,
                       },
-                    }}
-                    sx={{ width: '100%' }}
-                  >
-                    {!Array.isArray(courseLecturers) ? (
-                      <MenuItem disabled>Nothing here</MenuItem>
-                    ) : (
-                      courseLecturers.map((lecturer, i) => (
-                        <MenuItem key={i} value={lecturer}>
-                          {lecturer}
-                        </MenuItem>
-                      ))
-                    )}
-                  </Select>
-                </FormControl>
-
-                <FormControl
-                  data-title={!i ? guideTitle : ''}
-                  data-intro={
-                    !i ? "Choose the lecturers you <b>dont't</b> want to learn from 🧑‍🏫" : ''
-                  }
+                    },
+                  }}
+                  sx={{ width: '100%' }}
                 >
-                  <InputLabel id={`unexpected-lecturer-label-${i}`} size="small">
-                    Ban
-                  </InputLabel>
-                  <Select
-                    name="unexpectations"
-                    multiple
-                    label={`unexpected-lecturer-label-${i}`}
-                    size="small"
-                    value={filter[course]?.unexpectations || []}
-                    onChange={updateLecturerFilter(course)}
-                    input={<OutlinedInput label="Unexpect" />}
-                    renderValue={(selected) => (
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, py: 0.5 }}>
-                        {selected.map((value) => (
-                          <Chip
-                            key={value}
-                            label={value}
-                            deleteIcon={<Cancel onMouseDown={(event) => event.stopPropagation()} />}
-                            onDelete={() => {
-                              deleteLecturer(course, value, 'unexpectations')
-                            }}
-                          />
-                        ))}
-                      </Box>
-                    )}
-                    MenuProps={{
-                      PaperProps: {
-                        style: {
-                          maxHeight: 224,
-                          width: 250,
-                        },
-                      },
-                    }}
-                    sx={{ width: '100%' }}
-                  >
-                    {!Array.isArray(courseLecturers) ? (
-                      <MenuItem disabled>Nothing here</MenuItem>
-                    ) : (
-                      courseLecturers.map((lecturer, i) => (
-                        <MenuItem key={i} value={lecturer}>
-                          {lecturer}
-                        </MenuItem>
-                      ))
-                    )}
-                  </Select>
-                </FormControl>
-              </Stack>
-            </Grid>
-          ))}
+                  {!Array.isArray(courseLecturers) ? (
+                    <MenuItem disabled>Nothing here</MenuItem>
+                  ) : (
+                    courseLecturers.map((lecturer, i) => (
+                      <MenuItem key={i} value={lecturer}>
+                        {lecturer}
+                      </MenuItem>
+                    ))
+                  )}
+                </Select>
+              </FormControl>
+            </Stack>
+          </Grid>
+        ))}
       </Grid>
     </Box>
   )
