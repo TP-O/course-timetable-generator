@@ -4,7 +4,7 @@ import { NextPageWithLayout } from '@/types/component'
 const Analytics: NextPageWithLayout = () => {
   return (
     <div>
-      <p>Analytics</p>
+      <p>Hem</p>
     </div>
   )
 }

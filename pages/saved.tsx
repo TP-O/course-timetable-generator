@@ -4,7 +4,7 @@ import { NextPageWithLayout } from '@/types/component'
 const Saved: NextPageWithLayout = () => {
   return (
     <div>
-      <h1>Saved</h1>
+      <h1>Hem</h1>
     </div>
   )
 }

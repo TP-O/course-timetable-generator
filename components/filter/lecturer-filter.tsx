@@ -133,7 +133,7 @@ export function LecturerFilter({
           <Grid key={course} item xs={12} md={6} lg={3}>
             <Stack spacing={2}>
               <Typography
-                variant="caption"
+                variant="subtitle2"
                 component="div"
                 sx={{
                   pl: 1,
