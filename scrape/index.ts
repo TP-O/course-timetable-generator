@@ -44,7 +44,7 @@ config({
       continue
     }
 
-    let universityRecord: UniversityRecord | undefined = undefined
+    let universityRecord: UniversityRecord | null = null
 
     for (let i = 1; i <= retry; i++) {
       try {
@@ -65,7 +65,7 @@ config({
       }
     }
 
-    if (universityRecord && Object.keys(universityRecord).length > 0) {
+    if (universityRecord) {
       const university = await getUniversity(scraper.details.university)
 
       if (_isEqual(university?.courses || {}, universityRecord.courses)) {

@@ -7,9 +7,9 @@ import { ElementHandle, Page } from 'puppeteer'
 
 export abstract class EdusoftScraper implements Scraper {
   constructor(readonly page: Page, readonly details: ScraperDetails) {}
-
   async signIn() {
     await this.page.goto(this.details.host + this.details.signInPath)
+    await this.page.waitForSelector('#ctl00_ContentPlaceHolder1_ctl00_ucDangNhap_txtTaiKhoa')
     await this.page.type(
       '#ctl00_ContentPlaceHolder1_ctl00_ucDangNhap_txtTaiKhoa',
       this.details.credentials.username
@@ -25,6 +25,7 @@ export abstract class EdusoftScraper implements Scraper {
 
   async scrape() {
     await this.signIn()
+    await this.page.waitForSelector('#ctl00_Header1_Logout1_lblNguoiDung')
     await this.page.goto(this.details.host + this.details.coursePath)
     await this.page.waitForSelector('#selectKhoa')
 
@@ -41,7 +42,7 @@ export abstract class EdusoftScraper implements Scraper {
     const facultySelection = await this.page.$('#selectKhoa')
 
     if (!facultySelection) {
-      return universityRecord
+      return null
     }
 
     const faculties = await facultySelection.$$eval(
@@ -57,6 +58,19 @@ export abstract class EdusoftScraper implements Scraper {
       console.log(`Scraping [${faculty.name}]`)
 
       await facultySelection.select(faculty.value)
+      const res = await this.page.waitForResponse(
+        'https://edusoftweb.hcmiu.edu.vn/ajaxpro/EduSoft.Web.UC.DangKyMonHoc,EduSoft.Web.ashx'
+      )
+
+      // Log-in conflict
+      if (
+        (await res.text()).includes(
+          '{"error":{"Message":"Object reference not set to an instance of an object."'
+        )
+      ) {
+        return null
+      }
+
       // Wait for data loading
       await this.page.waitForFunction('document.body.style.cursor === "default"')
 

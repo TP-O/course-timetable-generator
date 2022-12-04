@@ -48,5 +48,5 @@ export interface Scraper {
   page: Page
   details: ScraperDetails
 
-  scrape(): Promise<UniversityRecord>
+  scrape(): Promise<UniversityRecord | null>
 }
