@@ -1,6 +1,14 @@
-import { DayOfWeek, NotificationType } from '@/enums'
+import { DayOfWeek, LocalStorageKey, NotificationType } from '@/enums'
 import { TimetableType } from '@/types'
-import { CenterFocusStrong, CopyAll, Download, Tune } from '@mui/icons-material'
+import {
+  Bookmark,
+  BookmarkAdd,
+  BookmarkRemove,
+  CenterFocusStrong,
+  CopyAll,
+  Download,
+  Tune,
+} from '@mui/icons-material'
 import {
   Box,
   IconButton,
@@ -15,19 +23,22 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
-import { Fragment, MouseEvent, useContext, useEffect, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import html2canvas from 'html2canvas'
 import { getDaysOfWeek } from '@/utils'
 import { AppContext } from '@/contexts'
+import _findIndex from 'lodash/findIndex.js'
+import _isEqual from 'lodash/isEqual.js'
 
 type TimetableTableProps = {
-  id: number | string
+  key: number
   timetable: TimetableType
+  onUnsaved: (key: number) => void
 }
 
 const daysOfWeek = getDaysOfWeek()
 
-export function Timetable({ id, timetable }: TimetableTableProps) {
+export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
   function getClass(day: DayOfWeek, begin: number) {
     for (const classs of timetable[day]) {
       if (classs.begin === begin) {
@@ -63,7 +74,7 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
     setBtnLoading(true)
 
     if (!canvas) {
-      canvas = await html2canvas(document.querySelector(`#timetable-${id}`)!)
+      canvas = await html2canvas(document.querySelector(`#timetable-${key}`)!)
       setCanvas(canvas)
     }
 
@@ -94,7 +105,7 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
     setBtnLoading(true)
 
     if (!canvas) {
-      canvas = await html2canvas(document.querySelector(`#timetable-${id}`)!)
+      canvas = await html2canvas(document.querySelector(`#timetable-${key}`)!)
       setCanvas(canvas)
     }
 
@@ -143,40 +154,108 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
     }
   }
 
+  // Save/Unsave
+  const [saved, setSaved] = useState(false)
+
+  function unsave() {
+    const savedTimetables: TimetableType[] = JSON.parse(
+      localStorage.getItem(LocalStorageKey.SavedTimetables) || '[]'
+    )
+    const removedIndex = _findIndex(savedTimetables, (o) => _isEqual(o, timetable))
+    savedTimetables.splice(removedIndex, 1)
+    localStorage.setItem(LocalStorageKey.SavedTimetables, JSON.stringify(savedTimetables))
+
+    showNotification({
+      type: NotificationType.Snackbar,
+      message: `Unsaved timetable!`,
+      status: 'success',
+    })
+    setSaved(false)
+    onUnsaved(key)
+  }
+
+  function save() {
+    const savedTimetables: TimetableType[] = JSON.parse(
+      localStorage.getItem(LocalStorageKey.SavedTimetables) || '[]'
+    )
+    savedTimetables.push(timetable)
+    localStorage.setItem(LocalStorageKey.SavedTimetables, JSON.stringify(savedTimetables))
+
+    showNotification({
+      type: NotificationType.Snackbar,
+      message: `Saved timetable!`,
+      status: 'success',
+    })
+    setSaved(true)
+  }
+
+  useEffect(() => {
+    const savedTimetables: TimetableType[] = JSON.parse(
+      localStorage.getItem(LocalStorageKey.SavedTimetables) || '[]'
+    )
+    setSaved(_findIndex(savedTimetables, (o) => _isEqual(o, timetable)) !== -1)
+  }, [timetable])
+
   return (
     <Box sx={{ py: 2 }}>
       <Toolbar>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          disabled={btnLoading}
-          data-timetable-id={`timetable-${id}`}
-          sx={{ mr: 2 }}
-          onClick={captureTimetable}
-        >
-          <CenterFocusStrong />
-        </IconButton>
+        <Tooltip title="Capture" placement="top">
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            disabled={btnLoading}
+            data-timetable-id={`timetable-${key}`}
+            sx={{ mr: 2 }}
+            onClick={captureTimetable}
+          >
+            <CenterFocusStrong />
+          </IconButton>
+        </Tooltip>
 
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          disabled={btnLoading}
-          sx={{ mr: 2 }}
-          onClick={downloadTimetable}
-        >
-          <Download />
-        </IconButton>
+        <Tooltip title="Download" placement="top">
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            disabled={btnLoading}
+            sx={{ mr: 2 }}
+            onClick={downloadTimetable}
+          >
+            <Download />
+          </IconButton>
+        </Tooltip>
 
-        <IconButton size="large" edge="start" sx={{ mr: 2 }} onClick={copyCommand}>
-          <CopyAll />
-        </IconButton>
+        <Tooltip title={saved ? 'Unsave' : 'Save'} placement="top">
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            disabled={btnLoading}
+            sx={{ mr: 2 }}
+            onClick={saved ? unsave : save}
+          >
+            {saved ? <BookmarkRemove /> : <BookmarkAdd />}
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip title="Copy ID" placement="top">
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            disabled={btnLoading}
+            sx={{ mr: 2 }}
+            onClick={copyCommand}
+          >
+            <CopyAll />
+          </IconButton>
+        </Tooltip>
       </Toolbar>
 
       <TableContainer component={Paper}>
         <Table
-          id={`timetable-${id}`}
+          id={`timetable-${key}`}
           size="small"
           sx={{
             minWidth: 650,

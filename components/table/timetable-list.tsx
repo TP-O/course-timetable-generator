@@ -1,7 +1,6 @@
 import { TimetableType } from '@/types'
 import { Skeleton, Stack, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import { Fragment } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Timetable } from './timetable'
 
@@ -10,10 +9,18 @@ type TimetableListProps = {
   timetables: TimetableType[]
   length: number
   hasMore: boolean
+  onUnsaved?: (key: number) => void
   loadMore: () => void
 }
 
-export function TimetableList({ id, length, hasMore, timetables, loadMore }: TimetableListProps) {
+export function TimetableList({
+  id,
+  length,
+  hasMore,
+  timetables,
+  loadMore,
+  onUnsaved = () => {},
+}: TimetableListProps) {
   return (
     <Box id={id ?? 'timetable-list'}>
       <InfiniteScroll
@@ -58,7 +65,7 @@ export function TimetableList({ id, length, hasMore, timetables, loadMore }: Tim
       >
         <div>
           {timetables.map((timetable, i) => (
-            <Timetable key={i} id={i} timetable={timetable} />
+            <Timetable key={i} timetable={timetable} onUnsaved={onUnsaved} />
           ))}
         </div>
       </InfiniteScroll>
