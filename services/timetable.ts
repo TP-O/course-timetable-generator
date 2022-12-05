@@ -26,24 +26,31 @@ let colorIndex = 0
 let assignedColors: Record<string, string> = {}
 
 export function generateTimetables(courseGroups: Course[][], filter = {} as TimetableFilter) {
-  const timetable = generateTimetablesWithCourseFilter(courseGroups, filter).filter((timetable) =>
-    isValidTimetable(timetable, filter)
-  )
+  const result = generateTimetablesWithCourseFilter(courseGroups, filter)
+  result.timetables.filter((timetable) => isValidTimetable(timetable, filter))
   colorIndex = 0
   assignedColors = {}
 
-  return timetable
+  return result
 }
 
-function generateTimetablesWithCourseFilter(courseGroups: Course[][], filter: TimetableFilter) {
+function generateTimetablesWithCourseFilter(
+  courseGroups: Course[][],
+  filter: TimetableFilter
+): { timetables: TimetableType[]; credits: number } {
   if (courseGroups.length === 0) {
     // Empty array of timetables
-    return [[[], [], [], [], [], [], []]]
+    return {
+      timetables: [[[], [], [], [], [], [], []]],
+      credits: 0,
+    }
   }
 
   const [courses] = courseGroups.splice(0, 1)
+  const credits = courses[0]?.credits || 0
   const timetables: TimetableType[] = []
-  const incompleteTimetables = generateTimetablesWithCourseFilter(courseGroups, filter)
+  const { timetables: incompleteTimetables, credits: incompleteCredits } =
+    generateTimetablesWithCourseFilter(courseGroups, filter)
 
   for (const incompleteTimetable of incompleteTimetables) {
     for (const course of courses) {
@@ -80,7 +87,7 @@ function generateTimetablesWithCourseFilter(courseGroups: Course[][], filter: Ti
     }
   }
 
-  return timetables
+  return { timetables, credits: credits + incompleteCredits }
 }
 
 function isOverlapped(course: Course, timetable: TimetableType) {

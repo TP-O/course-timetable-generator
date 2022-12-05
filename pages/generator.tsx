@@ -2,7 +2,19 @@ import { DayOfWeek, LocalStorageKey, NotificationType, Time, Univerisity } from 
 import { MainLayout } from '@/layouts'
 import { generateTimetables, getCourseGroups, getCourseNames } from '@/services'
 import { TimetableType } from '@/types'
-import { Autocomplete, Button, IconButton, Stack, TextField, Typography } from '@mui/material'
+import {
+  Alert,
+  AlertTitle,
+  Autocomplete,
+  Button,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material'
 import {
   ChangeEvent,
   Fragment,
@@ -114,12 +126,13 @@ const Generation: NextPageWithLayout = () => {
     hide: [],
     show: [],
   })
+  const [total, setTotal] = useState({ credits: 0, timetables: 0 })
 
   async function generateNewTimetables() {
     load()
 
     const courseGroups = await getCourseGroups(courseFilter.university, selectedCoures as string[])
-    const timetables = generateTimetables(courseGroups, {
+    const { timetables, credits } = generateTimetables(courseGroups, {
       week: weekFilter,
       lecturers: lecturerFilter,
     })
@@ -133,6 +146,10 @@ const Generation: NextPageWithLayout = () => {
         status: 'success',
       })
     } else {
+      setTotal({
+        credits,
+        timetables: timetables.length,
+      })
       setTimetables({
         hide: timetables,
         show: timetables.splice(0, batchSize),
@@ -152,7 +169,7 @@ const Generation: NextPageWithLayout = () => {
     // Only execute when new timetables are generated
     if (timetables.show.length > 0 && timetables.show.length <= batchSize) {
       unload()
-      document.getElementById('timetable-list')?.scrollIntoView()
+      document.getElementById('generate-btn')?.scrollIntoView()
     }
   }, [timetables]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -221,10 +238,29 @@ const Generation: NextPageWithLayout = () => {
             updateFilter={setLecturerFilter}
           />
 
-          <Button variant="contained" onClick={generateNewTimetables}>
+          <Button id="generate-btn" variant="contained" onClick={generateNewTimetables}>
             Generate
           </Button>
         </Stack>
+
+        {timetables.show.length > 0 && (
+          <Alert severity="info" sx={{ mt: 4 }}>
+            <AlertTitle>Info</AlertTitle>
+
+            <List dense>
+              <ListItem>
+                <ListItemText>
+                  Total credits: <b>{total.credits}</b>
+                </ListItemText>
+              </ListItem>
+              <ListItem>
+                <ListItemText>
+                  Total timetables: <b>{total.timetables}</b>
+                </ListItemText>
+              </ListItem>
+            </List>
+          </Alert>
+        )}
 
         {/* Display list of matched timetables */}
         <TimetableList
