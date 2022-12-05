@@ -1,6 +1,6 @@
 import { DayOfWeek, NotificationType } from '@/enums'
 import { TimetableType } from '@/types'
-import { CenterFocusStrong, Download, Tune } from '@mui/icons-material'
+import { CenterFocusStrong, CopyAll, Download, Tune } from '@mui/icons-material'
 import {
   Box,
   IconButton,
@@ -53,8 +53,9 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
     return true
   }
 
+  const { showNotification } = useContext(AppContext)
+
   // Copy and download timetable
-  const app = useContext(AppContext)
   const [btnLoading, setBtnLoading] = useState(false)
   let [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null)
 
@@ -71,14 +72,14 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
       navigator.clipboard
         .write([item])
         .then(() =>
-          app.showNotification({
+          showNotification({
             type: NotificationType.Snackbar,
             message: 'Captured timetable!',
             status: 'success',
           })
         )
         .catch(() =>
-          app.showNotification({
+          showNotification({
             type: NotificationType.Snackbar,
             message: 'Unable to capture timetable :(',
             status: 'error',
@@ -105,6 +106,43 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
     setBtnLoading(false)
   }
 
+  function copyCommand() {
+    const codes: string[] = []
+
+    timetable.forEach((day) =>
+      day.forEach((cls) => {
+        if (cls.code && !codes.includes(cls.code)) {
+          codes.push(cls.code)
+        }
+      })
+    )
+
+    if (!codes.length) {
+      showNotification({
+        type: NotificationType.Snackbar,
+        message: 'Nothing to copy :(',
+        status: 'error',
+      })
+    } else {
+      navigator.clipboard
+        .writeText(`-I "${codes.join('" -I "')}"`)
+        .then(() =>
+          showNotification({
+            type: NotificationType.Snackbar,
+            message: `Copied ID flags!`,
+            status: 'success',
+          })
+        )
+        .catch(() =>
+          showNotification({
+            type: NotificationType.Snackbar,
+            message: 'Unable to copy :(',
+            status: 'error',
+          })
+        )
+    }
+  }
+
   return (
     <Box sx={{ py: 2 }}>
       <Toolbar>
@@ -129,6 +167,10 @@ export function Timetable({ id, timetable }: TimetableTableProps) {
           onClick={downloadTimetable}
         >
           <Download />
+        </IconButton>
+
+        <IconButton size="large" edge="start" sx={{ mr: 2 }} onClick={copyCommand}>
+          <CopyAll />
         </IconButton>
       </Toolbar>
 

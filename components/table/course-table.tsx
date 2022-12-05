@@ -129,7 +129,7 @@ export function CourseTable({ empty = false, keyword, courseFilter }: CourseTabl
 
   function copyCommand() {
     navigator.clipboard
-      .writeText(`-I ${selectedCourseCodes.join(' -I ')}`)
+      .writeText(`-I "${selectedCourseCodes.join('" -I "')}"`)
       .then(() =>
         showNotification({
           type: NotificationType.Snackbar,
@@ -141,7 +141,7 @@ export function CourseTable({ empty = false, keyword, courseFilter }: CourseTabl
         showNotification({
           type: NotificationType.Snackbar,
           message: 'Unable to copy :(',
-          status: 'success',
+          status: 'error',
         })
       )
   }
@@ -156,15 +156,17 @@ export function CourseTable({ empty = false, keyword, courseFilter }: CourseTabl
           >{`${selectedCourseCodes.length} course(s) selected...`}</Typography>
 
           <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="primary"
-              sx={{ mr: 2 }}
-              onClick={copyCommand}
-            >
-              <CopyAll />
-            </IconButton>
+            {hasCode && (
+              <IconButton
+                size="large"
+                edge="start"
+                color="primary"
+                sx={{ mr: 2 }}
+                onClick={copyCommand}
+              >
+                <CopyAll />
+              </IconButton>
+            )}
           </Toolbar>
         </Stack>
       )}
@@ -224,16 +226,14 @@ export function CourseTable({ empty = false, keyword, courseFilter }: CourseTabl
           >
             <TableHead>
               <TableRow>
-                {hasCode && (
-                  <TableCell
-                    sx={{
-                      color: 'table.headerText',
-                      backgroundColor: 'table.headerBackground',
-                    }}
-                  >
-                    <Check />
-                  </TableCell>
-                )}
+                <TableCell
+                  sx={{
+                    color: 'table.headerText',
+                    backgroundColor: 'table.headerBackground',
+                  }}
+                >
+                  <Check />
+                </TableCell>
                 {columns.map((column, i) => (
                   <TableCell
                     key={i}
@@ -269,14 +269,12 @@ export function CourseTable({ empty = false, keyword, courseFilter }: CourseTabl
                         : 'transparent',
                     }}
                   >
-                    {hasCode && (
-                      <TableCell rowSpan={course.lessons.length + 1}>
-                        <Checkbox
-                          checked={selectedCourseCodes.includes(String(course.code))}
-                          onChange={selectCourseCode(String(course.code))}
-                        />
-                      </TableCell>
-                    )}
+                    <TableCell rowSpan={course.lessons.length + 1}>
+                      <Checkbox
+                        checked={selectedCourseCodes.includes(String(course.code))}
+                        onChange={selectCourseCode(String(course.code))}
+                      />
+                    </TableCell>
                     <TableCell component="th" scope="row" rowSpan={course.lessons.length + 1}>
                       {course.id}
                     </TableCell>
