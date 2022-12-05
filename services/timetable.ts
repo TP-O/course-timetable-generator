@@ -115,7 +115,10 @@ function isValidCourse(course: Course, filter: TimetableFilter) {
   if (filter.lecturers[course.name]) {
     const { expectations, unexpectations } = filter.lecturers[course.name]!
 
-    if (_difference(lecturers, expectations).length === lecturers.length) {
+    if (
+      expectations.length !== 0 &&
+      _difference(lecturers, expectations).length === lecturers.length
+    ) {
       return false
     }
 
