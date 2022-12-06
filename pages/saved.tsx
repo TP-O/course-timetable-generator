@@ -3,6 +3,7 @@ import { LocalStorageKey } from '@/enums'
 import { MainLayout } from '@/layouts'
 import { TimetableType } from '@/types'
 import { LazyData, NextPageWithLayout } from '@/types/component'
+import { Alert } from '@mui/material'
 import { Box } from '@mui/system'
 import { useEffect, useState } from 'react'
 
@@ -48,14 +49,20 @@ const Saved: NextPageWithLayout = () => {
 
   return (
     <Box sx={{ px: 2 }}>
-      <TimetableList
-        id="timetable-list"
-        onUnsaved={onUnsaved}
-        length={timetables.hide.length}
-        hasMore={timetables.hide.length > 0}
-        timetables={timetables.show}
-        loadMore={loadMoreTimetables}
-      />
+      {!timetables.show.length ? (
+        <Alert severity="info" sx={{ mt: 4 }}>
+          Nothing is saved!
+        </Alert>
+      ) : (
+        <TimetableList
+          id="timetable-list"
+          onUnsaved={onUnsaved}
+          length={timetables.hide.length}
+          hasMore={timetables.hide.length > 0}
+          timetables={timetables.show}
+          loadMore={loadMoreTimetables}
+        />
+      )}
     </Box>
   )
 }

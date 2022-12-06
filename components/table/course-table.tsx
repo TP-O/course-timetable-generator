@@ -1,10 +1,7 @@
 import { Course } from '@/types'
 import {
-  Box,
-  Checkbox,
   IconButton,
   Paper,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -12,11 +9,10 @@ import {
   TableHead,
   TableRow,
   TableSortLabel,
-  Toolbar,
   Typography,
 } from '@mui/material'
-import { Check, ContentCopy, CopyAll } from '@mui/icons-material'
-import { ChangeEvent, Fragment, useContext, useEffect, useState } from 'react'
+import { ContentCopy } from '@mui/icons-material'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { convertDayNumberToDayString } from '@/utils'
 import { AppContext } from '@/contexts'
@@ -78,8 +74,6 @@ export function CourseTable({ empty = false, keyword, courseFilter }: CourseTabl
     show: [],
     hide: [],
   })
-  const [hasCode, setHasCode] = useState(false)
-  const [selectedCourseCodes, setSelectedCourseCodes] = useState<string[]>([])
 
   function loadMoreShowCourses() {
     const size = 5
@@ -89,22 +83,6 @@ export function CourseTable({ empty = false, keyword, courseFilter }: CourseTabl
 
       return { ...courses, show: showCourses }
     })
-  }
-
-  function selectCourseCode(code: string) {
-    return (_: ChangeEvent, checked: boolean) => {
-      setSelectedCourseCodes((selectedCourseCodes) => {
-        const codeIndex = selectedCourseCodes.indexOf(code)
-
-        if (checked && codeIndex === -1) {
-          selectedCourseCodes.push(code)
-        } else if (!checked && codeIndex !== -1) {
-          selectedCourseCodes.splice(codeIndex, 1)
-        }
-
-        return [...selectedCourseCodes]
-      })
-    }
   }
 
   useEffect(() => {
@@ -126,14 +104,17 @@ export function CourseTable({ empty = false, keyword, courseFilter }: CourseTabl
 
   // Copy course code
   const { showNotification } = useContext(AppContext)
+  const [hasCode, setHasCode] = useState(false)
 
-  function copyCommand() {
+  function copyCodeCourse(code: string) {
+    const course = code.split('|')[2]
+
     navigator.clipboard
-      .writeText(`-I "${selectedCourseCodes.join('" -I "')}"`)
+      .writeText(code)
       .then(() =>
         showNotification({
           type: NotificationType.Snackbar,
-          message: `Copied ID flags!`,
+          message: `Copied ${course} code!`,
           status: 'success',
         })
       )
@@ -141,176 +122,141 @@ export function CourseTable({ empty = false, keyword, courseFilter }: CourseTabl
         showNotification({
           type: NotificationType.Snackbar,
           message: 'Unable to copy :(',
-          status: 'error',
+          status: 'success',
         })
       )
   }
 
   return (
-    <Stack>
-      {selectedCourseCodes.length > 0 && (
-        <Stack sx={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography
-            variant="subtitle2"
-            sx={{ ml: 4, fontStyle: 'italic', fontWeight: 'bold' }}
-          >{`${selectedCourseCodes.length} course(s) selected...`}</Typography>
-
-          <Toolbar>
-            {hasCode && (
-              <IconButton
-                size="large"
-                edge="start"
-                color="primary"
-                sx={{ mr: 2 }}
-                onClick={copyCommand}
-              >
-                <CopyAll />
-              </IconButton>
-            )}
-          </Toolbar>
-        </Stack>
-      )}
-
-      <InfiniteScroll
-        dataLength={courses.hide.length}
-        next={loadMoreShowCourses}
-        hasMore={courses.hide.length > 0}
-        scrollableTarget="course-table"
-        loader={
-          <Typography
-            variant="body2"
-            component="div"
-            sx={{
-              textAlign: 'center',
-              fontWeight: 500,
-              mt: 2,
-            }}
-          >
-            Scroll to see more...
-          </Typography>
-        }
-        endMessage={
-          <Typography
-            variant="body2"
-            component="div"
-            sx={{
-              textAlign: 'center',
-              fontWeight: 500,
-              mt: 2,
-            }}
-          >
-            {courses.show.length !== 0
-              ? 'Yay! You have seen it all'
-              : empty
-              ? `Data is unvaialable now :(`
-              : 'Oops! Nothing matched'}
-          </Typography>
-        }
-      >
-        <TableContainer
-          id="course-table"
-          component={Paper}
-          elevation={4}
-          sx={{ maxHeight: 450, maxWidth: '100vw' }}
+    <InfiniteScroll
+      dataLength={courses.hide.length}
+      next={loadMoreShowCourses}
+      hasMore={courses.hide.length > 0}
+      scrollableTarget="course-table"
+      loader={
+        <Typography
+          variant="body2"
+          component="div"
+          sx={{
+            textAlign: 'center',
+            fontWeight: 500,
+            mt: 2,
+          }}
         >
-          <Table
-            stickyHeader
-            size="small"
-            sx={{
-              mx: 'auto',
-              'th,td': {
-                textAlign: 'center',
-                borderLeft: '1px solid rgba(224, 224, 224, 1)',
-              },
-            }}
-          >
-            <TableHead>
-              <TableRow>
+          Scroll to see more...
+        </Typography>
+      }
+      endMessage={
+        <Typography
+          variant="body2"
+          component="div"
+          sx={{
+            textAlign: 'center',
+            fontWeight: 500,
+            mt: 2,
+          }}
+        >
+          {courses.show.length !== 0
+            ? 'Yay! You have seen it all'
+            : empty
+            ? `Data is unvaialable now :(`
+            : 'Oops! Nothing matched'}
+        </Typography>
+      }
+    >
+      <TableContainer
+        id="course-table"
+        component={Paper}
+        elevation={4}
+        sx={{ maxHeight: 450, maxWidth: '100vw' }}
+      >
+        <Table
+          stickyHeader
+          size="small"
+          sx={{
+            mx: 'auto',
+            'th,td': {
+              textAlign: 'center',
+              borderLeft: '1px solid rgba(224, 224, 224, 1)',
+            },
+          }}
+        >
+          <TableHead>
+            <TableRow>
+              {hasCode && (
                 <TableCell
                   sx={{
                     color: 'table.headerText',
                     backgroundColor: 'table.headerBackground',
                   }}
                 >
-                  <Check />
+                  Code
                 </TableCell>
-                {columns.map((column, i) => (
-                  <TableCell
-                    key={i}
-                    sortDirection={sorting.by === column.id ? sorting.direction : false}
-                    sx={{
-                      color: 'table.headerText',
-                      backgroundColor: 'table.headerBackground',
-                    }}
-                  >
-                    {column.isSortable ? (
-                      <TableSortLabel
-                        active={column.id === sorting.by}
-                        direction={sorting.by === column.id ? sorting.direction : 'asc'}
-                        onClick={() => reverseSorting(column.id)}
-                      >
-                        {column.label}
-                      </TableSortLabel>
-                    ) : (
-                      column.label
-                    )}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-
-            <TableBody>
-              {courses.show.map((course) => (
-                <Fragment key={String(course.code)}>
-                  <TableRow
-                    sx={{
-                      background: selectedCourseCodes.includes(String(course.code))
-                        ? '#CDDEEE'
-                        : 'transparent',
-                    }}
-                  >
-                    <TableCell rowSpan={course.lessons.length + 1}>
-                      <Checkbox
-                        checked={selectedCourseCodes.includes(String(course.code))}
-                        onChange={selectCourseCode(String(course.code))}
-                      />
-                    </TableCell>
-                    <TableCell component="th" scope="row" rowSpan={course.lessons.length + 1}>
-                      {course.id}
-                    </TableCell>
-                    <TableCell
-                      rowSpan={course.lessons.length + 1}
-                      sx={{ textAlign: 'left !important' }}
+              )}
+              {columns.map((column, i) => (
+                <TableCell
+                  key={i}
+                  sortDirection={sorting.by === column.id ? sorting.direction : false}
+                  sx={{
+                    color: 'table.headerText',
+                    backgroundColor: 'table.headerBackground',
+                  }}
+                >
+                  {column.isSortable ? (
+                    <TableSortLabel
+                      active={column.id === sorting.by}
+                      direction={sorting.by === column.id ? sorting.direction : 'asc'}
+                      onClick={() => reverseSorting(column.id)}
                     >
-                      {course.name}
-                    </TableCell>
-                    <TableCell rowSpan={course.lessons.length + 1}>{course.credits}</TableCell>
-                    <TableCell rowSpan={course.lessons.length + 1}>{course.classId}</TableCell>
-                    <TableCell rowSpan={course.lessons.length + 1}>{course.capacity}</TableCell>
-                  </TableRow>
-
-                  {course.lessons.map((lesson, i) => (
-                    <TableRow
-                      key={String(course.code) + i}
-                      sx={{
-                        background: selectedCourseCodes.includes(String(course.code))
-                          ? '#CDDEEE'
-                          : 'transparent',
-                      }}
-                    >
-                      <TableCell>{convertDayNumberToDayString(lesson.day)}</TableCell>
-                      <TableCell>{lesson.begin}</TableCell>
-                      <TableCell>{lesson.periods}</TableCell>
-                      <TableCell>{lesson.room}</TableCell>
-                      <TableCell>{lesson.lecturers.join(', ')}</TableCell>
-                    </TableRow>
-                  ))}
-                </Fragment>
+                      {column.label}
+                    </TableSortLabel>
+                  ) : (
+                    column.label
+                  )}
+                </TableCell>
               ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </InfiniteScroll>
-    </Stack>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {courses.show.map((course) => (
+              <Fragment key={String(course.code)}>
+                <TableRow>
+                  {hasCode && (
+                    <TableCell rowSpan={course.lessons.length + 1}>
+                      <IconButton onClick={() => copyCodeCourse(course.code || '')}>
+                        <ContentCopy />
+                      </IconButton>
+                    </TableCell>
+                  )}
+                  <TableCell component="th" scope="row" rowSpan={course.lessons.length + 1}>
+                    {course.id}
+                  </TableCell>
+                  <TableCell
+                    rowSpan={course.lessons.length + 1}
+                    sx={{ textAlign: 'left !important' }}
+                  >
+                    {course.name}
+                  </TableCell>
+                  <TableCell rowSpan={course.lessons.length + 1}>{course.credits}</TableCell>
+                  <TableCell rowSpan={course.lessons.length + 1}>{course.classId}</TableCell>
+                  <TableCell rowSpan={course.lessons.length + 1}>{course.capacity}</TableCell>
+                </TableRow>
+
+                {course.lessons.map((lesson, i) => (
+                  <TableRow key={String(course.code) + i}>
+                    <TableCell>{convertDayNumberToDayString(lesson.day)}</TableCell>
+                    <TableCell>{lesson.begin}</TableCell>
+                    <TableCell>{lesson.periods}</TableCell>
+                    <TableCell>{lesson.room}</TableCell>
+                    <TableCell>{lesson.lecturers.join(', ')}</TableCell>
+                  </TableRow>
+                ))}
+              </Fragment>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </InfiniteScroll>
   )
 }

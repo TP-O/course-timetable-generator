@@ -1,7 +1,6 @@
 import { DayOfWeek, LocalStorageKey, NotificationType } from '@/enums'
 import { TimetableType } from '@/types'
 import {
-  Bookmark,
   BookmarkAdd,
   BookmarkRemove,
   CenterFocusStrong,
@@ -11,6 +10,12 @@ import {
 } from '@mui/icons-material'
 import {
   Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   IconButton,
   Paper,
   Table,
@@ -29,6 +34,9 @@ import { getDaysOfWeek } from '@/utils'
 import { AppContext } from '@/contexts'
 import _findIndex from 'lodash/findIndex.js'
 import _isEqual from 'lodash/isEqual.js'
+import { ListItem } from '@/types/component'
+import DraggableList from '../list/draggable-list'
+import { DropResult } from 'react-beautiful-dnd'
 
 type TimetableTableProps = {
   key: number
@@ -37,6 +45,14 @@ type TimetableTableProps = {
 }
 
 const daysOfWeek = getDaysOfWeek()
+
+function reorder<T>(list: T[], startIndex: number, endIndex: number): T[] {
+  const result = Array.from(list)
+  const [removed] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
+
+  return result
+}
 
 export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
   function getClass(day: DayOfWeek, begin: number) {
@@ -117,18 +133,30 @@ export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
     setBtnLoading(false)
   }
 
-  function copyCommand() {
-    const codes: string[] = []
+  // Copy course ID flags
+  const [codeItems, setCodeItems] = useState<ListItem[]>([])
+  const [openCodeList, setOpenCodeList] = useState(false)
 
-    timetable.forEach((day) =>
-      day.forEach((cls) => {
-        if (cls.code && !codes.includes(cls.code)) {
-          codes.push(cls.code)
-        }
-      })
-    )
+  const handleOpenCodeList = () => {
+    setOpenCodeList(true)
+  }
 
-    if (!codes.length) {
+  const handleCloseCodeList = () => {
+    setOpenCodeList(false)
+  }
+
+  const onDragEnd = ({ destination, source }: DropResult) => {
+    // dropped outside the list
+    if (!destination) return
+
+    const newItems = reorder(codeItems, source.index, destination.index)
+    setCodeItems(newItems)
+  }
+
+  function copyFlags() {
+    setBtnLoading(true)
+
+    if (!codeItems.length) {
       showNotification({
         type: NotificationType.Snackbar,
         message: 'Nothing to copy :(',
@@ -136,7 +164,7 @@ export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
       })
     } else {
       navigator.clipboard
-        .writeText(`-I "${codes.join('" -I "')}"`)
+        .writeText(`-I "${codeItems.map((i) => i.secondary).join('" -I "')}"`)
         .then(() =>
           showNotification({
             type: NotificationType.Snackbar,
@@ -152,12 +180,35 @@ export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
           })
         )
     }
+
+    setBtnLoading(false)
   }
 
-  // Save/Unsave
+  useEffect(() => {
+    setCodeItems(() => {
+      const codeItems: ListItem[] = []
+
+      timetable.forEach((day) =>
+        day.forEach((cls) => {
+          if (cls.code && _findIndex(codeItems, (o) => o.primary === cls.name) === -1) {
+            codeItems.push({
+              primary: cls.name,
+              secondary: cls.code,
+            })
+          }
+        })
+      )
+
+      return codeItems
+    })
+  }, [timetable])
+
+  // Save and unsave timetable
   const [saved, setSaved] = useState(false)
 
   function unsave() {
+    setBtnLoading(true)
+
     const savedTimetables: TimetableType[] = JSON.parse(
       localStorage.getItem(LocalStorageKey.SavedTimetables) || '[]'
     )
@@ -172,9 +223,12 @@ export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
     })
     setSaved(false)
     onUnsaved(key)
+    setBtnLoading(false)
   }
 
   function save() {
+    setBtnLoading(true)
+
     const savedTimetables: TimetableType[] = JSON.parse(
       localStorage.getItem(LocalStorageKey.SavedTimetables) || '[]'
     )
@@ -187,6 +241,7 @@ export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
       status: 'success',
     })
     setSaved(true)
+    setBtnLoading(false)
   }
 
   useEffect(() => {
@@ -246,7 +301,7 @@ export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
             color="inherit"
             disabled={btnLoading}
             sx={{ mr: 2 }}
-            onClick={copyCommand}
+            onClick={handleOpenCodeList}
           >
             <CopyAll />
           </IconButton>
@@ -356,6 +411,32 @@ export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Dialog
+        open={openCodeList}
+        onClose={handleCloseCodeList}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle>Drag/drop to change your course priority!!</DialogTitle>
+
+        <DialogContent>
+          <DraggableList items={codeItems} onDragEnd={onDragEnd} />
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={handleCloseCodeList}>Close</Button>
+          <Button
+            onClick={() => {
+              handleCloseCodeList()
+              copyFlags()
+            }}
+            autoFocus
+          >
+            Copy ID
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   )
 }

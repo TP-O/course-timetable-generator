@@ -27,7 +27,7 @@ let assignedColors: Record<string, string> = {}
 
 export function generateTimetables(courseGroups: Course[][], filter = {} as TimetableFilter) {
   const result = generateTimetablesWithCourseFilter(courseGroups, filter)
-  result.timetables.filter((timetable) => isValidTimetable(timetable, filter))
+  result.timetables = result.timetables.filter((timetable) => isValidTimetable(timetable, filter))
   colorIndex = 0
   assignedColors = {}
 
