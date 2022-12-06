@@ -427,11 +427,12 @@ export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
         <DialogActions>
           <Button onClick={handleCloseCodeList}>Close</Button>
           <Button
+            autoFocus
+            variant="contained"
             onClick={() => {
               handleCloseCodeList()
               copyFlags()
             }}
-            autoFocus
           >
             Copy ID
           </Button>

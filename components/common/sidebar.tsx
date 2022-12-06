@@ -56,11 +56,6 @@ export function Sidebar() {
       href: '/saved',
       Icon: Bookmark,
     },
-    {
-      title: 'Tools',
-      href: '/tools',
-      Icon: Terminal,
-    },
   ]
 
   // Sidebar displayment
