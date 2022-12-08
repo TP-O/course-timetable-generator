@@ -39,9 +39,9 @@ import DraggableList from '../list/draggable-list'
 import { DropResult } from 'react-beautiful-dnd'
 
 type TimetableTableProps = {
-  key: number
+  id: number
   timetable: TimetableType
-  onUnsaved: (key: number) => void
+  onUnsaved: (id: number) => void
 }
 
 const daysOfWeek = getDaysOfWeek()
@@ -54,7 +54,7 @@ function reorder<T>(list: T[], startIndex: number, endIndex: number): T[] {
   return result
 }
 
-export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
+export function Timetable({ id, timetable, onUnsaved }: TimetableTableProps) {
   function getClass(day: DayOfWeek, begin: number) {
     for (const classs of timetable[day]) {
       if (classs.begin === begin) {
@@ -90,7 +90,7 @@ export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
     setBtnLoading(true)
 
     if (!canvas) {
-      canvas = await html2canvas(document.querySelector(`#timetable-${key}`)!)
+      canvas = await html2canvas(document.querySelector(`#timetable-${id}`)!)
       setCanvas(canvas)
     }
 
@@ -121,7 +121,7 @@ export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
     setBtnLoading(true)
 
     if (!canvas) {
-      canvas = await html2canvas(document.querySelector(`#timetable-${key}`)!)
+      canvas = await html2canvas(document.querySelector(`#timetable-${id}`)!)
       setCanvas(canvas)
     }
 
@@ -222,7 +222,7 @@ export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
       status: 'success',
     })
     setSaved(false)
-    onUnsaved(key)
+    onUnsaved(id)
     setBtnLoading(false)
   }
 
@@ -260,7 +260,7 @@ export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
             edge="start"
             color="inherit"
             disabled={btnLoading}
-            data-timetable-id={`timetable-${key}`}
+            data-timetable-id={`timetable-${id}`}
             sx={{ mr: 2 }}
             onClick={captureTimetable}
           >
@@ -310,7 +310,7 @@ export function Timetable({ key, timetable, onUnsaved }: TimetableTableProps) {
 
       <TableContainer component={Paper}>
         <Table
-          id={`timetable-${key}`}
+          id={`timetable-${id}`}
           size="small"
           sx={{
             minWidth: 650,

@@ -65,7 +65,7 @@ export function TimetableList({
       >
         <div>
           {timetables.map((timetable, i) => (
-            <Timetable key={i} timetable={timetable} onUnsaved={onUnsaved} />
+            <Timetable key={i} id={i} timetable={timetable} onUnsaved={onUnsaved} />
           ))}
         </div>
       </InfiniteScroll>
