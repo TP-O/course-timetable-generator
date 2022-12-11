@@ -14,7 +14,7 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         env:
           PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
         with:
@@ -36,3 +36,5 @@ jobs:
           add: 'data'
           message: 'chore: update data'
           push: true
+          author_name: github-actions
+          author_email: 41898282+github-actions[bot]@users.noreply.github.com
