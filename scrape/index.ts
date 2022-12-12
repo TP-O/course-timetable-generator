@@ -84,9 +84,9 @@ config({
         `${dataDir}/${scraper.details.university}.json`,
         JSON.stringify(universityRecord)
       )
+    } else {
+      console.log('Invalid data!')
     }
-
-    console.log('Invalid data!')
   }
 
   await browser.close()
