@@ -5,9 +5,10 @@ import { createContext, ReactElement, useState } from 'react'
 type AppContextType = {
   notification: Notification
   loading: boolean
+  loadingText: string
   closeNotification: () => void
   showNotification: (setting: Omit<Notification, 'isShowed'>) => void
-  load: () => void
+  load: (text?: string) => void
   unload: () => void
 }
 
@@ -21,6 +22,7 @@ export function AppProvider({ children }: { children: ReactElement }) {
     status: 'success',
   })
   const [loading, setLoading] = useState(false)
+  const [loadingText, setLoadingText] = useState('')
 
   function closeNotification() {
     setNotification((notification) => ({
@@ -36,7 +38,8 @@ export function AppProvider({ children }: { children: ReactElement }) {
     }))
   }
 
-  function load() {
+  function load(text?: string) {
+    setLoadingText(text || '')
     setLoading(true)
   }
 
@@ -46,7 +49,15 @@ export function AppProvider({ children }: { children: ReactElement }) {
 
   return (
     <AppContext.Provider
-      value={{ notification, loading, load, unload, showNotification, closeNotification }}
+      value={{
+        notification,
+        loading,
+        loadingText,
+        load,
+        unload,
+        showNotification,
+        closeNotification,
+      }}
     >
       {children}
     </AppContext.Provider>

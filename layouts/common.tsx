@@ -18,7 +18,7 @@ import {
 import { Fragment, useContext } from 'react'
 
 export function CommonLayout({ children }: LayoutProps) {
-  const { notification, loading, closeNotification } = useContext(AppContext)
+  const { notification, loading, loadingText, closeNotification } = useContext(AppContext)
 
   return (
     <Fragment>
@@ -58,11 +58,11 @@ export function CommonLayout({ children }: LayoutProps) {
             alt="welcome"
             src={Path.PepeWaiting2}
             variant="square"
-            sx={{ width: 224, height: 224, mb: 4 }}
+            sx={{ width: 224, height: 224, mb: 4, mx: 'auto' }}
           />
 
           <Typography variant="h6" sx={{ fontWeight: 500, textAlign: 'center' }}>
-            Wait...
+            {loadingText ? loadingText : 'Wait...'}
           </Typography>
         </Stack>
       </Backdrop>

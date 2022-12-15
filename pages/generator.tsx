@@ -32,6 +32,7 @@ import { AppContext } from '@/contexts'
 import { ContentCopy } from '@mui/icons-material'
 import { debounceTime, distinctUntilChanged, fromEvent } from 'rxjs'
 import { Seo } from '@/components/common'
+import sleep from 'await-sleep'
 
 const Generation: NextPageWithLayout = () => {
   const { showNotification, load, unload } = useContext(AppContext)
@@ -129,9 +130,12 @@ const Generation: NextPageWithLayout = () => {
   const [total, setTotal] = useState({ credits: 0, timetables: 0 })
 
   async function generateNewTimetables() {
-    load()
-
     const courseGroups = await getCourseGroups(courseFilter.university, selectedCoures as string[])
+    const cases = courseGroups.reduce((p, c) => p * c.length, 1)
+
+    load(`${cases} case(s) are estimated!!! ${cases > 300_000 ? 'R.I.P your computer' : ''}`)
+    await sleep(1000)
+
     const { timetables, credits } = generateTimetables(courseGroups, {
       week: weekFilter,
       lecturers: lecturerFilter,
