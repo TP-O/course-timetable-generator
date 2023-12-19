@@ -9,23 +9,23 @@ export abstract class EdusoftScraper implements Scraper {
   constructor(readonly page: Page, readonly details: ScraperDetails) {}
   async signIn() {
     await this.page.goto(this.details.host + this.details.signInPath)
-    await this.page.waitForSelector('#ctl00_ContentPlaceHolder1_ctl00_ucDangNhap_txtTaiKhoa')
+    await this.page.waitForSelector('#ContentPlaceHolder1_ctl00_ucDangNhap_txtTaiKhoa')
     await this.page.type(
-      '#ctl00_ContentPlaceHolder1_ctl00_ucDangNhap_txtTaiKhoa',
+      '#ContentPlaceHolder1_ctl00_ucDangNhap_txtTaiKhoa',
       this.details.credentials.username
     )
     await this.page.type(
-      '#ctl00_ContentPlaceHolder1_ctl00_ucDangNhap_txtMatKhau',
+      '#ContentPlaceHolder1_ctl00_ucDangNhap_txtMatKhau',
       this.details.credentials.password
     )
-    await this.page.click('#ctl00_ContentPlaceHolder1_ctl00_ucDangNhap_btnDangNhap')
+    await this.page.click('#ContentPlaceHolder1_ctl00_ucDangNhap_btnDangNhap')
 
     console.log('Logged in!')
   }
 
   async scrape() {
     await this.signIn()
-    await this.page.waitForSelector('#ctl00_Header1_Logout1_lblNguoiDung')
+    await this.page.waitForSelector('#Header1_Logout1_lblNguoiDung')
     await this.page.goto(this.details.host + this.details.coursePath)
     await this.page.waitForSelector('#selectKhoa')
 
