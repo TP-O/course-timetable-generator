@@ -20,6 +20,10 @@ export abstract class EdusoftScraper implements Scraper {
     )
     await this.page.click('#ContentPlaceHolder1_ctl00_ucDangNhap_btnDangNhap')
 
+    // await new Promise((resolve) => {
+    //   setTimeout(() => resolve(null), 999999999);
+    // })
+
     console.log('Logged in!')
   }
 
@@ -40,7 +44,6 @@ export abstract class EdusoftScraper implements Scraper {
       },
     }
     const facultySelection = await this.page.$('#selectKhoa')
-
     if (!facultySelection) {
       return null
     }
@@ -70,6 +73,10 @@ export abstract class EdusoftScraper implements Scraper {
       ) {
         return null
       }
+
+      // Load all courses of the faculty
+      await this.page.type('#txtMaMH1', ' ')
+      await this.page.click('#btnLocTheoMaMH1')
 
       // Wait for data loading
       await this.page.waitForFunction('document.body.style.cursor === "default"')
