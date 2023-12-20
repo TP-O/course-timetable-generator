@@ -74,10 +74,6 @@ export abstract class EdusoftScraper implements Scraper {
         return null
       }
 
-      // Load all courses of the faculty
-      await this.page.type('#txtMaMH1', ' ')
-      await this.page.click('#btnLocTheoMaMH1')
-
       // Wait for data loading
       await this.page.waitForFunction('document.body.style.cursor === "default"')
 
