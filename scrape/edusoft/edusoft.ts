@@ -8,29 +8,41 @@ import { ElementHandle, Page } from 'puppeteer'
 export abstract class EdusoftScraper implements Scraper {
   constructor(readonly page: Page, readonly details: ScraperDetails) {}
   async signIn() {
-    await this.page.goto(this.details.host + this.details.signInPath)
-    await this.page.waitForSelector('#ContentPlaceHolder1_ctl00_ucDangNhap_txtTaiKhoa')
-    await this.page.type(
-      '#ContentPlaceHolder1_ctl00_ucDangNhap_txtTaiKhoa',
-      this.details.credentials.username
-    )
-    await this.page.type(
-      '#ContentPlaceHolder1_ctl00_ucDangNhap_txtMatKhau',
-      this.details.credentials.password
-    )
-    await this.page.click('#ContentPlaceHolder1_ctl00_ucDangNhap_btnDangNhap')
+    try {
+      await this.page.goto(this.details.host + this.details.signInPath)
+      await this.page.waitForSelector('#ContentPlaceHolder1_ctl00_ucDangNhap_txtTaiKhoa')
+      await this.page.type(
+        '#ContentPlaceHolder1_ctl00_ucDangNhap_txtTaiKhoa',
+        this.details.credentials.username
+      )
+      await this.page.type(
+        '#ContentPlaceHolder1_ctl00_ucDangNhap_txtMatKhau',
+        this.details.credentials.password
+      )
+      await this.page.click('#ContentPlaceHolder1_ctl00_ucDangNhap_btnDangNhap')
 
-    // await new Promise((resolve) => {
-    //   setTimeout(() => resolve(null), 999999999);
-    // })
+      // await new Promise((resolve) => {
+      //   setTimeout(() => resolve(null), 999999999);
+      // })
 
-    console.log('Logged in!')
+      console.log('Logged in!')
+    } catch (error) {
+      console.error('Error during sign-in:', error)
+      throw error
+    }
   }
 
   async scrape() {
     await this.signIn()
     await this.page.waitForSelector('#Header1_Logout1_lblNguoiDung')
     await this.page.goto(this.details.host + this.details.coursePath)
+    console.log('Entering register page')
+
+    await this.page.waitForSelector('#ContentPlaceHolder1_ctl00_pnlLocDK input[type="checkbox"]')
+    await this.page.click('#ContentPlaceHolder1_ctl00_pnlLocDK input[type="checkbox"]')
+
+    console.log('Display conditional filter checkbox clicked!')
+
     await this.page.waitForSelector('#selectKhoa')
 
     console.log('Starting scraping...')
